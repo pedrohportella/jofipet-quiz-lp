@@ -1,0 +1,7 @@
+{
+  "_comment": "DECISÃO 2026-05-12 (open question #5 / Pedro): manter fallback-neutral até validar com a operação Jofi quais regiões são oficialmente atendidas. Todos os CEPs recebem score neutro no eixo cobertura — não penaliza nem premia lead por geografia. Atualizar para mode=strict com coveredRanges/coveredCities quando a Jofi definir cobertura formal.",
+  "version": "2026-04-17",
+  "mode": "fallback-neutral",
+  "coveredRanges": [],
+  "coveredCities": []
+}

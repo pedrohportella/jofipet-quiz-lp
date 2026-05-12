@@ -1,0 +1,307 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =============================================================================
+ * Jofi Pet — Quiz Campaign Design System v2.0
+ * Brand 2026-05: Azul + Laranja oficiais Jofi (logo + criativos validados Pedro)
+ * Source of truth: design-system/tokens.json (sync pendente)
+ * ========================================================================== */
+
+:root {
+  /* Color · Primitive — Azul Jofi (logo) */
+  --jofi-blue-50:    #F0F4FB;
+  --jofi-blue-100:   #DCE5F4;
+  --jofi-blue-300:   #A4B8E5;
+  --jofi-blue-500:   #7090D8;
+  --jofi-blue-600:   #5773C0;
+  --jofi-blue-700:   #3F5BA3;
+
+  /* Color · Primitive — Laranja Jofi (criativo Sereninho + camiseta) */
+  --jofi-orange-100: #FBE5D2;
+  --jofi-orange-300: #F0B485;
+  --jofi-orange-500: #E07A2E;
+  --jofi-orange-600: #C66622;
+  --jofi-orange-700: #9B4E18;
+
+  /* Color · Primitive — Background limpo (criativos têm bastante branco) */
+  --jofi-bg-white:   #FFFFFF;
+  --jofi-bg-offwhite:#F5F7FA;
+
+  /* Color · Primitive — Neutros azul-marinho (harmonia com azul brand) */
+  --jofi-ink-100:    #F5F7FA;
+  --jofi-ink-300:    #D6DCE8;
+  --jofi-ink-500:    #8590A8;
+  --jofi-ink-700:    #454F66;
+  --jofi-ink-900:    #1A1F36;
+
+  --jofi-green-300:  #A8DEC2;
+  --jofi-green-500:  #4CAF82;
+  --jofi-green-700:  #1F6B47;
+  --jofi-whatsapp-500: #25D366;
+  --jofi-whatsapp-600: #1EBE5A;
+
+  /* Color · Semantic (component layer reads from here) */
+  --jofi-bg-canvas:        var(--jofi-bg-white);
+  --jofi-bg-surface:       var(--jofi-bg-white);
+  --jofi-bg-muted:         var(--jofi-bg-offwhite);
+  --jofi-bg-inverse:       var(--jofi-blue-500);
+
+  --jofi-text-primary:     var(--jofi-ink-900);
+  --jofi-text-secondary:   var(--jofi-ink-700);
+  --jofi-text-muted:       var(--jofi-ink-500);
+  --jofi-text-on-accent:   #FFFFFF;
+  --jofi-text-on-yellow:   var(--jofi-ink-900);
+  --jofi-text-link:        var(--jofi-blue-600);
+
+  --jofi-border-subtle:    var(--jofi-ink-300);
+  --jofi-border-default:   var(--jofi-ink-500);
+  --jofi-border-focus:     var(--jofi-blue-500);
+  --jofi-border-selected:  var(--jofi-blue-500);
+
+  --jofi-action-primary:        var(--jofi-blue-500);
+  --jofi-action-primary-hover:  var(--jofi-blue-600);
+  --jofi-action-primary-soft:   var(--jofi-blue-100);
+  --jofi-action-accent:         var(--jofi-orange-500);
+  --jofi-action-accent-hover:   var(--jofi-orange-600);
+  --jofi-action-whatsapp:       var(--jofi-whatsapp-500);
+  --jofi-action-whatsapp-hover: var(--jofi-whatsapp-600);
+
+  /* Tiers do quiz mapeados ao brand:
+   * hot = laranja (urgência/Parceiro) ; warm = azul brand ; cold = azul claro */
+  --jofi-tier-hot:   var(--jofi-orange-500);
+  --jofi-tier-warm:  var(--jofi-blue-500);
+  --jofi-tier-cold:  var(--jofi-blue-300);
+
+  /* Radius */
+  --jofi-radius-sm:   8px;
+  --jofi-radius-md:   12px;
+  --jofi-radius-lg:   16px;
+  --jofi-radius-xl:   24px;
+  --jofi-radius-pill: 9999px;
+
+  /* Elevation — sombras em ink-900 (azul-marinho) pra harmonia */
+  --jofi-shadow-1:     0 1px 2px 0 rgba(26, 31, 54, 0.06);
+  --jofi-shadow-2:     0 2px 8px 0 rgba(26, 31, 54, 0.08);
+  --jofi-shadow-3:     0 8px 24px -4px rgba(26, 31, 54, 0.12);
+  --jofi-shadow-focus: 0 0 0 3px rgba(112, 144, 216, 0.32);
+
+  /* Motion */
+  --jofi-duration-instant: 80ms;
+  --jofi-duration-fast:    150ms;
+  --jofi-duration-base:    280ms;
+  --jofi-duration-slow:    480ms;
+  --jofi-ease-out:    cubic-bezier(0.4, 0, 0.2, 1);
+  --jofi-ease-in:     cubic-bezier(0.4, 0, 1, 1);
+  --jofi-ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+
+  /* Sizing canon */
+  --jofi-tap:           44px;
+  --jofi-tap-comfort:   56px;
+  --jofi-cta-height:    56px;
+  --jofi-input-height:  52px;
+  --jofi-logo-min:      24px;
+
+  /* Legacy aliases — APONTAM PRO BRAND ATUAL (azul/laranja) pra retrocompat.
+   * Componentes antigos que referenciam --jofi-coral-* viram azul automaticamente.
+   * Não usar em código novo: prefira semantic tokens acima. */
+  --jofi-coral-50:     var(--jofi-blue-50);
+  --jofi-coral-100:    var(--jofi-blue-100);
+  --jofi-coral-300:    var(--jofi-blue-300);
+  --jofi-coral-500:    var(--jofi-blue-500);
+  --jofi-coral-600:    var(--jofi-blue-600);
+  --jofi-coral-700:    var(--jofi-blue-700);
+  --jofi-cream-50:     var(--jofi-bg-white);
+  --jofi-yellow-300:   var(--jofi-orange-300);
+  --jofi-yellow-500:   var(--jofi-orange-500);
+  --jofi-yellow-700:   var(--jofi-orange-700);
+  --jofi-warmblack-100: var(--jofi-ink-100);
+  --jofi-warmblack-300: var(--jofi-ink-300);
+  --jofi-warmblack-500: var(--jofi-ink-500);
+  --jofi-warmblack-700: var(--jofi-ink-700);
+  --jofi-warmblack-900: var(--jofi-ink-900);
+  --color-primary:    112 144 216;
+  --color-secondary:  255 255 255;
+  --color-neutral-900: 26 31 54;
+  --radius-card: var(--jofi-radius-lg);
+  --duration-fast: var(--jofi-duration-fast);
+  --duration-base: var(--jofi-duration-base);
+  --ease-out: var(--jofi-ease-out);
+  --ease-in:  var(--jofi-ease-in);
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--jofi-bg-canvas);
+    color: var(--jofi-text-primary);
+    font-feature-settings: 'rlig' 1, 'calt' 1;
+  }
+
+  button,
+  a {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+
+  *:focus-visible {
+    outline: none;
+    box-shadow: var(--jofi-shadow-focus);
+    border-radius: var(--jofi-radius-md);
+  }
+}
+
+@layer components {
+  /* ----- Button: primary CTA ------------------------------------------------ */
+  .jofi-btn {
+    @apply inline-flex items-center justify-center gap-2 px-6;
+    min-height: var(--jofi-cta-height);
+    border-radius: var(--jofi-radius-pill);
+    font-weight: 700;
+    font-size: 16px;
+    letter-spacing: 0.01em;
+    transition:
+      background-color var(--jofi-duration-fast) var(--jofi-ease-out),
+      transform var(--jofi-duration-instant) var(--jofi-ease-out),
+      box-shadow var(--jofi-duration-fast) var(--jofi-ease-out);
+  }
+  .jofi-btn:active { transform: scale(0.98); }
+
+  .jofi-btn--primary {
+    background-color: var(--jofi-action-primary);
+    color: var(--jofi-text-on-accent);
+    box-shadow: var(--jofi-shadow-2);
+  }
+  .jofi-btn--primary:hover {
+    background-color: var(--jofi-action-primary-hover);
+    box-shadow: var(--jofi-shadow-3);
+  }
+
+  .jofi-btn--accent {
+    background-color: var(--jofi-action-accent);
+    color: var(--jofi-text-on-accent);
+    box-shadow: var(--jofi-shadow-2);
+  }
+  .jofi-btn--accent:hover {
+    background-color: var(--jofi-action-accent-hover);
+  }
+
+  .jofi-btn--whatsapp {
+    background-color: var(--jofi-action-whatsapp);
+    color: var(--jofi-text-on-accent);
+    box-shadow: var(--jofi-shadow-2);
+  }
+  .jofi-btn--whatsapp:hover {
+    background-color: var(--jofi-action-whatsapp-hover);
+  }
+
+  .jofi-btn--ghost {
+    background-color: transparent;
+    color: var(--jofi-text-link);
+    border: 1.5px solid var(--jofi-border-default);
+  }
+  .jofi-btn--ghost:hover {
+    border-color: var(--jofi-action-primary);
+    color: var(--jofi-action-primary);
+  }
+
+  /* ----- Card --------------------------------------------------------------- */
+  .jofi-card {
+    background-color: var(--jofi-bg-surface);
+    border-radius: var(--jofi-radius-lg);
+    box-shadow: var(--jofi-shadow-1);
+    padding: 24px;
+    transition: box-shadow var(--jofi-duration-fast) var(--jofi-ease-out);
+  }
+  .jofi-card--hover:hover { box-shadow: var(--jofi-shadow-2); }
+
+  /* Result card por tier (consume tier color via data-attr) */
+  .jofi-card--tier {
+    border-top: 4px solid;
+    border-radius: var(--jofi-radius-xl);
+    padding: 32px 24px;
+    box-shadow: var(--jofi-shadow-2);
+  }
+  .jofi-card--tier[data-tier='hot']  { border-top-color: var(--jofi-tier-hot); }
+  .jofi-card--tier[data-tier='warm'] { border-top-color: var(--jofi-tier-warm); }
+  .jofi-card--tier[data-tier='cold'] { border-top-color: var(--jofi-tier-cold); }
+
+  /* ----- Text styles -------------------------------------------------------- */
+  .jofi-kicker {
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--jofi-text-muted);
+  }
+  .jofi-h1 {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--jofi-text-primary);
+  }
+  @media (min-width: 768px) {
+    .jofi-h1 { font-size: 40px; }
+  }
+  /* Display headline — Anton condensed pra replicar "MAIS CUIDADO" dos criativos */
+  .jofi-display {
+    font-family: var(--font-anton), Anton, Impact, sans-serif;
+    font-weight: 400; /* Anton só tem regular, peso já é forte */
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    line-height: 0.95;
+  }
+  .jofi-lead {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 1.4;
+    color: var(--jofi-text-secondary);
+  }
+  .jofi-anchor-word {
+    color: var(--jofi-action-accent);
+    font-weight: 800;
+  }
+  .jofi-price {
+    font-feature-settings: 'tnum' 1, 'lnum' 1;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* ----- Motion · Pulse loop (CTA primário do hero) ------------------------
+ * CSS-only por escolha: loop infinito em rAF custaria JS toda hora.
+ * Loop começa 1000ms após mount para não competir com o reveal coreografado.
+ * Constraint: máx 1 elemento com .jofi-btn--pulse por viewport.
+ * ----------------------------------------------------------------------- */
+@keyframes jofi-pulse {
+  0%, 100% { transform: scale(1); }
+  10%      { transform: scale(1.015); }
+  20%      { transform: scale(1); }
+}
+
+.jofi-btn--pulse {
+  animation: jofi-pulse 5200ms var(--jofi-ease-out) 1000ms infinite;
+  will-change: transform;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Pulse desligado em reduced-motion (sem fallback degradado) */
+  .jofi-btn--pulse {
+    animation: none !important;
+    will-change: auto;
+  }
+}

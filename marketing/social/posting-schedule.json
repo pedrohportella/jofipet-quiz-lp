@@ -1,0 +1,220 @@
+{
+  "$schema": "social-posting-schedule@v1",
+  "campaign": {
+    "name": "Jofi · Lançamento Q2-2026",
+    "owner": "DC Conteúdo",
+    "duration_weeks": 4,
+    "start_date": "2026-05-04",
+    "timezone": "America/Sao_Paulo",
+    "brand_gate_question": "Isso soa como gente falando, ou soa como plano falando?",
+    "design_system_ref": "projects/jofipet-quiz-lp/design-system/tokens.json",
+    "copy_ref": "projects/jofipet-quiz-lp/config/content.json"
+  },
+  "utm_template": {
+    "base_url": "https://jofipet.com.br/quiz",
+    "scheme": "?utm_source={platform}&utm_medium={format}&utm_campaign={pillar}&utm_content={asset_id}",
+    "platforms": ["instagram", "tiktok", "linkedin", "twitter"],
+    "formats": ["reel", "carousel", "single", "story", "tweet", "thread", "post"],
+    "pillars": ["roleta", "antes-susto", "plano-de-gente", "quiz-honesto"]
+  },
+  "content_pillars": [
+    { "id": "A", "name": "A Roleta do Vet", "mix_percent": 35, "purpose": "performance + viralidade", "formats": ["receipts", "two-side-debate", "pov"] },
+    { "id": "B", "name": "Antes do Susto", "mix_percent": 30, "purpose": "educação + autoridade", "formats": ["listicle-tease", "psa", "carousel"] },
+    { "id": "C", "name": "Plano de Gente", "mix_percent": 20, "purpose": "diferenciação + manifesto", "formats": ["manifesto", "behind-the-scenes", "voice-note"] },
+    { "id": "D", "name": "Quiz Honesto", "mix_percent": 15, "purpose": "conversão direta", "formats": ["direct-response", "ugc", "receipt"] }
+  ],
+  "hashtag_strategy": {
+    "instagram": {
+      "per_post_count": "8-12",
+      "large": ["#pets", "#cachorro", "#gato", "#petlife"],
+      "medium": ["#planopet", "#tutordepet", "#saudepet", "#vetinario", "#petsdebrasil"],
+      "small_brand": ["#planodegente", "#jofipet", "#aroletadovet"],
+      "rotational": ["#consultoriapet", "#emergenciapet", "#prevencaopet"]
+    },
+    "tiktok": {
+      "per_video_count": "3-5",
+      "always": ["#fy"],
+      "niche": ["#petlife", "#planopet"],
+      "brand": ["#aroletadovet", "#planodegente"]
+    },
+    "linkedin": {
+      "per_post_count": 3,
+      "options": [
+        ["#empreendedorismo", "#petbusiness", "#brandbuilding"],
+        ["#startupbrasileira", "#tutordepet", "#estrategiademarca"]
+      ]
+    },
+    "twitter": {
+      "per_tweet_count": "0-2",
+      "rule": "Use raramente; só em tweet 1 e última de threads",
+      "brand": ["#PlanoDeGente", "#ARoletaDoVet"]
+    }
+  },
+  "publishing_windows": {
+    "instagram": {
+      "reel": ["19:00", "21:00"],
+      "carousel": ["12:00", "13:00"],
+      "single": ["19:00"],
+      "stories": ["09:00", "14:00", "20:00"]
+    },
+    "tiktok": ["20:00", "23:00"],
+    "linkedin": {
+      "preferred_days": ["tuesday", "wednesday", "thursday"],
+      "windows": ["08:00-09:00", "17:00-18:00"]
+    },
+    "twitter": ["08:00-10:00", "12:00-13:00", "21:00-23:00"]
+  },
+  "schedule": {
+    "week_1": {
+      "theme": "Abertura: instalando o inimigo (Pillar A)",
+      "posts": [
+        { "day": "mon", "platform": "instagram", "format": "reel", "asset_id": "REEL-01-roleta", "pillar": "roleta", "time": "20:00" },
+        { "day": "mon", "platform": "instagram", "format": "stories", "asset_id": "STO-week1-mon", "pillar": "roleta", "stories_count": 5 },
+        { "day": "mon", "platform": "tiktok", "asset_id": "TT-01-coisas-tutor-diz", "pillar": "roleta", "time": "21:00" },
+        { "day": "mon", "platform": "linkedin", "format": "post", "asset_id": "LI-01-categoria-nova", "pillar": "plano-de-gente", "time": "09:00" },
+        { "day": "mon", "platform": "twitter", "asset_ids": ["T1", "T2"] },
+        { "day": "tue", "platform": "instagram", "format": "carousel", "asset_id": "CAR-02-calculadora", "pillar": "roleta", "time": "12:30" },
+        { "day": "tue", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "tue", "platform": "twitter", "asset_ids": ["T3"] },
+        { "day": "wed", "platform": "instagram", "format": "reel", "asset_id": "REEL-06-pov-vet-22h", "pillar": "roleta", "time": "20:00" },
+        { "day": "wed", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "wed", "platform": "tiktok", "asset_id": "TT-05-roleta-visual", "pillar": "roleta", "time": "21:00" },
+        { "day": "wed", "platform": "linkedin", "format": "post", "asset_id": "LI-02-disse-nao-lead", "pillar": "plano-de-gente", "time": "17:00" },
+        { "day": "wed", "platform": "twitter", "asset_id": "THREAD-01", "format": "thread", "time": "08:00" },
+        { "day": "thu", "platform": "instagram", "format": "single", "asset_id": "SNG-02-receipt-1247", "pillar": "roleta", "time": "19:00" },
+        { "day": "thu", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "thu", "platform": "tiktok", "asset_id": "TT-02-1247-noite", "pillar": "roleta", "time": "22:00" },
+        { "day": "thu", "platform": "twitter", "asset_ids": ["T4", "T5"] },
+        { "day": "fri", "platform": "instagram", "format": "reel", "asset_id": "REEL-04-3-surpresas", "pillar": "antes-susto", "time": "20:00" },
+        { "day": "fri", "platform": "instagram", "format": "stories", "stories_count": 6 },
+        { "day": "fri", "platform": "twitter", "asset_ids": ["T6"] },
+        { "day": "sat", "platform": "instagram", "format": "stories", "stories_count": 3 },
+        { "day": "sat", "platform": "tiktok", "asset_id": "TT-07-reframe-preco", "pillar": "quiz-honesto", "time": "21:00" },
+        { "day": "sat", "platform": "twitter", "asset_ids": ["T7"] },
+        { "day": "sun", "platform": "instagram", "format": "carousel", "asset_id": "CAR-01-founder-story", "pillar": "plano-de-gente", "time": "11:00" },
+        { "day": "sun", "platform": "instagram", "format": "stories", "stories_count": 4 }
+      ]
+    },
+    "week_2": {
+      "theme": "Construção: educar e diferenciar (Pillar B + C)",
+      "posts": [
+        { "day": "mon", "platform": "instagram", "format": "reel", "asset_id": "REEL-02-plano-de-gente", "pillar": "plano-de-gente", "time": "20:00" },
+        { "day": "mon", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "mon", "platform": "tiktok", "asset_id": "TT-06-atendente-22h", "pillar": "plano-de-gente", "time": "21:00" },
+        { "day": "mon", "platform": "linkedin", "format": "post", "asset_id": "LI-03-atendente-humano", "pillar": "plano-de-gente", "time": "09:00" },
+        { "day": "mon", "platform": "twitter", "asset_ids": ["T8"] },
+        { "day": "tue", "platform": "instagram", "format": "carousel", "asset_id": "CAR-03-5-sinais", "pillar": "antes-susto", "time": "12:30" },
+        { "day": "tue", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "tue", "platform": "twitter", "asset_ids": ["T9"] },
+        { "day": "wed", "platform": "instagram", "format": "single", "asset_id": "SNG-01-quote-manifesto", "pillar": "plano-de-gente", "time": "19:00" },
+        { "day": "wed", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "wed", "platform": "tiktok", "asset_id": "TT-03-3-mentiras-plano", "pillar": "roleta", "time": "21:00" },
+        { "day": "thu", "platform": "instagram", "format": "reel", "asset_id": "REEL-05-audio-antes-susto", "pillar": "antes-susto", "time": "20:00" },
+        { "day": "thu", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "thu", "platform": "linkedin", "format": "post", "asset_id": "LI-04-kpi-honestidade", "pillar": "plano-de-gente", "time": "17:00" },
+        { "day": "thu", "platform": "twitter", "asset_ids": ["T10"] },
+        { "day": "fri", "platform": "instagram", "format": "stories", "stories_count": 6 },
+        { "day": "fri", "platform": "tiktok", "asset_id": "TT-04-pov-quiz", "pillar": "quiz-honesto", "time": "22:00" },
+        { "day": "fri", "platform": "twitter", "asset_id": "THREAD-01-variant", "format": "thread", "time": "08:00" },
+        { "day": "sat", "platform": "instagram", "format": "reel", "asset_id": "REEL-07-coisa-tutor-diz", "pillar": "roleta", "time": "20:00" },
+        { "day": "sat", "platform": "instagram", "format": "stories", "stories_count": 3 },
+        { "day": "sun", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "sun", "platform": "tiktok", "asset_id": "TT-08-ugc-quiz", "pillar": "quiz-honesto", "time": "21:00" }
+      ]
+    },
+    "week_3": {
+      "theme": "Conversão: empurrar o quiz (Pillar D)",
+      "posts": [
+        { "day": "mon", "platform": "instagram", "format": "reel", "asset_id": "REEL-03-talvez-nao-precise", "pillar": "quiz-honesto", "time": "20:00" },
+        { "day": "mon", "platform": "instagram", "format": "stories", "stories_count": 6 },
+        { "day": "mon", "platform": "tiktok", "asset_id": "TT-04-hook-B", "pillar": "quiz-honesto", "time": "21:00", "note": "hook swap" },
+        { "day": "mon", "platform": "linkedin", "format": "post", "asset_id": "LI-05-nome-sereninho", "pillar": "plano-de-gente", "time": "09:00" },
+        { "day": "mon", "platform": "twitter", "asset_ids": ["T1-recycled"] },
+        { "day": "tue", "platform": "instagram", "format": "carousel", "asset_id": "CAR-02-reuso", "pillar": "roleta", "time": "12:30" },
+        { "day": "tue", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "tue", "platform": "twitter", "asset_ids": ["T7"] },
+        { "day": "wed", "platform": "instagram", "format": "reel", "asset_id": "REEL-01-hook-B", "pillar": "roleta", "time": "20:00", "note": "hook swap" },
+        { "day": "wed", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "wed", "platform": "tiktok", "asset_id": "TT-01-hook-B", "pillar": "roleta", "time": "21:00", "note": "hook swap" },
+        { "day": "wed", "platform": "twitter", "asset_ids": ["T8"] },
+        { "day": "thu", "platform": "instagram", "format": "single", "asset_id": "SNG-01-reuso", "pillar": "plano-de-gente", "time": "19:00" },
+        { "day": "thu", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "thu", "platform": "linkedin", "format": "post", "asset_id": "LI-06-cta-quiz", "pillar": "quiz-honesto", "time": "17:00" },
+        { "day": "thu", "platform": "twitter", "asset_id": "THREAD-CTA-NEW", "format": "thread", "time": "08:00" },
+        { "day": "fri", "platform": "instagram", "format": "reel", "asset_id": "REEL-04-reuso", "pillar": "antes-susto", "time": "20:00" },
+        { "day": "fri", "platform": "instagram", "format": "stories", "stories_count": 6 },
+        { "day": "fri", "platform": "tiktok", "asset_id": "TT-07-hook-B", "pillar": "quiz-honesto", "time": "22:00", "note": "hook swap" },
+        { "day": "fri", "platform": "twitter", "asset_ids": ["T6"] },
+        { "day": "sat", "platform": "instagram", "format": "stories", "stories_count": 3 },
+        { "day": "sun", "platform": "instagram", "format": "carousel", "asset_id": "CAR-03-reuso", "pillar": "antes-susto", "time": "11:00" },
+        { "day": "sun", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "sun", "platform": "tiktok", "asset_id": "TT-02-hook-B", "pillar": "roleta", "time": "21:00", "note": "hook swap" }
+      ]
+    },
+    "week_4": {
+      "theme": "Sustentação + UGC + retargeting",
+      "posts": [
+        { "day": "mon", "platform": "instagram", "format": "reel", "asset_id": "UGC-cliente-real", "pillar": "plano-de-gente", "time": "20:00" },
+        { "day": "mon", "platform": "instagram", "format": "stories", "stories_count": 7 },
+        { "day": "mon", "platform": "linkedin", "format": "post", "asset_id": "LI-02-reuso", "pillar": "plano-de-gente", "time": "09:00" },
+        { "day": "mon", "platform": "twitter", "asset_ids": ["T2"] },
+        { "day": "tue", "platform": "instagram", "format": "reel", "asset_id": "REEL-02-reuso", "pillar": "plano-de-gente", "time": "12:30" },
+        { "day": "tue", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "tue", "platform": "tiktok", "asset_id": "TT-06-hook-B", "pillar": "plano-de-gente", "time": "21:00", "note": "hook swap" },
+        { "day": "tue", "platform": "twitter", "asset_ids": ["T9"] },
+        { "day": "wed", "platform": "instagram", "format": "carousel", "asset_id": "CAR-04-faq-visual", "pillar": "quiz-honesto", "time": "19:00" },
+        { "day": "wed", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "wed", "platform": "tiktok", "asset_id": "TT-08-hook-B", "pillar": "quiz-honesto", "time": "22:00", "note": "hook swap" },
+        { "day": "wed", "platform": "twitter", "asset_ids": ["T10"] },
+        { "day": "thu", "platform": "instagram", "format": "reel", "asset_id": "REEL-05-reuso", "pillar": "antes-susto", "time": "20:00" },
+        { "day": "thu", "platform": "instagram", "format": "stories", "stories_count": 5 },
+        { "day": "thu", "platform": "linkedin", "format": "post", "asset_id": "LI-03-reuso", "pillar": "plano-de-gente", "time": "17:00" },
+        { "day": "thu", "platform": "twitter", "asset_ids": ["T4"] },
+        { "day": "fri", "platform": "instagram", "format": "single", "asset_id": "SNG-02-reuso", "pillar": "roleta", "time": "19:00" },
+        { "day": "fri", "platform": "instagram", "format": "stories", "stories_count": 6 },
+        { "day": "fri", "platform": "tiktok", "asset_id": "TT-05-hook-B", "pillar": "roleta", "time": "21:00", "note": "hook swap" },
+        { "day": "sat", "platform": "instagram", "format": "reel", "asset_id": "REEL-03-hook-B", "pillar": "quiz-honesto", "time": "20:00", "note": "hook swap" },
+        { "day": "sat", "platform": "instagram", "format": "stories", "stories_count": 3 },
+        { "day": "sat", "platform": "twitter", "asset_ids": ["T5"] },
+        { "day": "sun", "platform": "instagram", "format": "stories", "stories_count": 4 },
+        { "day": "sun", "platform": "tiktok", "asset_id": "TT-03-hook-B", "pillar": "roleta", "time": "21:00", "note": "hook swap" }
+      ]
+    }
+  },
+  "totals_month_1": {
+    "instagram_reels": 18,
+    "instagram_carousels": 8,
+    "instagram_singles": 5,
+    "instagram_stories": 110,
+    "tiktok_videos": 14,
+    "linkedin_long_posts": 6,
+    "twitter_tweets": 50,
+    "twitter_threads": 4
+  },
+  "kpi_targets": {
+    "instagram_reel": { "primary": "retention_75pct", "benchmark": "50_70_excellent", "winner_signal": "save_rate_above_2pct" },
+    "instagram_carousel": { "primary": "save_rate", "benchmark": "4pct_strong", "winner_signal": "share_rate_above_1pct" },
+    "instagram_stories": { "primary": "reply_rate_poll_question", "benchmark": "5pct_strong", "winner_signal": "sticker_tap_above_8pct" },
+    "tiktok": { "primary": "avg_watch_time", "benchmark": "18s_strong", "winner_signal": "comment_rate_above_3pct" },
+    "linkedin": { "primary": "dwell_time_plus_reposts", "benchmark": "30s_plus_5_reposts", "winner_signal": "follower_growth_20_per_week" },
+    "twitter": { "primary": "reply_rate_thread", "benchmark": "1_per_100_imp", "winner_signal": "bookmark_above_2pct" },
+    "macro_quiz_traffic_from_social": { "month_1": "3pct_visitors", "month_3_target": "8pct_visitors" }
+  },
+  "guardrails": [
+    "Nunca usar foto de pet doente em close pra forçar emoção",
+    "Nunca prometer atendimento 24h (Jofi não tem) — usar 'às 22h tem gente'",
+    "Nunca esconder preço — Sereninho R$49,90 sempre visível na peça final",
+    "Nunca usar emoji 🚀 ✨ 🔥 — só 🐾 🐶 🐱 💛",
+    "Nunca publicar dois CTA-quiz seguidos",
+    "Nunca repostar Reel direto no LinkedIn",
+    "Nunca comprar seguidor",
+    "Nunca ignorar reply em comentário (responder em <2h)",
+    "Toda peça passa no gate Emily: 'Isso soa como gente falando, ou soa como plano falando?'"
+  ],
+  "hook_swap_protocol": {
+    "principle": "1 corpo central + 5 hooks de 3s = 5 peças diferentes pro algoritmo",
+    "amplification_rule": "Hook que performar +20% acima da média vira 'winner' e é amplificado via Meta Ads",
+    "applies_to": ["REEL-01", "REEL-02", "REEL-03", "REEL-04", "REEL-05", "REEL-06", "REEL-07"],
+    "result": "35+ peças derivadas de 7 produções mestres"
+  }
+}

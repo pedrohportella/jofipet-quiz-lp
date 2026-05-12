@@ -1,0 +1,94 @@
+{
+  "$schema": "./quiz.schema.json",
+  "version": "2026-04-17",
+  "questions": [
+    {
+      "id": "pet-ativo",
+      "type": "single-choice",
+      "text": "Você tem pet?",
+      "emoji": "🐾",
+      "eliminatesOnNo": true,
+      "options": [
+        { "id": "sim", "label": "Sim, tenho!" },
+        { "id": "nao", "label": "Ainda não tenho" }
+      ]
+    },
+    {
+      "id": "especie",
+      "type": "single-choice",
+      "text": "Qual a espécie do seu pequeno?",
+      "emoji": "🐶",
+      "options": [
+        { "id": "cao", "label": "Cão", "emoji": "🐶" },
+        { "id": "gato", "label": "Gato", "emoji": "🐱" },
+        { "id": "outro", "label": "Outro", "emoji": "🐾" }
+      ]
+    },
+    {
+      "id": "idade",
+      "type": "single-choice",
+      "text": "Qual a idade do seu pet?",
+      "emoji": "🎂",
+      "options": [
+        { "id": "filhote", "label": "Filhote (até 1 ano)", "emoji": "🐣" },
+        { "id": "adulto", "label": "Adulto (1-7 anos)", "emoji": "🐕" },
+        { "id": "idoso", "label": "Idoso (7+ anos)", "emoji": "👴" }
+      ]
+    },
+    {
+      "id": "ultima-vet",
+      "type": "single-choice",
+      "text": "Quando foi a última ida ao vet?",
+      "emoji": "🩺",
+      "options": [
+        { "id": "menos-1-mes", "label": "Há menos de 1 mês" },
+        { "id": "1-6-meses", "label": "De 1 a 6 meses" },
+        { "id": "mais-6-meses", "label": "Mais de 6 meses" },
+        { "id": "nunca", "label": "Nunca levei" }
+      ]
+    },
+    {
+      "id": "gasto-mensal",
+      "type": "scale",
+      "text": "Quanto você gasta por mês com seu pet hoje?",
+      "emoji": "💰",
+      "min": 0,
+      "max": 500,
+      "step": 20,
+      "prefix": "R$ ",
+      "suffix": "/mês"
+    },
+    {
+      "id": "preocupacao",
+      "type": "single-choice",
+      "text": "O que mais te preocupa hoje?",
+      "emoji": "💭",
+      "options": [
+        { "id": "saude", "label": "Saúde e imprevistos", "emoji": "🩺" },
+        { "id": "custo", "label": "Custo das consultas", "emoji": "💰" },
+        { "id": "rotina", "label": "Rotina de cuidado", "emoji": "📅" },
+        { "id": "tudo-bem", "label": "Está tudo ok", "emoji": "✨" }
+      ]
+    },
+    {
+      "id": "plano-atual",
+      "type": "single-choice",
+      "text": "Você tem plano pet hoje?",
+      "emoji": "📋",
+      "options": [
+        { "id": "nao", "label": "Não tenho" },
+        { "id": "sim-outro", "label": "Tenho de outra empresa" },
+        { "id": "sim-jofi", "label": "Já sou cliente Jofi" }
+      ]
+    },
+    {
+      "id": "cep",
+      "type": "text-input",
+      "text": "Qual seu CEP? (pra ver vets perto)",
+      "emoji": "📍",
+      "mask": "cep",
+      "placeholder": "00000-000",
+      "skipAllowed": true
+    }
+  ]
+}

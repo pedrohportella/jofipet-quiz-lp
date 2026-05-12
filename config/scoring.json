@@ -1,0 +1,71 @@
+{
+  "version": "2026-04-17",
+  "axes": ["pet_ativo", "gasto", "dor", "cobertura"],
+  "thresholds": {
+    "quente": 70,
+    "morno": 40
+  },
+  "rules": [
+    {
+      "questionId": "pet-ativo",
+      "axis": "pet_ativo",
+      "type": "weights",
+      "weights": { "sim": 0, "nao": -999 },
+      "notes": "Eliminatório: -999 força tier=frio via flag eliminated"
+    },
+    {
+      "questionId": "idade",
+      "axis": "dor",
+      "type": "weights",
+      "weights": { "filhote": 5, "adulto": 15, "idoso": 25 }
+    },
+    {
+      "questionId": "ultima-vet",
+      "axis": "dor",
+      "type": "weights",
+      "weights": {
+        "menos-1-mes": 20,
+        "1-6-meses": 12,
+        "mais-6-meses": 5,
+        "nunca": 8
+      }
+    },
+    {
+      "questionId": "gasto-mensal",
+      "axis": "gasto",
+      "type": "numeric-range",
+      "ranges": [
+        { "max": 50, "score": 5 },
+        { "max": 100, "score": 10 },
+        { "max": 200, "score": 20 },
+        { "max": 10000, "score": 25 }
+      ]
+    },
+    {
+      "questionId": "preocupacao",
+      "axis": "dor",
+      "type": "weights",
+      "weights": {
+        "saude": 15,
+        "custo": 12,
+        "rotina": 8,
+        "tudo-bem": 2
+      }
+    },
+    {
+      "questionId": "plano-atual",
+      "axis": "gasto",
+      "type": "weights",
+      "weights": { "nao": 15, "sim-outro": 8, "sim-jofi": -50 }
+    },
+    {
+      "questionId": "cep",
+      "axis": "cobertura",
+      "type": "cep-coverage",
+      "coveredScore": 15,
+      "notCoveredScore": 3,
+      "skippedScore": 5,
+      "coverageSource": "config/cep-coverage.json"
+    }
+  ]
+}

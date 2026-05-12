@@ -1,0 +1,49 @@
+name: Lighthouse CI
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  lighthouse:
+    name: Lighthouse on Vercel preview
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/jofipet-quiz-lp
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Wait for Vercel preview
+        id: vercel
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          max_timeout: 600
+          allow_inactive: true
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          cache-dependency-path: projects/jofipet-quiz-lp/pnpm-lock.yaml
+
+      - name: Install LHCI
+        run: pnpm add -D @lhci/cli@0.13.x
+
+      - name: Run Lighthouse CI
+        env:
+          PREVIEW_URL: ${{ steps.vercel.outputs.url }}
+        run: |
+          pnpm exec lhci autorun \
+            --collect.url="$PREVIEW_URL" \
+            --collect.url="$PREVIEW_URL/quiz/0" \
+            || echo "LHCI check failed — review report"

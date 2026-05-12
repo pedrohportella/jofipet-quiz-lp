@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 240" fill="none" aria-label="Jofi" role="img">
+  <!-- Placeholder logo Jofi: head + JOFI wordmark.
+       Substituir por SVG oficial quando recebido — manter viewBox 200x240. -->
+  <g fill="#7090D8">
+    <!-- Head capsule with ear -->
+    <path d="M52 80 Q52 40 92 38 L128 38 Q148 38 152 58 L160 22 Q166 22 168 30 L168 60 Q168 96 132 100 L92 100 Q52 100 52 80 Z" stroke="#7090D8" stroke-width="6" stroke-linejoin="round" fill="#7090D8" fill-opacity="0"/>
+    <!-- Left ear (tail-like flourish) -->
+    <path d="M40 76 L20 96 L42 96 Z" />
+    <!-- Eyes (smiling arcs) -->
+    <path d="M84 64 Q92 58 100 64 L100 70 Q92 64 84 70 Z"/>
+    <path d="M114 64 Q122 58 130 64 L130 70 Q122 64 114 70 Z"/>
+    <!-- Nose -->
+    <path d="M101 78 L113 78 L107 86 Z"/>
+    <!-- JOFI wordmark -->
+    <text x="100" y="180" text-anchor="middle" font-family="Nunito, Inter, sans-serif" font-weight="800" font-size="68" letter-spacing="-2" fill="#7090D8">JOFI</text>
+  </g>
+</svg>
