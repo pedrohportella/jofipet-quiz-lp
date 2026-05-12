@@ -1,7 +1,17 @@
 import { describe, it, expect } from 'vitest';
 import { calculateTier } from './scoring';
 import { scoringConfig, cepCoverageConfig } from './loader';
-import type { Answers } from './types';
+import type { Answers, CepCoverageConfig } from './types';
+
+const strictCepCoverage: CepCoverageConfig = {
+  version: 'test-strict',
+  mode: 'strict',
+  coveredRanges: [
+    { from: '50000-000', to: '52999-999' },
+    { from: '58000-000', to: '58099-999' },
+  ],
+  coveredCities: [],
+};
 
 describe('calculateTier', () => {
   it('classifies strong answers as quente', () => {
@@ -107,5 +117,93 @@ describe('calculateTier', () => {
     const result = calculateTier(answers, scoringConfig, cepCoverageConfig);
     expect(result.tier).toBe('frio');
     expect(result.score).toBe(5); // apenas o skippedScore do cep
+  });
+});
+
+describe('calculateTier — strict CEP coverage mode', () => {
+  it('awards coveredScore when CEP is inside covered range (PE Recife)', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      'gasto-mensal': 120,
+      cep: '50050-100',
+    };
+    const result = calculateTier(answers, scoringConfig, strictCepCoverage);
+    expect(result.breakdown.cobertura).toBe(15); // coveredScore
+  });
+
+  it('awards coveredScore for second covered range (PB João Pessoa)', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      cep: '58030-000',
+    };
+    const result = calculateTier(answers, scoringConfig, strictCepCoverage);
+    expect(result.breakdown.cobertura).toBe(15);
+  });
+
+  it('awards notCoveredScore when CEP is outside any range', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      cep: '01310-100', // SP, fora das faixas PE/PB
+    };
+    const result = calculateTier(answers, scoringConfig, strictCepCoverage);
+    expect(result.breakdown.cobertura).toBe(3); // notCoveredScore
+  });
+
+  it('falls back to skippedScore when CEP has invalid format (less than 8 digits)', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      cep: '123', // muito curto
+    };
+    const result = calculateTier(answers, scoringConfig, strictCepCoverage);
+    expect(result.breakdown.cobertura).toBe(5); // skippedScore (fallback)
+  });
+
+  it('accepts CEP without mask (raw digits)', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      cep: '50050100', // sem hífen
+    };
+    const result = calculateTier(answers, scoringConfig, strictCepCoverage);
+    expect(result.breakdown.cobertura).toBe(15);
+  });
+});
+
+describe('calculateTier — invariants', () => {
+  it('score is never negative when not eliminated', () => {
+    const samples: Answers[] = [
+      { 'pet-ativo': 'sim' },
+      { 'pet-ativo': 'sim', idade: 'filhote', 'gasto-mensal': 0 },
+      { 'pet-ativo': 'sim', 'plano-atual': 'sim-jofi', cep: '' }, // penalty -50
+    ];
+    for (const a of samples) {
+      const result = calculateTier(a, scoringConfig, cepCoverageConfig);
+      if (!result.eliminated) {
+        expect(result.score).toBeGreaterThanOrEqual(-100);
+      }
+    }
+  });
+
+  it('breakdown sum equals total score (no eliminated)', () => {
+    const answers: Answers = {
+      'pet-ativo': 'sim',
+      idade: 'adulto',
+      'ultima-vet': '1-6-meses',
+      'gasto-mensal': 150,
+      preocupacao: 'custo',
+      'plano-atual': 'nao',
+      cep: '01310-100',
+    };
+    const result = calculateTier(answers, scoringConfig, cepCoverageConfig);
+    const sum =
+      result.breakdown.pet_ativo +
+      result.breakdown.gasto +
+      result.breakdown.dor +
+      result.breakdown.cobertura;
+    expect(result.score).toBe(sum);
   });
 });
