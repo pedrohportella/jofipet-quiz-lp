@@ -1,0 +1,24 @@
+{
+  "_comment": "Artigos educativos exibidos no resultado tier=frio (Story 3.4). URLs apontam pro blog Jofi quando existir; até lá, redirecionam pra home com UTMs.",
+  "version": "2026-05-12",
+  "articles": [
+    {
+      "id": "vacinas-essenciais",
+      "title": "Vacinas essenciais por idade do pet",
+      "emoji": "💉",
+      "url": "https://jofi.pet/blog/vacinas-essenciais"
+    },
+    {
+      "id": "rotina-cuidado",
+      "title": "Rotina semanal de cuidado: o básico que ninguém ensina",
+      "emoji": "📅",
+      "url": "https://jofi.pet/blog/rotina-cuidado"
+    },
+    {
+      "id": "primeira-consulta",
+      "title": "Como preparar a primeira ida ao veterinário",
+      "emoji": "🩺",
+      "url": "https://jofi.pet/blog/primeira-consulta"
+    }
+  ]
+}

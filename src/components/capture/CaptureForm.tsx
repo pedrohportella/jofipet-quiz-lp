@@ -17,7 +17,7 @@ import { LgpdConsent } from './LgpdConsent';
 
 export function CaptureForm() {
   const router = useRouter();
-  const { state, hydrated } = useQuizState();
+  const { state, hydrated, dispatch } = useQuizState();
   const [submitState, setSubmitState] = useState<{
     status: 'idle' | 'submitting' | 'error';
     message?: string;
@@ -91,6 +91,12 @@ export function CaptureForm() {
         throw new Error(body?.reason ?? `HTTP ${response.status}`);
       }
 
+      const responseBody = await response.json().catch(() => null);
+      dispatch({
+        type: 'CAPTURE_LEAD',
+        name: payload.name,
+        leadId: responseBody?.leadId ?? `lead_${Date.now()}`,
+      });
       trackLead({ tier: state.tier!, hasEmail: !!payload.email });
       router.push(`/resultado/${state.tier}`);
     } catch (error) {

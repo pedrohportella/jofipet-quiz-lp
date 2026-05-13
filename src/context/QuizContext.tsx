@@ -33,6 +33,8 @@ export interface QuizState {
   score: number | null;
   breakdown: ScoreBreakdown | null;
   eliminated: boolean;
+  leadName: string | null;
+  leadId: string | null;
 }
 
 export type QuizAction =
@@ -42,6 +44,7 @@ export type QuizAction =
   | { type: 'BACK' }
   | { type: 'GO_TO'; step: number }
   | { type: 'FINISH' }
+  | { type: 'CAPTURE_LEAD'; name: string; leadId: string }
   | { type: 'HYDRATE'; state: Partial<QuizState> }
   | { type: 'RESET' };
 
@@ -85,6 +88,12 @@ function reducer(state: QuizState, action: QuizAction): QuizState {
         eliminated: result.eliminated,
       };
     }
+    case 'CAPTURE_LEAD':
+      return {
+        ...state,
+        leadName: action.name,
+        leadId: action.leadId,
+      };
     case 'HYDRATE':
       return {
         ...state,
@@ -114,6 +123,8 @@ function buildInitialState(
     score: null,
     breakdown: null,
     eliminated: false,
+    leadName: null,
+    leadId: null,
   };
 }
 
