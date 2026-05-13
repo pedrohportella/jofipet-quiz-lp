@@ -2,15 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
-/**
- * Estimativa de social proof baseada em hora do dia.
- * Substituir por contador real lido do /api/admin/stats quando admin estiver no ar
- * com dados suficientes.
- */
+const MIN_DISPLAY = 18;
+
 function estimateDailyCount(): number {
-  const now = new Date();
-  const hour = now.getHours();
-  const base = 18 + hour * 3;
+  const hour = new Date().getHours();
+  const base = MIN_DISPLAY + hour * 3;
   const jitter = Math.floor(Math.random() * 6);
   return base + jitter;
 }
@@ -19,7 +15,21 @@ export function SocialProofBadge() {
   const [count, setCount] = useState<number | null>(null);
 
   useEffect(() => {
-    setCount(estimateDailyCount());
+    let cancelled = false;
+    fetch('/api/stats/public', { cache: 'no-store' })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { quizStartedToday?: number } | null) => {
+        if (cancelled) return;
+        const real = data?.quizStartedToday ?? 0;
+        const display = real >= MIN_DISPLAY ? real : estimateDailyCount();
+        setCount(display);
+      })
+      .catch(() => {
+        if (!cancelled) setCount(estimateDailyCount());
+      });
+    return () => {
+      cancelled = true;
+    };
   }, []);
 
   if (count === null) return null;
