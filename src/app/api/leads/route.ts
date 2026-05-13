@@ -4,6 +4,7 @@ import { buildRdConversionPayload } from '@/lib/rd-station/mapper';
 import { postConversion, RdStationError } from '@/lib/rd-station/client';
 import { verifyTurnstile } from '@/lib/turnstile/verify';
 import { checkRateLimit } from '@/lib/rate-limit/in-memory';
+import { saveLead, recordEvent, type StoredLead } from '@/lib/leads/store';
 
 export const runtime = 'nodejs';
 
@@ -91,12 +92,29 @@ export async function POST(request: NextRequest) {
   const rdToken = process.env.RD_STATION_PUBLIC_TOKEN;
   const leadId = correlationId;
 
+  const baseStored: Omit<StoredLead, 'rdStatus' | 'rdWarning'> = {
+    leadId,
+    correlationId,
+    capturedAt: Date.now(),
+    ip,
+    tier: lead.tier,
+    score: lead.score,
+    payload: lead,
+  };
+
   if (!rdToken) {
     logJson('warn', {
       event: 'rd_token_missing',
       correlationId,
       tier: lead.tier,
       note: 'Lead aceito mas não enviado ao RD (token não configurado).',
+    });
+    await saveLead({ ...baseStored, rdStatus: 'token_missing' });
+    await recordEvent({
+      type: 'lead_captured',
+      tier: lead.tier,
+      utmSource: lead.utms?.utm_source,
+      payload: { leadId, rdStatus: 'token_missing' },
     });
     return NextResponse.json(
       {
@@ -120,6 +138,13 @@ export async function POST(request: NextRequest) {
         correlationId,
         tier: lead.tier,
       });
+      await saveLead({ ...baseStored, rdStatus: 'sent' });
+      await recordEvent({
+        type: 'lead_captured',
+        tier: lead.tier,
+        utmSource: lead.utms?.utm_source,
+        payload: { leadId, rdStatus: 'sent' },
+      });
       return NextResponse.json({ success: true, leadId, correlationId });
     }
 
@@ -130,7 +155,13 @@ export async function POST(request: NextRequest) {
         status: rdResult.status,
         body: rdResult.body,
       });
-      // 5xx → queued (Story 2.4 fallback queue ainda Draft — por agora warning ao client)
+      await saveLead({ ...baseStored, rdStatus: 'queued', rdWarning: 'rd_5xx_queued' });
+      await recordEvent({
+        type: 'lead_captured',
+        tier: lead.tier,
+        utmSource: lead.utms?.utm_source,
+        payload: { leadId, rdStatus: 'queued' },
+      });
       return NextResponse.json(
         {
           success: true,
@@ -148,7 +179,13 @@ export async function POST(request: NextRequest) {
       status: rdResult.status,
       body: rdResult.body,
     });
-    // 4xx → bug nosso. UX não quebra; success:true com warning.
+    await saveLead({ ...baseStored, rdStatus: 'rejected', rdWarning: 'rd_rejected' });
+    await recordEvent({
+      type: 'lead_captured',
+      tier: lead.tier,
+      utmSource: lead.utms?.utm_source,
+      payload: { leadId, rdStatus: 'rejected' },
+    });
     return NextResponse.json(
       { success: true, leadId, correlationId, warning: 'rd_rejected' },
       { status: 200 },
@@ -160,6 +197,13 @@ export async function POST(request: NextRequest) {
         correlationId,
         status: err.status,
         message: err.message,
+      });
+      await saveLead({ ...baseStored, rdStatus: 'unreachable', rdWarning: 'rd_unreachable_queued' });
+      await recordEvent({
+        type: 'lead_captured',
+        tier: lead.tier,
+        utmSource: lead.utms?.utm_source,
+        payload: { leadId, rdStatus: 'unreachable' },
       });
       return NextResponse.json(
         {

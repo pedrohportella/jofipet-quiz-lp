@@ -5,12 +5,15 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuizState } from '@/hooks/useQuizState';
 import { trackQuizStep } from '@/lib/tracking/events';
+import { postFunnelEvent } from '@/lib/tracking/funnel';
+import { loadStoredUtms } from '@/lib/tracking/utms';
 import { QuizProgressBar } from './QuizProgressBar';
 import { QuizBackButton } from './QuizBackButton';
 import { QuizOption } from './QuizOption';
 import { QuizScaleInput } from './QuizScaleInput';
 import { QuizTextInput } from './QuizTextInput';
 import { QuizMultiChoice } from './QuizMultiChoice';
+import { SocialProofBadge } from './SocialProofBadge';
 import type {
   AnswerValue,
   SingleChoiceQuestion,
@@ -39,11 +42,22 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
   useEffect(() => {
     if (!question) return;
     trackQuizStep(clampedIndex + 1, question.id);
+    const utms = loadStoredUtms();
+    if (clampedIndex === 0) {
+      postFunnelEvent({ type: 'quiz_started', utmSource: utms.utm_source });
+    }
+    postFunnelEvent({
+      type: 'quiz_step_view',
+      step: clampedIndex + 1,
+      utmSource: utms.utm_source,
+    });
   }, [clampedIndex, question?.id, question]);
 
   const goNext = () => {
     if (clampedIndex + 1 >= total) {
       dispatch({ type: 'FINISH' });
+      const utms = loadStoredUtms();
+      postFunnelEvent({ type: 'quiz_complete', utmSource: utms.utm_source });
       router.push('/captura');
       return;
     }
@@ -118,6 +132,7 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
         </span>
       </header>
       <QuizProgressBar current={clampedIndex + 1} total={total} />
+      <div className="mt-2"><SocialProofBadge /></div>
 
       <AnimatePresence mode="wait">
         <motion.section

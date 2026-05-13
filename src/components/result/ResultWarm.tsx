@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ResultBullets } from './ResultBullets';
 import { SereninhoCta } from './SereninhoCta';
 import { NewsletterCta } from './NewsletterCta';
+import { SaveForLaterCta } from './SaveForLaterCta';
 import {
   buildResultVars,
   getHeadline,
@@ -17,9 +18,10 @@ interface ResultWarmProps {
   leadName: string | null;
   answers: Answers;
   sereninhoUrl: string;
+  whatsappNumber: string;
 }
 
-export function ResultWarm({ leadName, answers, sereninhoUrl }: ResultWarmProps) {
+export function ResultWarm({ leadName, answers, sereninhoUrl, whatsappNumber }: ResultWarmProps) {
   const vars = buildResultVars({ tier: 'morno', leadName, answers });
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export function ResultWarm({ leadName, answers, sereninhoUrl }: ResultWarmProps)
       <ResultBullets bullets={getBullets('morno', vars)} />
       <div className="mt-2 flex w-full max-w-md flex-col gap-4">
         <SereninhoCta baseUrl={sereninhoUrl} />
+        <SaveForLaterCta whatsappNumber={whatsappNumber} />
         <div className="border-t border-neutral-300 pt-4">
           <NewsletterCta label="Ou receba dicas por email" />
         </div>

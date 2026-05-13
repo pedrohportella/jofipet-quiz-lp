@@ -3,6 +3,8 @@
 import { useEffect } from 'react';
 import { ResultBullets } from './ResultBullets';
 import { WhatsappCta } from './WhatsappCta';
+import { AttendantCard } from './AttendantCard';
+import { SaveForLaterCta } from './SaveForLaterCta';
 import {
   buildResultVars,
   getHeadline,
@@ -41,11 +43,10 @@ export function ResultHot({ leadName, answers, whatsappNumber }: ResultHotProps)
         {getSubheadline('quente', vars)}
       </p>
       <ResultBullets bullets={getBullets('quente', vars)} />
-      <div className="mt-2 flex w-full max-w-md flex-col gap-2">
+      <div className="mt-2 flex w-full max-w-md flex-col gap-3">
+        <AttendantCard />
         <WhatsappCta tier="quente" answers={answers} phoneNumber={whatsappNumber} />
-        <p className="text-center text-xs text-neutral-500">
-          Atendimento humano · resposta em minutos
-        </p>
+        <SaveForLaterCta whatsappNumber={whatsappNumber} />
       </div>
     </>
   );

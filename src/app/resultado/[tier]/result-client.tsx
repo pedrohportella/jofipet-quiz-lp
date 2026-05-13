@@ -6,6 +6,8 @@ import { useQuizState } from '@/hooks/useQuizState';
 import { ResultHot } from '@/components/result/ResultHot';
 import { ResultWarm } from '@/components/result/ResultWarm';
 import { ResultCold } from '@/components/result/ResultCold';
+import { postFunnelEvent } from '@/lib/tracking/funnel';
+import { loadStoredUtms } from '@/lib/tracking/utms';
 import type { Tier } from '@/lib/quiz/types';
 
 interface ResultClientProps {
@@ -22,7 +24,14 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
     if (!hydrated) return;
     if (!state.tier || !state.finishedAt) {
       router.replace('/');
+      return;
     }
+    const utms = loadStoredUtms();
+    postFunnelEvent({
+      type: 'result_view',
+      tier: state.tier,
+      utmSource: utms.utm_source,
+    });
   }, [hydrated, state.tier, state.finishedAt, router]);
 
   if (!hydrated || !state.tier) {
@@ -45,6 +54,7 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
         leadName={state.leadName}
         answers={state.answers}
         sereninhoUrl={sereninhoUrl}
+        whatsappNumber={whatsappNumber}
       />
     );
   }
