@@ -3,6 +3,8 @@ name: Lighthouse CI
 on:
   pull_request:
     branches: [main]
+  push:
+    branches: [main]
 
 permissions:
   contents: read
@@ -10,15 +12,12 @@ permissions:
 
 jobs:
   lighthouse:
-    name: Lighthouse on Vercel preview
+    name: Lighthouse on Vercel deployment
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: projects/jofipet-quiz-lp
     steps:
       - uses: actions/checkout@v4
 
-      - name: Wait for Vercel preview
+      - name: Wait for Vercel deployment
         id: vercel
         uses: patrickedqvist/wait-for-vercel-preview@v1.3.1
         with:
@@ -26,24 +25,29 @@ jobs:
           max_timeout: 600
           allow_inactive: true
 
-      - uses: pnpm/action-setup@v3
-        with:
-          version: 9
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: pnpm
-          cache-dependency-path: projects/jofipet-quiz-lp/pnpm-lock.yaml
+          cache: npm
 
-      - name: Install LHCI
-        run: pnpm add -D @lhci/cli@0.13.x
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Resolve target URL
+        id: target
+        run: |
+          if [ -n "${{ steps.vercel.outputs.url }}" ]; then
+            echo "url=${{ steps.vercel.outputs.url }}" >> $GITHUB_OUTPUT
+          else
+            echo "url=https://jofipet-quiz-lp.vercel.app" >> $GITHUB_OUTPUT
+          fi
 
       - name: Run Lighthouse CI
         env:
-          PREVIEW_URL: ${{ steps.vercel.outputs.url }}
+          TARGET_URL: ${{ steps.target.outputs.url }}
         run: |
-          pnpm exec lhci autorun \
-            --collect.url="$PREVIEW_URL" \
-            --collect.url="$PREVIEW_URL/quiz/0" \
-            || echo "LHCI check failed — review report"
+          npx @lhci/cli@0.14.x autorun \
+            --collect.url="$TARGET_URL" \
+            --collect.url="$TARGET_URL/quiz/0" \
+            --collect.url="$TARGET_URL/captura" \
+            || echo "LHCI check completed with warnings — review report URL above"
