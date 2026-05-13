@@ -5,6 +5,7 @@ import { postConversion, RdStationError } from '@/lib/rd-station/client';
 import { verifyTurnstile } from '@/lib/turnstile/verify';
 import { checkRateLimit } from '@/lib/rate-limit/in-memory';
 import { saveLead, recordEvent, type StoredLead } from '@/lib/leads/store';
+import { checkIdempotency, recordIdempotent } from '@/lib/leads/idempotency';
 
 export const runtime = 'nodejs';
 
@@ -72,6 +73,24 @@ export async function POST(request: NextRequest) {
 
   const lead = validation.data;
 
+  const cached = checkIdempotency(lead);
+  if (cached) {
+    logJson('info', {
+      event: 'lead_deduplicated',
+      correlationId: cached.correlationId,
+      originalCorrelationId: correlationId,
+    });
+    return NextResponse.json(
+      {
+        success: true,
+        leadId: cached.leadId,
+        correlationId: cached.correlationId,
+        warning: cached.warning ?? 'duplicate_ignored',
+      },
+      { status: 200 },
+    );
+  }
+
   const turnstileResult = await verifyTurnstile(
     lead.turnstileToken,
     ip,
@@ -116,6 +135,7 @@ export async function POST(request: NextRequest) {
       utmSource: lead.utms?.utm_source,
       payload: { leadId, rdStatus: 'token_missing' },
     });
+    recordIdempotent(lead, { leadId, correlationId, warning: 'rd_token_missing' });
     return NextResponse.json(
       {
         success: true,
@@ -145,6 +165,7 @@ export async function POST(request: NextRequest) {
         utmSource: lead.utms?.utm_source,
         payload: { leadId, rdStatus: 'sent' },
       });
+      recordIdempotent(lead, { leadId, correlationId });
       return NextResponse.json({ success: true, leadId, correlationId });
     }
 
