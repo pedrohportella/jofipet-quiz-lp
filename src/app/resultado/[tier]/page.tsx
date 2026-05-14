@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import type { Metadata } from 'next';
 import { ResultClient } from './result-client';
 
 const VALID_TIERS = ['quente', 'morno', 'frio'] as const;
@@ -6,6 +7,13 @@ const VALID_TIERS = ['quente', 'morno', 'frio'] as const;
 export function generateStaticParams() {
   return VALID_TIERS.map((tier) => ({ tier }));
 }
+
+// Página de resultado é pessoal/transacional — não deve ser indexada.
+// Bloqueia bot crawl mesmo se vazar URL.
+export const metadata: Metadata = {
+  title: 'Seu resultado',
+  robots: { index: false, follow: false },
+};
 
 interface PageProps {
   params: { tier: string };

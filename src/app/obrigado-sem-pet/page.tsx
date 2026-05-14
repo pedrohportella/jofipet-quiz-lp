@@ -3,7 +3,8 @@ import { ShareButton } from '@/components/shared/ShareButton';
 import { NewsletterCta } from '@/components/result/NewsletterCta';
 
 export const metadata = {
-  title: 'Obrigada! | Jofi Pet Quiz',
+  title: 'Obrigada',
+  robots: { index: false, follow: false },
 };
 
 export default function ThankYouNoPetPage() {
