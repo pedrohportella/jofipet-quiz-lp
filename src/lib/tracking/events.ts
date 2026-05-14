@@ -105,15 +105,66 @@ export function trackLead(params: {
   });
 }
 
+/**
+ * Dispara InitiateCheckout em ambos os lados:
+ *   - Pixel client (browser) — `fbq('track', ...)` com eventID
+ *   - CAPI server (POST /api/tracking/checkout) com mesmo eventID
+ *
+ * Meta dedup automático faz ambos contarem como 1 evento, mas garante delivery
+ * mesmo com adblock/iOS ATT (server-side sempre chega).
+ *
+ * eventID determinístico: `${leadId}_ic_${context}` → mesmo lead/context produz
+ * mesmo event_id (idempotente). Se usuário recarrega a página, dedup engole.
+ *
+ * `context` ajuda a separar onde o evento foi disparado:
+ *   - 'view' (default): mount do ResultHot/Warm/Cold
+ *   - 'sereninho_click': clique no CTA Sereninho
+ *   - 'wa_click': clique no CTA WhatsApp
+ */
 export function trackInitiateCheckout(params: {
   tier: Tier;
   value?: number;
+  leadId?: string;
+  context?: 'view' | 'sereninho_click' | 'wa_click';
 }): void {
-  fbqTrack('InitiateCheckout', {
-    content_name: params.tier,
-    value: params.value ?? 0,
-    currency: 'BRL',
-  });
+  const value = params.value ?? 0;
+  const context = params.context ?? 'view';
+  const eventID = params.leadId
+    ? `${params.leadId}_ic_${context}`
+    : undefined;
+
+  // 1) Pixel client (browser) — pode falhar por adblock/iOS, OK
+  fbqTrack(
+    'InitiateCheckout',
+    {
+      content_name: params.tier,
+      value,
+      currency: 'BRL',
+    },
+    eventID ? { eventID } : undefined,
+  );
+
+  // 2) CAPI server (fire-and-forget, keepalive sobrevive a navegação)
+  // Só dispara se temos leadId — anonymous server-side é ruído sem benefício.
+  if (typeof window !== 'undefined' && params.leadId && eventID) {
+    fetch('/api/tracking/checkout', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        tier: params.tier,
+        value,
+        eventId: eventID,
+        leadId: params.leadId,
+        context,
+        sourceUrl: window.location.href,
+      }),
+      // keepalive: garante que o request termine mesmo se o usuário navegar
+      // imediatamente após o clique (ex: clicar Sereninho que abre nova aba)
+      keepalive: true,
+    }).catch(() => {
+      // Silent fail — tracking nunca quebra UX
+    });
+  }
 }
 
 export function trackWhatsappClick(params: { tier: Tier; utms?: Utms }): void {

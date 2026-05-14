@@ -15,16 +15,28 @@ import { fbqTrack } from '@/lib/tracking/meta-pixel';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultColdProps {
+  leadId: string | null;
   leadName: string | null;
   answers: Answers;
   whatsappNumber: string;
 }
 
-export function ResultCold({ leadName, answers, whatsappNumber }: ResultColdProps) {
+export function ResultCold({
+  leadId,
+  leadName,
+  answers,
+  whatsappNumber,
+}: ResultColdProps) {
   const vars = buildResultVars({ tier: 'frio', leadName, answers });
 
   useEffect(() => {
-    fbqTrack('ViewContent', { content_name: 'result_cold' });
+    // ResultCold = perfil informativo. ViewContent (não InitiateCheckout) é
+    // o evento certo aqui: usuário viu conteúdo mas não está iniciando compra.
+    // Pixel só (sem CAPI nesse touchpoint pra evitar ruído nos dados).
+    fbqTrack('ViewContent', {
+      content_name: 'result_cold',
+      content_category: 'frio',
+    });
   }, []);
 
   return (

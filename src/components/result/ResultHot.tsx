@@ -16,17 +16,25 @@ import { trackInitiateCheckout } from '@/lib/tracking/events';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultHotProps {
+  leadId: string | null;
   leadName: string | null;
   answers: Answers;
   whatsappNumber: string;
 }
 
-export function ResultHot({ leadName, answers, whatsappNumber }: ResultHotProps) {
+export function ResultHot({ leadId, leadName, answers, whatsappNumber }: ResultHotProps) {
   const vars = buildResultVars({ tier: 'quente', leadName, answers });
 
   useEffect(() => {
-    trackInitiateCheckout({ tier: 'quente' });
-  }, []);
+    // value 89.9 = approx valor do Plano Parceiro (tier quente)
+    // leadId passado → CAPI server-side dispara com mesmo event_id pra dedup
+    trackInitiateCheckout({
+      tier: 'quente',
+      value: 89.9,
+      leadId: leadId ?? undefined,
+      context: 'view',
+    });
+  }, [leadId]);
 
   return (
     <>

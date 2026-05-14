@@ -2,6 +2,7 @@
 
 import { loadStoredUtms } from '@/lib/tracking/utms';
 import { trackInitiateCheckout, trackSereninhoClick } from '@/lib/tracking/events';
+import { useQuizState } from '@/hooks/useQuizState';
 
 interface SereninhoCtaProps {
   baseUrl: string;
@@ -25,6 +26,8 @@ function appendUtms(baseUrl: string, utms: ReturnType<typeof loadStoredUtms>): s
 }
 
 export function SereninhoCta({ baseUrl }: SereninhoCtaProps) {
+  const { state } = useQuizState();
+
   if (!baseUrl) {
     return (
       <div className="rounded-lg bg-cream px-4 py-3 text-sm text-neutral-700">
@@ -37,7 +40,14 @@ export function SereninhoCta({ baseUrl }: SereninhoCtaProps) {
   const finalUrl = appendUtms(baseUrl, utms);
 
   const handleClick = () => {
-    trackInitiateCheckout({ tier: 'morno', value: 49.9 });
+    // context: 'sereninho_click' → eventID = ${leadId}_ic_sereninho_click
+    // diferente do mount (context: 'view') pra não dedupar com o evento de pageview.
+    trackInitiateCheckout({
+      tier: 'morno',
+      value: 49.9,
+      leadId: state.leadId ?? undefined,
+      context: 'sereninho_click',
+    });
     trackSereninhoClick({ utms });
   };
 

@@ -15,18 +15,30 @@ import { trackInitiateCheckout } from '@/lib/tracking/events';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultWarmProps {
+  leadId: string | null;
   leadName: string | null;
   answers: Answers;
   sereninhoUrl: string;
   whatsappNumber: string;
 }
 
-export function ResultWarm({ leadName, answers, sereninhoUrl, whatsappNumber }: ResultWarmProps) {
+export function ResultWarm({
+  leadId,
+  leadName,
+  answers,
+  sereninhoUrl,
+  whatsappNumber,
+}: ResultWarmProps) {
   const vars = buildResultVars({ tier: 'morno', leadName, answers });
 
   useEffect(() => {
-    trackInitiateCheckout({ tier: 'morno', value: 49.9 });
-  }, []);
+    trackInitiateCheckout({
+      tier: 'morno',
+      value: 49.9,
+      leadId: leadId ?? undefined,
+      context: 'view',
+    });
+  }, [leadId]);
 
   return (
     <>

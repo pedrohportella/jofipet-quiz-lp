@@ -41,6 +41,7 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
   if (tier === 'quente') {
     return (
       <ResultHot
+        leadId={state.leadId}
         leadName={state.leadName}
         answers={state.answers}
         whatsappNumber={whatsappNumber}
@@ -51,6 +52,7 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
   if (tier === 'morno') {
     return (
       <ResultWarm
+        leadId={state.leadId}
         leadName={state.leadName}
         answers={state.answers}
         sereninhoUrl={sereninhoUrl}
@@ -61,6 +63,7 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
 
   return (
     <ResultCold
+      leadId={state.leadId}
       leadName={state.leadName}
       answers={state.answers}
       whatsappNumber={whatsappNumber}
