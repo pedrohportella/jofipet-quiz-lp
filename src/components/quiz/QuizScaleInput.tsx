@@ -17,9 +17,13 @@ export function QuizScaleInput({
   const midpoint =
     question.min + Math.round((question.max - question.min) / 2);
   const [localValue, setLocalValue] = useState<number>(value ?? midpoint);
+  const [touched, setTouched] = useState<boolean>(value !== undefined);
 
   useEffect(() => {
-    if (value !== undefined) setLocalValue(value);
+    if (value !== undefined) {
+      setLocalValue(value);
+      setTouched(true);
+    }
   }, [value]);
 
   useEffect(() => {
@@ -29,6 +33,12 @@ export function QuizScaleInput({
   }, []);
 
   const formatted = `${question.prefix ?? ''}${localValue}${question.suffix ?? ''}`;
+
+  const handleChange = (next: number) => {
+    setLocalValue(next);
+    setTouched(true);
+    onChange(next);
+  };
 
   return (
     <div className="flex w-full flex-col gap-4">
@@ -55,17 +65,21 @@ export function QuizScaleInput({
         max={question.max}
         step={question.step}
         value={localValue}
-        onChange={(e) => {
-          const next = Number(e.target.value);
-          setLocalValue(next);
-          onChange(next);
-        }}
+        onChange={(e) => handleChange(Number(e.target.value))}
         aria-label={question.text}
         aria-valuenow={localValue}
         aria-valuemin={question.min}
         aria-valuemax={question.max}
         className="h-2 w-full cursor-pointer appearance-none rounded-full bg-neutral-300 accent-primary"
       />
+      {!touched && (
+        <p
+          className="animate-pulse text-center text-xs font-medium text-primary"
+          aria-live="polite"
+        >
+          👆 Arraste pra ajustar o valor
+        </p>
+      )}
     </div>
   );
 }

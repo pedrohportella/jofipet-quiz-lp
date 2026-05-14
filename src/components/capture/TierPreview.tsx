@@ -7,23 +7,29 @@ interface TierPreviewProps {
   tier: Tier;
 }
 
-const TIER_HEADLINES: Record<Tier, { emoji: string; kicker: string; headline: string; bullet: string }> = {
+const TIER_HEADLINES: Record<
+  Tier,
+  { emoji: string; kicker: string; headline: string; subhead: string; bullet: string }
+> = {
   quente: {
     emoji: '🔥',
-    kicker: 'Identificamos seu perfil',
+    kicker: 'Você é um tutor protetor',
     headline: 'Plano Parceiro',
+    subhead: 'Proteção completa pro seu companheiro de toda hora.',
     bullet: 'Internação 24h + cirurgias + especialistas inclusos',
   },
   morno: {
     emoji: '🌻',
-    kicker: 'Identificamos seu perfil',
+    kicker: 'Você é um tutor consciente',
     headline: 'Plano Sereno',
+    subhead: 'Cuidado preventivo pra ter tranquilidade no dia a dia.',
     bullet: 'Vacinação completa + consultas 24h + exames laboratoriais',
   },
   frio: {
     emoji: '💙',
-    kicker: 'Identificamos seu perfil',
+    kicker: 'Você é um tutor cuidadoso',
     headline: 'Plano Sereninho',
+    subhead: 'O essencial pra começar a cuidar do seu pet com carinho.',
     bullet: 'Consultas + vacinas essenciais + exames iniciais',
   },
 };
@@ -38,9 +44,15 @@ export function TierPreview({ tier }: TierPreviewProps) {
       transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
       className="flex w-full flex-col items-center gap-2 rounded-xl bg-cream px-4 py-5 text-center"
     >
-      <span className="text-3xl" aria-hidden="true">
+      <motion.span
+        className="text-4xl"
+        aria-hidden="true"
+        initial={{ scale: 0.8 }}
+        animate={{ scale: [0.8, 1.1, 1] }}
+        transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
+      >
         {data.emoji}
-      </span>
+      </motion.span>
       <p className="jofi-kicker text-primary">{data.kicker}</p>
       <h2
         className="text-3xl uppercase leading-[0.95] text-neutral-900"
@@ -48,6 +60,7 @@ export function TierPreview({ tier }: TierPreviewProps) {
       >
         {data.headline}
       </h2>
+      <p className="text-sm text-neutral-700">{data.subhead}</p>
       <p className="text-sm text-neutral-700">✓ {data.bullet}</p>
       <p className="mt-1 text-xs font-semibold text-neutral-500">
         Conta seus dados pra liberar o diagnóstico completo →

@@ -3,6 +3,9 @@
 import { useEffect } from 'react';
 import { ArticleCards } from './ArticleCards';
 import { NewsletterCta } from './NewsletterCta';
+import { AttendantCard } from './AttendantCard';
+import { WhatsappCta } from './WhatsappCta';
+import { SaveForLaterCta } from './SaveForLaterCta';
 import {
   buildResultVars,
   getHeadline,
@@ -14,9 +17,10 @@ import type { Answers } from '@/lib/quiz/types';
 interface ResultColdProps {
   leadName: string | null;
   answers: Answers;
+  whatsappNumber: string;
 }
 
-export function ResultCold({ leadName, answers }: ResultColdProps) {
+export function ResultCold({ leadName, answers, whatsappNumber }: ResultColdProps) {
   const vars = buildResultVars({ tier: 'frio', leadName, answers });
 
   useEffect(() => {
@@ -40,6 +44,22 @@ export function ResultCold({ leadName, answers }: ResultColdProps) {
       </p>
       <div className="mt-2 flex w-full max-w-md flex-col gap-4">
         <ArticleCards />
+
+        {/* CTA low-pressure: sem urgência, só conversa.
+            Hipótese: mesmo lead frio que muda de ideia pode querer falar antes de comprar. */}
+        {whatsappNumber && (
+          <div className="border-t border-neutral-300 pt-4">
+            <p className="mb-3 text-left text-sm text-neutral-700">
+              Quer tirar dúvidas sobre o plano sem compromisso?
+            </p>
+            <div className="flex flex-col gap-3">
+              <AttendantCard />
+              <WhatsappCta tier="frio" answers={answers} phoneNumber={whatsappNumber} />
+              <SaveForLaterCta whatsappNumber={whatsappNumber} />
+            </div>
+          </div>
+        )}
+
         <div className="border-t border-neutral-300 pt-4">
           <NewsletterCta label="Receber o guia completo da Jofi" />
         </div>

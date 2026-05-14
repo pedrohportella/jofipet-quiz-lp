@@ -24,6 +24,20 @@ import type {
 
 const AUTO_ADVANCE_DELAY_MS = 200;
 
+/**
+ * Micro-encouragement contextual baseado no progresso.
+ * UX hipothesis: copy emocional reduz drop-off entre steps (especialmente no meio).
+ */
+function getProgressCopy(current: number, total: number): string {
+  const pct = (current / total) * 100;
+  if (current === 1) return 'Vamos lá!';
+  if (current === total) return 'Última! 🎉';
+  if (pct >= 75) return 'Quase lá!';
+  if (pct >= 50) return 'Você está indo bem';
+  if (pct >= 25) return 'Boa, continua';
+  return 'Começando';
+}
+
 export function QuizStep({ stepIndex }: { stepIndex: number }) {
   const { state, dispatch, hydrated } = useQuizState();
   const router = useRouter();
@@ -132,6 +146,14 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
         </span>
       </header>
       <QuizProgressBar current={clampedIndex + 1} total={total} />
+      <div className="mt-1 flex items-center justify-between text-xs">
+        <span className="text-neutral-500">
+          Pergunta {clampedIndex + 1} de {total}
+        </span>
+        <span className="font-semibold text-primary">
+          {getProgressCopy(clampedIndex + 1, total)}
+        </span>
+      </div>
       <div className="mt-2"><SocialProofBadge /></div>
 
       <AnimatePresence mode="wait">

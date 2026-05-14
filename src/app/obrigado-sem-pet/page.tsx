@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ShareButton } from '@/components/shared/ShareButton';
+import { NewsletterCta } from '@/components/result/NewsletterCta';
 
 export const metadata = {
   title: 'Obrigada! | Jofi Pet Quiz',
@@ -32,6 +33,13 @@ export default function ThankYouNoPetPage() {
         >
           Voltar ao início
         </Link>
+      </div>
+
+      <div className="mt-4 w-full max-w-sm border-t border-neutral-300 pt-6">
+        <p className="mb-3 text-sm text-neutral-700">
+          Pensa em ter um pet em breve? A gente te avisa quando estiver pronto 🐾
+        </p>
+        <NewsletterCta label="Receber dicas pra quando tiver um pet" />
       </div>
     </main>
   );

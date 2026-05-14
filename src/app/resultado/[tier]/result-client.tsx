@@ -59,5 +59,11 @@ export function ResultClient({ tier, whatsappNumber, sereninhoUrl }: ResultClien
     );
   }
 
-  return <ResultCold leadName={state.leadName} answers={state.answers} />;
+  return (
+    <ResultCold
+      leadName={state.leadName}
+      answers={state.answers}
+      whatsappNumber={whatsappNumber}
+    />
+  );
 }

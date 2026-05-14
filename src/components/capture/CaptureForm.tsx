@@ -202,19 +202,30 @@ export function CaptureForm() {
         </p>
       )}
 
-      <button
-        type="submit"
-        disabled={isSubmitting || submitState.status === 'submitting'}
-        className="jofi-btn jofi-btn--primary mt-2 w-full"
-      >
-        {isSubmitting || submitState.status === 'submitting'
-          ? 'Enviando…'
-          : 'Ver meu resultado →'}
-      </button>
-
-      <p className="text-center text-xs text-neutral-500">
-        Seus dados ficam protegidos. A gente te liga só sobre o resultado.
-      </p>
+      {/* Sticky CTA no mobile: garante que o botão fique sempre visível mesmo
+          quando o consent LGPD empurra o form pra baixo. No desktop, comportamento normal. */}
+      <div className="sticky bottom-0 -mx-4 mt-2 flex flex-col gap-2 bg-white px-4 py-3 shadow-[0_-4px_12px_rgba(0,0,0,0.04)] md:static md:mx-0 md:mt-2 md:gap-2 md:bg-transparent md:p-0 md:shadow-none">
+        <button
+          type="submit"
+          disabled={isSubmitting || submitState.status === 'submitting'}
+          className="jofi-btn jofi-btn--primary w-full"
+        >
+          {isSubmitting || submitState.status === 'submitting' ? (
+            <span className="flex items-center justify-center gap-2">
+              <span
+                className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
+                aria-hidden="true"
+              />
+              Liberando seu plano…
+            </span>
+          ) : (
+            'Ver meu plano ideal →'
+          )}
+        </button>
+        <p className="text-center text-xs text-neutral-500">
+          🔒 Seus dados ficam protegidos · Só te chamamos sobre o resultado
+        </p>
+      </div>
     </form>
   );
 }
