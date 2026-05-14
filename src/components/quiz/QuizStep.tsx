@@ -13,6 +13,7 @@ import { QuizOption } from './QuizOption';
 import { QuizScaleInput } from './QuizScaleInput';
 import { QuizTextInput } from './QuizTextInput';
 import { QuizMultiChoice } from './QuizMultiChoice';
+import { QuizQuestionHelper } from './QuizQuestionHelper';
 import { SocialProofBadge } from './SocialProofBadge';
 import type {
   AnswerValue,
@@ -178,6 +179,8 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
           <h1 className="text-2xl font-bold leading-tight text-neutral-900 md:text-3xl">
             {question.text}
           </h1>
+
+          <QuizQuestionHelper questionId={question.id} />
 
           <div className="flex-1">
             {question.type === 'single-choice' && (

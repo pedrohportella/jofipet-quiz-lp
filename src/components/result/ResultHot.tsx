@@ -5,6 +5,7 @@ import { ResultBullets } from './ResultBullets';
 import { WhatsappCta } from './WhatsappCta';
 import { AttendantCard } from './AttendantCard';
 import { SaveForLaterCta } from './SaveForLaterCta';
+import { NewsletterCta } from './NewsletterCta';
 import {
   buildResultVars,
   getHeadline,
@@ -47,6 +48,13 @@ export function ResultHot({ leadName, answers, whatsappNumber }: ResultHotProps)
         <AttendantCard />
         <WhatsappCta tier="quente" answers={answers} phoneNumber={whatsappNumber} />
         <SaveForLaterCta whatsappNumber={whatsappNumber} />
+
+        {/* CTA secundário: quem prefere asincronia (não quer WhatsApp agora).
+            UX hypothesis: ~20-30% dos leads quentes preferem proposta por email
+            antes de iniciar conversa — capturar esse segmento evita perda. */}
+        <div className="border-t border-neutral-300 pt-4">
+          <NewsletterCta label="Ou prefere receber uma proposta por email?" />
+        </div>
       </div>
     </>
   );

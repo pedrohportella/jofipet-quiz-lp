@@ -1,10 +1,13 @@
 import Link from 'next/link';
 import { PawPrint } from 'lucide-react';
 import { HomeSocialProof } from '@/components/quiz/HomeSocialProof';
+import { ResumeQuizBanner } from '@/components/quiz/ResumeQuizBanner';
 
 export default function HomePage() {
   return (
-    <main className="mx-auto flex min-h-[100dvh] max-w-mobile flex-col items-center justify-center gap-7 px-4 py-10 text-center md:max-w-desktop">
+    <>
+      <ResumeQuizBanner />
+      <main className="mx-auto flex min-h-[100dvh] max-w-mobile flex-col items-center justify-center gap-7 px-4 py-10 text-center md:max-w-desktop">
       <div className="flex flex-col items-center gap-3">
         <div className="flex items-center gap-2">
           <PawPrint
@@ -48,6 +51,7 @@ export default function HomePage() {
       <p className="text-xs text-neutral-500">
         Sem cadastro pra começar · 100% gratuito
       </p>
-    </main>
+      </main>
+    </>
   );
 }
