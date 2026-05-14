@@ -73,15 +73,32 @@ export function trackQuizComplete(params: {
   });
 }
 
-export function trackLead(params: { tier: Tier; hasEmail: boolean }): void {
-  fbqTrack('Lead', {
-    value: 0,
-    currency: 'BRL',
-    content_name: params.tier,
-  });
-  fbqTrack('CompleteRegistration', {
-    registration_method: 'quiz',
-  });
+export function trackLead(params: {
+  tier: Tier;
+  hasEmail: boolean;
+  /**
+   * Event ID compartilhado com CAPI server-side. Quando passado, Meta deduplica
+   * o evento entre Pixel (browser) e Conversions API (server) — sem isso,
+   * Meta conta como 2 eventos separados.
+   */
+  eventID?: string;
+}): void {
+  const options = params.eventID ? { eventID: params.eventID } : undefined;
+  fbqTrack(
+    'Lead',
+    { value: 0, currency: 'BRL', content_name: params.tier },
+    options,
+  );
+  // CompleteRegistration usa derivado do eventID pra também deduplicar com server
+  // (se quisermos disparar CR via CAPI no futuro)
+  const crOptions = params.eventID
+    ? { eventID: `${params.eventID}_cr` }
+    : undefined;
+  fbqTrack(
+    'CompleteRegistration',
+    { registration_method: 'quiz' },
+    crOptions,
+  );
   gaEvent('generate_lead', {
     tier: params.tier,
     has_email: params.hasEmail,

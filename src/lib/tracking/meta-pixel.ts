@@ -17,11 +17,16 @@ export function hasPixel(): boolean {
 export function fbqTrack(
   event: string,
   params?: Record<string, unknown>,
+  options?: { eventID?: string },
 ): void {
   try {
     if (!hasPixel()) return;
     const fbq = (window as WindowWithFbq).fbq!;
-    if (params) {
+    // Meta Pixel signature: fbq('track', 'EventName', params, { eventID })
+    // eventID é crítico pra dedup com CAPI server-side (mesmo event_id = um evento só).
+    if (params && options?.eventID) {
+      fbq('track', event, params, { eventID: options.eventID });
+    } else if (params) {
       fbq('track', event, params);
     } else {
       fbq('track', event);

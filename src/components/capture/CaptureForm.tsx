@@ -92,12 +92,19 @@ export function CaptureForm() {
       }
 
       const responseBody = await response.json().catch(() => null);
+      const leadId = responseBody?.leadId ?? `lead_${Date.now()}`;
       dispatch({
         type: 'CAPTURE_LEAD',
         name: payload.name,
-        leadId: responseBody?.leadId ?? `lead_${Date.now()}`,
+        leadId,
       });
-      trackLead({ tier: state.tier!, hasEmail: !!payload.email });
+      // Passa leadId como eventID — server-side CAPI usa o mesmo leadId,
+      // garantindo dedup automático no Meta Events Manager.
+      trackLead({
+        tier: state.tier!,
+        hasEmail: !!payload.email,
+        eventID: leadId,
+      });
       router.push(`/resultado/${state.tier}`);
     } catch (error) {
       setSubmitState({
