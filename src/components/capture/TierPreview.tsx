@@ -63,7 +63,7 @@ export function TierPreview({ tier }: TierPreviewProps) {
       <p className="text-sm text-neutral-700">{data.subhead}</p>
       <p className="text-sm text-neutral-700">✓ {data.bullet}</p>
       <p className="mt-1 text-xs font-semibold text-neutral-500">
-        Conta seus dados pra liberar o diagnóstico completo →
+        Conta seus dados e a Nicole te atende no WhatsApp 🐾
       </p>
     </motion.div>
   );
