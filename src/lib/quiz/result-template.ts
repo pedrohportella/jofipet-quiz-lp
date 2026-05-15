@@ -78,10 +78,13 @@ const SUBHEADLINES: Record<Tier, string> = {
   frio: '{primeiroNome}, montamos conteúdo pra você cuidar melhor do seu {especie} 🐾',
 };
 
+// IDADE_LABEL retorna lowercase ("filhote", "adulto", "idoso") — bullets
+// que começam com {idade} viraria "adulto? Cobertura..." (visualmente ruim).
+// Solução: bullets reescritos com {idade} no MEIO da frase, fluindo natural.
 const BULLETS: Record<Tier, string[]> = {
   quente: [
     'Internação 24h + cirurgias + especialistas inclusos',
-    '{idade}? Cobertura imediata com carências reduzidas no plano anual',
+    'Cobertura imediata pro seu pet {idade}, com carências reduzidas no plano anual',
     'Sem coparticipação — você paga só a mensalidade',
   ],
   morno: [
