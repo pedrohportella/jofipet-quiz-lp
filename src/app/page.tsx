@@ -26,7 +26,7 @@ export default function HomePage() {
       </div>
 
       <h1
-        className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-6xl"
+        className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
       >
         Cuidar hoje.

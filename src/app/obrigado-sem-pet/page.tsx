@@ -10,11 +10,11 @@ export const metadata = {
 export default function ThankYouNoPetPage() {
   return (
     <main className="mx-auto flex min-h-[100dvh] max-w-mobile flex-col items-center justify-center gap-6 px-4 py-8 text-center md:max-w-desktop">
-      <span className="text-6xl" aria-hidden="true">
+      <span className="text-5xl md:text-6xl" aria-hidden="true">
         🌟
       </span>
 
-      <h1 className="text-3xl font-extrabold leading-tight text-neutral-900 md:text-4xl">
+      <h1 className="text-2xl font-extrabold leading-tight text-neutral-900 sm:text-3xl md:text-4xl">
         Poxa, a Jofi é pra quem tem pet. 🐾
       </h1>
 

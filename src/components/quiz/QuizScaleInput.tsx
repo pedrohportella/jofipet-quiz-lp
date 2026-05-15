@@ -59,6 +59,10 @@ export function QuizScaleInput({
           {question.suffix ?? ''}
         </span>
       </div>
+      {/* Trilho h-3 mobile (12px) → pareia melhor com thumb 24px definido em
+          globals.css. Em desktop h-2 (8px) — trilho mais discreto pq mouse não
+          precisa de área grande. accent-primary mantém compat de browsers
+          que não respeitam o ::-webkit-slider-thumb custom. */}
       <input
         type="range"
         min={question.min}
@@ -70,7 +74,7 @@ export function QuizScaleInput({
         aria-valuenow={localValue}
         aria-valuemin={question.min}
         aria-valuemax={question.max}
-        className="h-2 w-full cursor-pointer appearance-none rounded-full bg-neutral-300 accent-primary"
+        className="h-3 w-full cursor-pointer rounded-full bg-neutral-300 accent-primary md:h-2"
       />
       {!touched && (
         <p

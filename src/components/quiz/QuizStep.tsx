@@ -147,7 +147,10 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
         </span>
       </header>
       <QuizProgressBar current={clampedIndex + 1} total={total} />
-      <div className="mt-1 flex items-center justify-between text-xs">
+      {/* Header pós-progressbar: em mobile pequeno (<360px), encouragement
+          vai pra linha de baixo via flex-wrap pra evitar truncar.
+          gap-x permite respiro horizontal sem grudar. */}
+      <div className="mt-1 flex flex-wrap items-center justify-between gap-x-2 gap-y-0.5 text-xs">
         <span className="text-neutral-500">
           Pergunta {clampedIndex + 1} de {total}
         </span>
