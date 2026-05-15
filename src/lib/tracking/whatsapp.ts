@@ -1,5 +1,6 @@
 import type { Tier } from '@/lib/quiz/types';
 import type { Utms } from './utms';
+import { getPlanById, type PlanId } from '@/lib/plans/catalog';
 
 /**
  * Invisible Unicode marker that identifies this lead as coming from the quiz LP.
@@ -36,7 +37,8 @@ const ULTIMA_VET_LABEL: Record<string, string> = {
 };
 
 export interface WhatsappBuildInput {
-  tier: Tier;
+  /** Tier do quiz (quando vem do quiz funnel). Opcional pra suportar /oferta LP. */
+  tier?: Tier;
   especie?: string;
   idade?: string;
   utms?: Utms;
@@ -46,6 +48,14 @@ export interface WhatsappBuildInput {
   gastoMensal?: number | null;
   /** ID da resposta de última visita ao vet (menos-1-mes, etc.) */
   ultimaVet?: string | null;
+  /**
+   * Quando lead vem da LP /oferta clicando num plano específico, esse ID é
+   * passado pra mensagem mencionar o plano escolhido em vez do tier do quiz.
+   * Tem precedência sobre `tier` se ambos vierem.
+   */
+  selectedPlanId?: PlanId | null;
+  /** Origem do lead — controla tom da mensagem. Default: 'quiz' (legacy). */
+  source?: 'quiz' | 'oferta_lp';
 }
 
 /**
@@ -75,55 +85,75 @@ function firstName(name: string | null | undefined): string | null {
  * Marker invisível no início pra identificar leads do quiz LP no inbox.
  */
 export function buildWhatsappMessage(input: WhatsappBuildInput): string {
-  const plan = PLAN_BY_TIER[input.tier];
-  const especie = ESPECIE_LABEL[input.especie ?? ''] ?? 'pet';
-  const idade = IDADE_LABEL[input.idade ?? ''] ?? '';
   const nome = firstName(input.leadName);
-
-  const petDescription = idade ? `${especie} ${idade}` : especie;
   const greeting = nome ? `Oi, Jofi! Aqui é ${nome} 🐾` : 'Oi, Jofi! 🐾';
-
   const lines: string[] = [greeting, ''];
 
-  // Pet line
-  lines.push(`Fiz o quiz no site e meu ${petDescription} foi avaliado.`);
+  // === Variante 1: Lead da LP /oferta clicou num plano específico ===
+  if (input.selectedPlanId) {
+    const plan = getPlanById(input.selectedPlanId);
+    if (plan) {
+      lines.push(
+        `Vi o **Plano ${plan.name}** (${plan.priceLabel}) na página de ofertas`,
+      );
+      lines.push('e quero saber mais sobre essa cobertura.');
+      lines.push('');
+      lines.push('Pode me explicar como funciona? 💛');
 
-  // Gasto atual (só se foi respondido — quiz registra mesmo midpoint default)
-  if (
-    typeof input.gastoMensal === 'number' &&
-    Number.isFinite(input.gastoMensal) &&
-    input.gastoMensal > 0
-  ) {
-    lines.push(`Gasto hoje cerca de R$ ${input.gastoMensal}/mês com ele.`);
+      const visibleText = lines.join('\n');
+      return `${visibleText[0]}${QUIZ_INVISIBLE_MARKER}${visibleText.slice(1)}`;
+    }
   }
 
-  // Última vet (sinal extra de prontidão pra Nicole)
-  const ultimaVetLabel = input.ultimaVet
-    ? ULTIMA_VET_LABEL[input.ultimaVet]
-    : null;
-  if (ultimaVetLabel) {
-    lines.push(`Última visita ao vet: ${ultimaVetLabel}.`);
+  // === Variante 2: Lead do quiz com tier definido (caminho legacy) ===
+  if (input.tier) {
+    const plan = PLAN_BY_TIER[input.tier];
+    const especie = ESPECIE_LABEL[input.especie ?? ''] ?? 'pet';
+    const idade = IDADE_LABEL[input.idade ?? ''] ?? '';
+    const petDescription = idade ? `${especie} ${idade}` : especie;
+
+    lines.push(`Fiz o quiz no site e meu ${petDescription} foi avaliado.`);
+
+    if (
+      typeof input.gastoMensal === 'number' &&
+      Number.isFinite(input.gastoMensal) &&
+      input.gastoMensal > 0
+    ) {
+      lines.push(`Gasto hoje cerca de R$ ${input.gastoMensal}/mês com ele.`);
+    }
+
+    const ultimaVetLabel = input.ultimaVet
+      ? ULTIMA_VET_LABEL[input.ultimaVet]
+      : null;
+    if (ultimaVetLabel) {
+      lines.push(`Última visita ao vet: ${ultimaVetLabel}.`);
+    }
+
+    lines.push('');
+
+    if (input.tier === 'quente') {
+      lines.push(
+        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Queria entender melhor pra ativar logo! 💛`,
+      );
+    } else if (input.tier === 'morno') {
+      lines.push(
+        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Posso saber mais como funciona? 💛`,
+      );
+    } else {
+      lines.push(
+        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Gostaria de tirar algumas dúvidas. 💛`,
+      );
+    }
+
+    const visibleText = lines.join('\n');
+    return `${visibleText[0]}${QUIZ_INVISIBLE_MARKER}${visibleText.slice(1)}`;
   }
 
-  lines.push('');
-
-  // CTA por tier
-  if (input.tier === 'quente') {
-    lines.push(
-      `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Queria entender melhor pra ativar logo! 💛`,
-    );
-  } else if (input.tier === 'morno') {
-    lines.push(
-      `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Posso saber mais como funciona? 💛`,
-    );
-  } else {
-    lines.push(
-      `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Gostaria de tirar algumas dúvidas. 💛`,
-    );
-  }
+  // === Variante 3: Fallback genérico (sem tier, sem plano selecionado) ===
+  lines.push('Vi a Jofi no site e quero saber mais sobre os planos.');
+  lines.push('Pode me ajudar? 💛');
 
   const visibleText = lines.join('\n');
-  // Prepend invisible marker no primeiro char (sobrevive copy/paste e é invisível)
   return `${visibleText[0]}${QUIZ_INVISIBLE_MARKER}${visibleText.slice(1)}`;
 }
 

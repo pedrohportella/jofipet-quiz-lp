@@ -1,0 +1,49 @@
+'use client';
+
+import { trackLpOfertaWhatsappClick } from '@/lib/tracking/oferta-events';
+import { trackWhatsappClick } from '@/lib/tracking/events';
+import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
+import { loadStoredUtms } from '@/lib/tracking/utms';
+
+interface MidCtaProps {
+  whatsappNumber: string;
+}
+
+export function MidCta({ whatsappNumber }: MidCtaProps) {
+  const utms = loadStoredUtms();
+  const waUrl = whatsappNumber
+    ? buildWhatsappUrl(whatsappNumber, { utms, source: 'oferta_lp' })
+    : '#planos';
+
+  const handleClick = () => {
+    trackLpOfertaWhatsappClick('mid');
+    if (whatsappNumber) trackWhatsappClick({ tier: 'quente', utms });
+  };
+
+  return (
+    <section className="bg-primary py-12 text-white md:py-16">
+      <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 px-4 text-center md:px-8">
+        <h2
+          className="text-3xl uppercase leading-tight md:text-4xl"
+          style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
+        >
+          Não sabe qual plano escolher?
+        </h2>
+        <p className="max-w-xl text-base opacity-90">
+          A Nicole te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma
+          conversa pra entender o que faz sentido pro seu pet.
+        </p>
+        <a
+          href={waUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={handleClick}
+          className="jofi-btn jofi-btn--whatsapp mt-2 min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
+        >
+          Conversar com a Nicole agora 🐾
+        </a>
+        <p className="text-xs opacity-75">Resposta em minutos · Atendimento 24h</p>
+      </div>
+    </section>
+  );
+}
