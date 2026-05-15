@@ -12,7 +12,7 @@ import { cn } from '@/lib/utils/cn';
  * "dados demais". Explicar o porquê reduz fricção e melhora qualidade
  * do dado (especialmente CEP — chave pra mostrar vets próximos).
  *
- * Microcopy direta, sem juridiquês. Tom Nicole: gentil e transparente.
+ * Microcopy direta, sem juridiquês. Tom Jofi: gentil e transparente.
  */
 const HELPER_TEXTS: Record<string, string> = {
   cep: 'A gente usa o CEP só pra mostrar vets parceiros perto de você. Não é obrigatório — pode pular se preferir.',

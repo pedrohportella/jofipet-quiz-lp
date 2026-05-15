@@ -40,7 +40,7 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
   const ultimaVet = answers['ultima-vet'];
 
   // Mensagem enriquecida com nome, gasto e última visita ao vet —
-  // Nicole abre o chat já com o contexto todo do quiz.
+  // O time abre o chat já com o contexto todo do quiz.
   const url = buildWhatsappUrl(phoneNumber, {
     tier,
     especie,

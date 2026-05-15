@@ -26,7 +26,7 @@ A lista 4 é um **filtro de exclusão** — leads que já são clientes Jofi nã
 ## Workflow 1: Lead QUENTE 🔥
 
 ### Goal
-Ativar lead pro **Plano Parceiro** (R$ 169,90) via Nicole WhatsApp em **<24h**.
+Ativar lead pro **Plano Parceiro** (R$ 169,90) via WhatsApp do time em **<24h**.
 
 ### Trigger
 Lead **entra na lista** "Quiz Jofi — Lead Quente"
@@ -60,9 +60,9 @@ Lead **entra na lista** "Quiz Jofi — Lead Quente"
 #### Step 2 — IMEDIATO: Tag
 - Adicionar tags: `lead-quente`, `aguardando-conversa-nicole`
 
-#### Step 3 — +30 min: Email follow-up se Nicole não tocou
+#### Step 3 — +30 min: Email follow-up se o time não tocou
 - **Condição:** Se contato AINDA tem tag `aguardando-conversa-nicole`
-- **Subject:** `{nome}, ainda dá tempo de falar com a Nicole 🐾`
+- **Subject:** `{nome}, ainda dá tempo de falar com nosso time 🐾`
 - **Body:**
   ```
   Oi {nome}!
@@ -70,10 +70,10 @@ Lead **entra na lista** "Quiz Jofi — Lead Quente"
   Vi que você fez o quiz e teu {cf_pet_especie} {cf_pet_idade}
   precisa do nosso Plano Parceiro.
 
-  A Nicole está no WhatsApp esperando — qualquer dúvida sobre cobertura,
-  preço ou ativação, ela responde rapidinho.
+  Nosso time está no WhatsApp esperando — qualquer dúvida sobre cobertura,
+  preço ou ativação, respondem rapidinho.
 
-  👉 [Falar com Nicole agora] (link WhatsApp pré-preenchido)
+  👉 [Falar com nosso time agora] (link WhatsApp pré-preenchido)
 
   Ou se preferir email, é só responder esse aqui.
 
@@ -97,7 +97,7 @@ Lead **entra na lista** "Quiz Jofi — Lead Quente"
 
   👉 [Ativar Plano Parceiro] (link checkout direto)
 
-  — Nicole, especialista Jofi
+  — Time Jofi, especialistas pet
   ```
 
 #### Step 5 — +3 dias: Última oportunidade (scarcity ético)
@@ -196,7 +196,7 @@ Lead entra na lista "Quiz Jofi — Lead Morno"
   ```
 
 #### Step 5 — +7 dias: Quebra de objeção
-- **Subject:** `{nome}, ainda em dúvida? Tira com a Nicole agora`
+- **Subject:** `{nome}, ainda em dúvida? Tira com nosso time agora`
 - **Body:** Link WhatsApp pré-preenchido com mensagem rica
 
 #### Step 6 — +14 dias: Mover pra newsletter educacional
@@ -367,7 +367,7 @@ Sugestão de UX no email: traduzir slugs pra labels humanos via condicionais do 
 - [ ] Criar 5 templates Workflow 2 (Morno)
 - [ ] Criar 5 templates Workflow 3 (Frio)
 - [ ] Criar 1 template Workflow 4 (Cliente)
-- [ ] Revisão de copy com Nicole/marketing
+- [ ] Revisão de copy com o time/marketing
 
 ### Fase 3 — Fluxos (1h)
 - [ ] Configurar Workflow 1 (Quente) — 6 steps

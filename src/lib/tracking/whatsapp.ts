@@ -80,7 +80,7 @@ function firstName(name: string | null | undefined): string | null {
  *   - Nome do tutor (se disponível)
  *   - Espécie + idade do pet
  *   - Plano recomendado (com preço)
- *   - Gasto mensal (se disponível) — sinaliza budget pra Nicole calibrar
+ *   - Gasto mensal (se disponível) — sinaliza budget pro time calibrar
  *
  * Marker invisível no início pra identificar leads do quiz LP no inbox.
  */

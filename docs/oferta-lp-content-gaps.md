@@ -18,7 +18,7 @@ Cada item tem **status** + **onde editar** + **prioridade**.
 - Confirmar preços (Sereninho R$49,90 / Sereno R$79,90 / Parceiro R$169,90 / Melhor Amigo R$269)
 - Persona alvo (`targetPersona`)
 
-**Por que importa:** se o lead clica "Quero o Parceiro" baseado em bullets errados e a Nicole vende algo diferente, gera atrito. Reduz NPS.
+**Por que importa:** se o lead clica "Quero o Parceiro" baseado em bullets errados e o time vende algo diferente, gera atrito. Reduz NPS.
 
 **Como atualizar:**
 ```ts
@@ -80,7 +80,7 @@ NEXT_PUBLIC_JOFI_VIDEO_URL=https://www.youtube.com/embed/dQw4w9WgXcQ
 **Por que importa:** vídeo aumenta tempo na página em ~80% e taxa de conversão em ~15-25% (Wistia data). Sem vídeo, a LP funciona — só não capitaliza esse vetor.
 
 **O vídeo pode ser:**
-- Explainer 30s da Nicole se apresentando + 3 motivos pra escolher Jofi
+- Explainer 30s do time da Jofi se apresentando + 3 motivos pra escolher Jofi
 - Casos reais de tutores narrados
 - Time da Jofi em ação na clínica
 
@@ -140,13 +140,13 @@ import Image from 'next/image';
 ### 7. Revisar bullets de problema/solução
 **Onde:** `src/components/oferta/Problem.tsx` e `Solution.tsx`
 
-Copy escrito no tom Nicole baseado no que a memory do projeto tem. Vale a Nicole bater olho e validar se "fala como Jofi fala" ou ajustar.
+Copy escrito no tom Jofi baseado no que a memory do projeto tem. Vale o time bater olho e validar se "fala como Jofi fala" ou ajustar.
 
 ### 8. FAQ — adicionar perguntas reais
 **Onde:** `src/components/oferta/FAQ.tsx` array `FAQ_ITEMS`
 
 Hoje tem 7 perguntas genéricas mas plausíveis. Idealmente:
-- Adicionar 2-3 perguntas baseadas em **dúvidas reais que a Nicole recebe** no WhatsApp
+- Adicionar 2-3 perguntas baseadas em **dúvidas reais que o time recebe** no WhatsApp
 - Remover ou ajustar respostas que não batem com o que a Jofi pratica (ex: "30 dias pra cancelar" — confirmar se é esse o prazo)
 
 ---
@@ -175,7 +175,7 @@ NEXT_PUBLIC_JOFI_VIDEO_URL=https://www.youtube.com/embed/XXX
 1. Abre `https://jofipet-quiz-lp.vercel.app/oferta` (modo anônimo)
 2. Verifica:
    - [ ] Hero abre rápido (LCP <2s)
-   - [ ] Botão "Falar com Nicole" abre WhatsApp com mensagem genérica
+   - [ ] Botão "Falar com nosso time" abre WhatsApp com mensagem genérica
    - [ ] Scroll por todas as 11 seções sem layout quebrado
    - [ ] Cada um dos 4 cards de plano abre WhatsApp com mensagem **mencionando o plano clicado**
    - [ ] FAQ abre e fecha cada item
@@ -212,7 +212,7 @@ quiz-lp.vercel.app/            vercel.app/oferta
 | CTR LP→Lead | ?% | ?% | maior |
 | EAQ médio | 9.3 | ?.? | similar/maior |
 | % leads quentes | ?% | n/a | quiz vence aqui (sem segmentação na LP) |
-| Conversão Lead→Venda (Nicole) | ?% | ?% | maior |
+| Conversão Lead→Venda (Time) | ?% | ?% | maior |
 | Taxa de WhatsApp resposta | ?% | ?% | maior |
 | CAC final | R$ ? | R$ ? | menor |
 

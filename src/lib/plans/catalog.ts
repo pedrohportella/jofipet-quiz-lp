@@ -111,7 +111,7 @@ export const PLANS: Plan[] = [
       'Quimioterapia + radioterapia', // VERIFICAR JOFI
       'Fisioterapia + acupuntura veterinária', // VERIFICAR JOFI
       'Reembolso de despesas externas até R$ 5.000/ano', // VERIFICAR JOFI
-      'Atendimento prioritário Nicole VIP',
+      'Atendimento prioritário VIP',
     ],
     waitingDays: 90, // VERIFICAR JOFI
     popular: false,
@@ -142,5 +142,5 @@ export const TIER_TO_PLAN: Record<'quente' | 'morno' | 'frio', PlanId> = {
   morno: 'sereno',
   frio: 'sereninho',
   // Nota: Melhor Amigo NÃO é recomendado direto pelo quiz — é upsell
-  // que aparece como opção pro lead na LP /oferta e na conversa com Nicole.
+  // que aparece como opção pro lead na LP /oferta e na conversa com o time.
 };
