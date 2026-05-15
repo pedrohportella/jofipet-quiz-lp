@@ -87,7 +87,7 @@ export function Hero({ whatsappNumber }: HeroProps) {
               onClick={handleClick}
               className="jofi-btn jofi-btn--whatsapp w-full sm:w-auto sm:min-w-[280px]"
             >
-              Falar com a Nicole no WhatsApp 🐾
+              Falar com nosso time no WhatsApp 🐾
             </a>
             <a
               href="#planos"

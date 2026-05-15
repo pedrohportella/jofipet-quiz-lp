@@ -167,7 +167,7 @@ function PlanCard({ plan, whatsappNumber, utms }: PlanCardProps) {
         rel="noopener noreferrer"
         onClick={handleClick}
         className={cn('jofi-btn mt-2 w-full text-center', buttonClass)}
-        aria-label={`Quero o Plano ${plan.name} — falar com a Nicole`}
+        aria-label={`Quero o Plano ${plan.name} — falar com nosso time`}
       >
         Quero o {plan.name} →
       </a>

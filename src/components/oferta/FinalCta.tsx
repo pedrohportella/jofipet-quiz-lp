@@ -35,7 +35,7 @@ export function FinalCta({ whatsappNumber }: FinalCtaProps) {
           <span className="text-accent">do jeito certo?</span>
         </h2>
         <p className="max-w-md text-base text-neutral-700 md:text-lg">
-          A Nicole tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher o plano
+          Nosso time tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher o plano
           ideal pro seu pet. Sem compromisso. 💛
         </p>
         <a
@@ -46,7 +46,7 @@ export function FinalCta({ whatsappNumber }: FinalCtaProps) {
           // w-full mobile (max-w-sm pra não esticar demais), min-w em sm+
           className="jofi-btn jofi-btn--whatsapp jofi-btn--pulse mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px]"
         >
-          Falar com a Nicole agora 🐾
+          Falar com nosso time agora 🐾
         </a>
         <p className="text-xs text-neutral-500">
           Atendimento humano · Resposta em minutos · Sem fidelidade

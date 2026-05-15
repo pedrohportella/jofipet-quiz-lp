@@ -30,7 +30,7 @@ export function MidCta({ whatsappNumber }: MidCtaProps) {
           Não sabe qual plano escolher?
         </h2>
         <p className="max-w-xl text-base opacity-90">
-          A Nicole te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma
+          Nosso time te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma
           conversa pra entender o que faz sentido pro seu pet.
         </p>
         <a
@@ -40,7 +40,7 @@ export function MidCta({ whatsappNumber }: MidCtaProps) {
           onClick={handleClick}
           className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
         >
-          Conversar com a Nicole agora 🐾
+          Conversar com nosso time agora 🐾
         </a>
         <p className="text-xs opacity-75">Resposta em minutos · Atendimento 24h</p>
       </div>

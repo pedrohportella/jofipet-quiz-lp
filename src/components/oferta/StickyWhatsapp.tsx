@@ -62,7 +62,7 @@ export function StickyWhatsapp({ whatsappNumber }: StickyWhatsappProps) {
             right: `max(1rem, env(safe-area-inset-right))`,
           }}
           className="fixed z-50 flex items-center gap-2 rounded-full bg-success-500 px-4 py-3 text-sm font-semibold text-white shadow-xl transition-shadow hover:bg-success-600 hover:shadow-2xl md:px-5 md:py-3.5 md:text-base"
-          aria-label="Falar com Nicole no WhatsApp"
+          aria-label="Falar com nosso time no WhatsApp"
         >
           <MessageCircle className="h-5 w-5" aria-hidden="true" />
           <span>Falar agora</span>

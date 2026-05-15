@@ -11,7 +11,7 @@ const BENEFITS = [
   {
     icon: MessageCircle,
     title: 'Atendimento humano 24h',
-    body: 'A Nicole e o time Jofi tiram suas dúvidas no WhatsApp, qualquer hora. Sem chatbot, sem URA.',
+    body: 'Nosso time tira suas dúvidas no WhatsApp, qualquer hora. Sem chatbot, sem URA.',
   },
   {
     icon: Stethoscope,

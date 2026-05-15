@@ -19,25 +19,25 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'cobertura',
     question: 'O que a Jofi cobre exatamente?',
     answer:
-      'Depende do plano. Sereninho cobre consultas, vacinas e exames essenciais. Sereno adiciona exames de imagem e atendimento 24h. Parceiro inclui internação, cirurgias e especialistas. Melhor Amigo é a cobertura máxima — desde tratamento oncológico até fisioterapia. A Nicole te ajuda a escolher o que faz sentido pro seu pet.',
+      'Depende do plano. Sereninho cobre consultas, vacinas e exames essenciais. Sereno adiciona exames de imagem e atendimento 24h. Parceiro inclui internação, cirurgias e especialistas. Melhor Amigo é a cobertura máxima — desde tratamento oncológico até fisioterapia. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
   },
   {
     id: 'carencia',
     question: 'Qual o tempo de carência?',
     answer:
-      'A carência varia por plano: Sereninho e Sereno têm 30 dias, Parceiro 60 dias, Melhor Amigo 90 dias. Pra emergências há condições especiais — pergunte à Nicole no WhatsApp.',
+      'A carência varia por plano: Sereninho e Sereno têm 30 dias, Parceiro 60 dias, Melhor Amigo 90 dias. Pra emergências há condições especiais — pergunte ao nosso time no WhatsApp.',
   },
   {
     id: 'cancelamento',
     question: 'Posso cancelar quando quiser?',
     answer:
-      'Sim. Nenhum plano Jofi tem fidelidade. Você cancela a qualquer momento pelo WhatsApp da Nicole ou pelo email de contato. Sem multa, sem burocracia.',
+      'Sim. Nenhum plano Jofi tem fidelidade. Você cancela a qualquer momento pelo WhatsApp do nosso time ou pelo email de contato. Sem multa, sem burocracia.',
   },
   {
     id: 'rede',
     question: 'Onde encontro vets parceiros Jofi?',
     answer:
-      'Temos rede credenciada nas principais cidades do Brasil. Quando você assina, a Nicole te envia o mapa de vets parceiros perto do seu CEP. Se sua região ainda não tem rede, oferecemos reembolso em vets de sua escolha (consulte condições no plano Melhor Amigo).',
+      'Temos rede credenciada nas principais cidades do Brasil. Quando você assina, nosso time te envia o mapa de vets parceiros perto do seu CEP. Se sua região ainda não tem rede, oferecemos reembolso em vets de sua escolha (consulte condições no plano Melhor Amigo).',
   },
   {
     id: 'pet-idoso',
@@ -49,7 +49,7 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'gato',
     question: 'A Jofi atende gatos também?',
     answer:
-      'Sim. Todos os planos cobrem cães e gatos. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pra Nicole se seu caso entra na cobertura.',
+      'Sim. Todos os planos cobrem cães e gatos. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra na cobertura.',
   },
   {
     id: 'pagamento',
@@ -127,7 +127,7 @@ export function FAQ() {
 
         <p className="mt-8 text-center text-sm text-neutral-700">
           Não achou sua pergunta?{' '}
-          <strong className="text-primary">A Nicole responde no WhatsApp</strong>.
+          <strong className="text-primary">Nosso time responde no WhatsApp</strong>.
         </p>
       </div>
     </section>

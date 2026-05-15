@@ -286,7 +286,7 @@ export function CaptureForm() {
               Liberando seu plano…
             </span>
           ) : WHATSAPP_NUMBER ? (
-            'Falar com a Nicole no WhatsApp 🐾'
+            'Falar com nosso time no WhatsApp 🐾'
           ) : (
             'Ver meu plano ideal →'
           )}
@@ -343,7 +343,7 @@ function RedirectingOverlay({ name }: { name: string }) {
 
         <div className="flex flex-col gap-2">
           <p className="text-xl font-extrabold leading-tight text-neutral-900 md:text-2xl">
-            {greeting} Te conectando com a Nicole…
+            {greeting} Te conectando com nosso time…
           </p>
           <p className="text-sm text-neutral-700">
             O WhatsApp vai abrir em segundos. Pode deixar — já vai com seu perfil

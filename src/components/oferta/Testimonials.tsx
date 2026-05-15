@@ -23,7 +23,7 @@ const TESTIMONIALS: Testimonial[] = [
     rating: 5,
     initial: 'C',
     body:
-      'Tinha medo de assinar plano pet porque achei que era pegadinha. A Nicole me explicou tudo no WhatsApp em 10 minutos. Já usei pra 2 emergências do Théo. Vale cada centavo.',
+      'Tinha medo de assinar plano pet porque achei que era pegadinha. O time da Jofi me explicou tudo no WhatsApp em 10 minutos. Já usei pra 2 emergências do Théo. Vale cada centavo.',
   },
   {
     name: 'Roberto M.',

@@ -138,7 +138,7 @@ export function WhatsappAutoRedirect({
             </div>
             <div className="flex-1">
               <p className="text-sm font-bold leading-tight text-success-700">
-                A Nicole tá te esperando no WhatsApp
+                Nosso time tá te esperando no WhatsApp
               </p>
               <p className="mt-0.5 text-xs text-success-700">
                 Te conectando em{' '}
