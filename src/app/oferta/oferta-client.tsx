@@ -13,33 +13,35 @@ import { FAQ } from '@/components/oferta/FAQ';
 import { FinalCta } from '@/components/oferta/FinalCta';
 import { OfertaFooter } from '@/components/oferta/Footer';
 import { StickyWhatsapp } from '@/components/oferta/StickyWhatsapp';
+import { OfertaCaptureProvider } from '@/components/oferta/OfertaCaptureContext';
 import {
   trackLpOfertaScroll,
   trackLpOfertaView,
 } from '@/lib/tracking/oferta-events';
 
 interface OfertaClientProps {
-  whatsappNumber: string;
   /** URL embed do vídeo institucional (opcional, mostra placeholder se vazio) */
   videoEmbedUrl?: string;
 }
 
 /**
- * Orquestrador da LP /oferta. Compõe todas as seções + tracking global.
+ * Orquestrador da LP /oferta.
+ *
+ * Wraps tudo em <OfertaCaptureProvider> pra que cada CTA WhatsApp/plano
+ * abra o popup de captura em vez de WhatsApp direto. Lead vai pro RD/CAPI/
+ * Admin antes de virar conversa.
  *
  * Tracking:
  *   - lp_oferta_view ao mount
  *   - lp_oferta_scroll em 25/50/75/100% (debounce)
  */
-export function OfertaClient({ whatsappNumber, videoEmbedUrl }: OfertaClientProps) {
+export function OfertaClient({ videoEmbedUrl }: OfertaClientProps) {
   const milestonesFired = useRef<Set<25 | 50 | 75 | 100>>(new Set());
 
-  // Mount tracking — disparado uma vez na primeira renderização client
   useEffect(() => {
     trackLpOfertaView();
   }, []);
 
-  // Scroll depth tracking — milestones em 25/50/75/100%
   useEffect(() => {
     const onScroll = () => {
       const scrollPercent = Math.min(
@@ -67,24 +69,24 @@ export function OfertaClient({ whatsappNumber, videoEmbedUrl }: OfertaClientProp
     };
 
     window.addEventListener('scroll', throttled, { passive: true });
-    onScroll(); // init
+    onScroll();
     return () => window.removeEventListener('scroll', throttled);
   }, []);
 
   return (
-    <>
-      <Hero whatsappNumber={whatsappNumber} />
+    <OfertaCaptureProvider>
+      <Hero />
       <Problem />
       <Solution />
       <VideoSection videoEmbedUrl={videoEmbedUrl} />
-      <PlanComparison whatsappNumber={whatsappNumber} />
+      <PlanComparison />
       <Testimonials />
-      <MidCta whatsappNumber={whatsappNumber} />
+      <MidCta />
       <Guarantee />
       <FAQ />
-      <FinalCta whatsappNumber={whatsappNumber} />
+      <FinalCta />
       <OfertaFooter />
-      <StickyWhatsapp whatsappNumber={whatsappNumber} />
-    </>
+      <StickyWhatsapp />
+    </OfertaCaptureProvider>
   );
 }

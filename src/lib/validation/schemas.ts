@@ -3,7 +3,7 @@ import { z } from 'zod';
 const TIER_VALUES = ['quente', 'morno', 'frio'] as const;
 const ANSWER_VALUE = z.union([z.string(), z.number(), z.array(z.string())]);
 
-const WHATSAPP_BR_REGEX = /^\(\d{2}\)\s?9?\d{4}-\d{4}$/;
+export const WHATSAPP_BR_REGEX = /^\(\d{2}\)\s?9?\d{4}-\d{4}$/;
 const NAME_REGEX = /^[\p{L}\s'-]{2,80}$/u;
 
 export const CaptureFormSchema = z.object({

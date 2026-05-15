@@ -38,17 +38,13 @@ export const metadata: Metadata = {
 };
 
 export default function OfertaPage() {
-  const whatsappNumber = process.env.NEXT_PUBLIC_JOFI_WHATSAPP ?? '';
   // TODO Pedro/Jofi: setar env NEXT_PUBLIC_JOFI_VIDEO_URL com URL do YouTube/Vimeo
   // Quando setado, o VideoSection renderiza embed real ao invés de placeholder.
   const videoEmbedUrl = process.env.NEXT_PUBLIC_JOFI_VIDEO_URL;
 
   return (
     <main className="min-h-screen bg-white">
-      <OfertaClient
-        whatsappNumber={whatsappNumber}
-        videoEmbedUrl={videoEmbedUrl}
-      />
+      <OfertaClient videoEmbedUrl={videoEmbedUrl} />
     </main>
   );
 }

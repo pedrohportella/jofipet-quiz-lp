@@ -1,23 +1,12 @@
 'use client';
 
-import { trackLpOfertaWhatsappClick } from '@/lib/tracking/oferta-events';
-import { trackWhatsappClick } from '@/lib/tracking/events';
-import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
-import { loadStoredUtms } from '@/lib/tracking/utms';
+import { useOfertaCapture } from './OfertaCaptureContext';
 
-interface MidCtaProps {
-  whatsappNumber: string;
-}
-
-export function MidCta({ whatsappNumber }: MidCtaProps) {
-  const utms = loadStoredUtms();
-  const waUrl = whatsappNumber
-    ? buildWhatsappUrl(whatsappNumber, { utms, source: 'oferta_lp' })
-    : '#planos';
+export function MidCta() {
+  const { open } = useOfertaCapture();
 
   const handleClick = () => {
-    trackLpOfertaWhatsappClick('mid');
-    if (whatsappNumber) trackWhatsappClick({ tier: 'quente', utms });
+    open({ source: 'mid' });
   };
 
   return (
@@ -33,15 +22,13 @@ export function MidCta({ whatsappNumber }: MidCtaProps) {
           Nosso time te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma
           conversa pra entender o que faz sentido pro seu pet.
         </p>
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           onClick={handleClick}
           className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
         >
           Conversar com nosso time agora 🐾
-        </a>
+        </button>
         <p className="text-xs opacity-75">Resposta em minutos · Atendimento 24h</p>
       </div>
     </section>

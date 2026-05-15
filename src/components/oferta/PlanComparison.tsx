@@ -3,34 +3,18 @@
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PLANS, type Plan } from '@/lib/plans/catalog';
-import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
-import { loadStoredUtms } from '@/lib/tracking/utms';
-import {
-  trackLpOfertaPlanClick,
-  trackLpOfertaWhatsappClick,
-} from '@/lib/tracking/oferta-events';
-import { trackWhatsappClick } from '@/lib/tracking/events';
 import { cn } from '@/lib/utils/cn';
-
-interface PlanComparisonProps {
-  whatsappNumber: string;
-}
+import { useOfertaCapture } from './OfertaCaptureContext';
 
 /**
  * Tabela visual dos 4 planos Jofi.
  *
- * UX:
- *   - Mobile (1 col): cards empilhados, plano popular destacado
- *   - Desktop (4 cols): grid horizontal, popular tem badge "Mais escolhido"
- *
- * Tracking: cada clique em "Quero esse plano" dispara:
- *   - trackLpOfertaPlanClick(planId, 'card')
- *   - trackWhatsappClick (mantém compat com Pixel/CAPI)
- *   - Redirect pro WhatsApp com mensagem rica mencionando o plano
+ * Cada clique em "Quero o Plano X" abre o popup de captura
+ * (OfertaCaptureModal). Lead preenche dados, sistema envia pro
+ * RD/CAPI/Admin, depois redireciona pro WhatsApp com mensagem rica
+ * mencionando o plano selecionado.
  */
-export function PlanComparison({ whatsappNumber }: PlanComparisonProps) {
-  const utms = loadStoredUtms();
-
+export function PlanComparison() {
   return (
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
@@ -52,12 +36,7 @@ export function PlanComparison({ whatsappNumber }: PlanComparisonProps) {
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5 lg:grid-cols-4">
           {PLANS.map((plan) => (
-            <PlanCard
-              key={plan.id}
-              plan={plan}
-              whatsappNumber={whatsappNumber}
-              utms={utms}
-            />
+            <PlanCard key={plan.id} plan={plan} />
           ))}
         </div>
 
@@ -72,25 +51,13 @@ export function PlanComparison({ whatsappNumber }: PlanComparisonProps) {
 
 interface PlanCardProps {
   plan: Plan;
-  whatsappNumber: string;
-  utms: ReturnType<typeof loadStoredUtms>;
 }
 
-function PlanCard({ plan, whatsappNumber, utms }: PlanCardProps) {
-  const waUrl = whatsappNumber
-    ? buildWhatsappUrl(whatsappNumber, {
-        utms,
-        selectedPlanId: plan.id,
-        source: 'oferta_lp',
-      })
-    : '#';
+function PlanCard({ plan }: PlanCardProps) {
+  const { open } = useOfertaCapture();
 
   const handleClick = () => {
-    trackLpOfertaPlanClick(plan.id, 'card');
-    trackLpOfertaWhatsappClick('mid'); // CTA da seção de planos = "mid"
-    if (whatsappNumber) {
-      trackWhatsappClick({ tier: 'quente', utms });
-    }
+    open({ source: 'card', selectedPlanId: plan.id });
   };
 
   const accentClass = {
@@ -114,15 +81,11 @@ function PlanCard({ plan, whatsappNumber, utms }: PlanCardProps) {
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.4 }}
       className={cn(
-        // pt-7 mobile pra dar espaço pro badge "Mais escolhido" sem quebrar
-        // o conteúdo. Em desktop volta pro p-6 normal.
         'relative flex flex-col gap-4 rounded-2xl border-2 bg-white p-5 pt-7 transition-shadow hover:shadow-lg md:p-6 md:pt-7',
         accentClass,
       )}
     >
       {plan.popular && (
-        // whitespace-nowrap garante que badge não quebre em 2 linhas
-        // max-w + truncate como fallback se viewport for absurdamente pequeno
         <div className="absolute -top-3 left-1/2 max-w-[90%] -translate-x-1/2 truncate whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm md:text-xs">
           ⭐ Mais escolhido
         </div>
@@ -161,16 +124,14 @@ function PlanCard({ plan, whatsappNumber, utms }: PlanCardProps) {
         ))}
       </ul>
 
-      <a
-        href={waUrl}
-        target="_blank"
-        rel="noopener noreferrer"
+      <button
+        type="button"
         onClick={handleClick}
         className={cn('jofi-btn mt-2 w-full text-center', buttonClass)}
         aria-label={`Quero o Plano ${plan.name} — falar com nosso time`}
       >
         Quero o {plan.name} →
-      </a>
+      </button>
     </motion.article>
   );
 }

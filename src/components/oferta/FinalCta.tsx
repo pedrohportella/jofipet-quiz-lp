@@ -1,23 +1,12 @@
 'use client';
 
-import { trackLpOfertaWhatsappClick } from '@/lib/tracking/oferta-events';
-import { trackWhatsappClick } from '@/lib/tracking/events';
-import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
-import { loadStoredUtms } from '@/lib/tracking/utms';
+import { useOfertaCapture } from './OfertaCaptureContext';
 
-interface FinalCtaProps {
-  whatsappNumber: string;
-}
-
-export function FinalCta({ whatsappNumber }: FinalCtaProps) {
-  const utms = loadStoredUtms();
-  const waUrl = whatsappNumber
-    ? buildWhatsappUrl(whatsappNumber, { utms, source: 'oferta_lp' })
-    : '#planos';
+export function FinalCta() {
+  const { open } = useOfertaCapture();
 
   const handleClick = () => {
-    trackLpOfertaWhatsappClick('final');
-    if (whatsappNumber) trackWhatsappClick({ tier: 'quente', utms });
+    open({ source: 'final' });
   };
 
   return (
@@ -38,16 +27,13 @@ export function FinalCta({ whatsappNumber }: FinalCtaProps) {
           Nosso time tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher o plano
           ideal pro seu pet. Sem compromisso. 💛
         </p>
-        <a
-          href={waUrl}
-          target="_blank"
-          rel="noopener noreferrer"
+        <button
+          type="button"
           onClick={handleClick}
-          // w-full mobile (max-w-sm pra não esticar demais), min-w em sm+
           className="jofi-btn jofi-btn--whatsapp jofi-btn--pulse mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px]"
         >
           Falar com nosso time agora 🐾
-        </a>
+        </button>
         <p className="text-xs text-neutral-500">
           Atendimento humano · Resposta em minutos · Sem fidelidade
         </p>

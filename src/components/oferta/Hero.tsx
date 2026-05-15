@@ -2,32 +2,19 @@
 
 import { PawPrint } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { trackLpOfertaWhatsappClick } from '@/lib/tracking/oferta-events';
-import { trackWhatsappClick } from '@/lib/tracking/events';
-import { loadStoredUtms } from '@/lib/tracking/utms';
-import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
+import { useOfertaCapture } from './OfertaCaptureContext';
 
-interface HeroProps {
-  whatsappNumber: string;
-}
-
-export function Hero({ whatsappNumber }: HeroProps) {
-  const utms = loadStoredUtms();
-  const waUrl = whatsappNumber
-    ? buildWhatsappUrl(whatsappNumber, { utms, source: 'oferta_lp' })
-    : '#planos';
+export function Hero() {
+  const { open } = useOfertaCapture();
 
   const handleClick = () => {
-    trackLpOfertaWhatsappClick('hero');
-    if (whatsappNumber) trackWhatsappClick({ tier: 'quente', utms });
+    open({ source: 'hero' });
   };
 
   return (
     <section className="relative w-full overflow-hidden bg-gradient-to-b from-primary/5 via-secondary to-secondary">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 pb-10 pt-8 text-center md:flex-row md:gap-12 md:px-8 md:py-20 md:text-left">
-        {/* Visual MOBILE-ONLY: aparece em mobile no topo, com altura controlada
-            pra não dominar viewport. Cria âncora emocional antes do texto.
-            Em desktop, esse fica oculto (o visual desktop entra ao lado). */}
+        {/* Visual mobile-only */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -41,15 +28,12 @@ export function Hero({ whatsappNumber }: HeroProps) {
           </div>
         </motion.div>
 
-        {/* Texto */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="flex-1"
         >
-          {/* Header da marca — stack vertical mobile (evita overflow em 320px),
-              row em sm+ */}
           <div className="mb-4 flex flex-col items-center gap-1 sm:flex-row sm:flex-wrap sm:gap-2 md:justify-start">
             <div className="flex items-center gap-2">
               <PawPrint className="h-6 w-6 text-primary md:h-7 md:w-7" strokeWidth={2.5} aria-hidden="true" />
@@ -77,18 +61,14 @@ export function Hero({ whatsappNumber }: HeroProps) {
             cobertura ampla e zero burocracia. Mais de 500 tutores já cuidam com a Jofi 🐾
           </p>
 
-          {/* CTA — w-full mobile pra ocupar viewport, max-w pra não esticar absurdo
-              em tablet portrait; sm:min-w aplicável só em sm+ */}
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
-            <a
-              href={waUrl}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              type="button"
               onClick={handleClick}
               className="jofi-btn jofi-btn--whatsapp w-full sm:w-auto sm:min-w-[280px]"
             >
               Falar com nosso time no WhatsApp 🐾
-            </a>
+            </button>
             <a
               href="#planos"
               className="text-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary-700 sm:text-left"
@@ -102,7 +82,7 @@ export function Hero({ whatsappNumber }: HeroProps) {
           </p>
         </motion.div>
 
-        {/* Visual DESKTOP — escondido em mobile (já tem o visual mobile acima) */}
+        {/* Visual desktop */}
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
