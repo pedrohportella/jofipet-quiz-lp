@@ -21,10 +21,10 @@ export function MidCta({ whatsappNumber }: MidCtaProps) {
   };
 
   return (
-    <section className="bg-primary py-12 text-white md:py-16">
+    <section className="bg-primary py-10 text-white md:py-16">
       <div className="mx-auto flex max-w-4xl flex-col items-center gap-4 px-4 text-center md:px-8">
         <h2
-          className="text-3xl uppercase leading-tight md:text-4xl"
+          className="text-2xl uppercase leading-tight sm:text-3xl md:text-4xl"
           style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
         >
           Não sabe qual plano escolher?
@@ -38,7 +38,7 @@ export function MidCta({ whatsappNumber }: MidCtaProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
-          className="jofi-btn jofi-btn--whatsapp mt-2 min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
+          className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
         >
           Conversar com a Nicole agora 🐾
         </a>

@@ -114,12 +114,16 @@ function PlanCard({ plan, whatsappNumber, utms }: PlanCardProps) {
       viewport={{ once: true, margin: '-80px' }}
       transition={{ duration: 0.4 }}
       className={cn(
-        'relative flex flex-col gap-4 rounded-2xl border-2 bg-white p-6 transition-shadow hover:shadow-lg',
+        // pt-7 mobile pra dar espaço pro badge "Mais escolhido" sem quebrar
+        // o conteúdo. Em desktop volta pro p-6 normal.
+        'relative flex flex-col gap-4 rounded-2xl border-2 bg-white p-5 pt-7 transition-shadow hover:shadow-lg md:p-6 md:pt-7',
         accentClass,
       )}
     >
       {plan.popular && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-accent px-3 py-1 text-xs font-bold uppercase tracking-wider text-white shadow-sm">
+        // whitespace-nowrap garante que badge não quebre em 2 linhas
+        // max-w + truncate como fallback se viewport for absurdamente pequeno
+        <div className="absolute -top-3 left-1/2 max-w-[90%] -translate-x-1/2 truncate whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm md:text-xs">
           ⭐ Mais escolhido
         </div>
       )}

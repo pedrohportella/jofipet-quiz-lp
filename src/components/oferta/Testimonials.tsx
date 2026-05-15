@@ -80,7 +80,7 @@ export function Testimonials() {
                   />
                 ))}
               </div>
-              <p className="text-sm leading-relaxed text-neutral-700">
+              <p className="text-[15px] leading-relaxed text-neutral-700 md:text-sm">
                 &ldquo;{t.body}&rdquo;
               </p>
               <footer className="flex items-center gap-3 border-t border-neutral-200 pt-4">

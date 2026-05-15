@@ -21,13 +21,13 @@ export function FinalCta({ whatsappNumber }: FinalCtaProps) {
   };
 
   return (
-    <section className="bg-gradient-to-b from-secondary to-cream py-16 md:py-24">
-      <div className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-4 text-center md:px-8">
-        <span className="text-6xl" aria-hidden="true">
+    <section className="bg-gradient-to-b from-secondary to-cream py-12 md:py-24">
+      <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 px-4 text-center md:gap-6 md:px-8">
+        <span className="text-5xl md:text-6xl" aria-hidden="true">
           🐾
         </span>
         <h2
-          className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
+          className="text-3xl uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-5xl"
           style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
         >
           Pronto pra cuidar
@@ -43,7 +43,8 @@ export function FinalCta({ whatsappNumber }: FinalCtaProps) {
           target="_blank"
           rel="noopener noreferrer"
           onClick={handleClick}
-          className="jofi-btn jofi-btn--whatsapp jofi-btn--pulse mt-2 min-w-[280px]"
+          // w-full mobile (max-w-sm pra não esticar demais), min-w em sm+
+          className="jofi-btn jofi-btn--whatsapp jofi-btn--pulse mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px]"
         >
           Falar com a Nicole agora 🐾
         </a>
