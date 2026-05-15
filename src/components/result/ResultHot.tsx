@@ -3,6 +3,7 @@
 import { useEffect } from 'react';
 import { ResultBullets } from './ResultBullets';
 import { WhatsappCta } from './WhatsappCta';
+import { WhatsappAutoRedirect } from './WhatsappAutoRedirect';
 import { AttendantCard } from './AttendantCard';
 import { SaveForLaterCta } from './SaveForLaterCta';
 import { NewsletterCta } from './NewsletterCta';
@@ -38,6 +39,16 @@ export function ResultHot({ leadId, leadName, answers, whatsappNumber }: ResultH
 
   return (
     <>
+      {/* Auto-redirect WhatsApp aparece no TOPO (mais agressivo pra quente).
+          Lead pode cancelar — se cancelar, fica no result page normal. */}
+      <WhatsappAutoRedirect
+        tier="quente"
+        leadId={leadId}
+        leadName={leadName}
+        answers={answers}
+        phoneNumber={whatsappNumber}
+      />
+
       <span className="text-5xl" aria-hidden="true">
         🔥
       </span>

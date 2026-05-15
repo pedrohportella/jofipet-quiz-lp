@@ -5,6 +5,7 @@ import { ResultBullets } from './ResultBullets';
 import { SereninhoCta } from './SereninhoCta';
 import { NewsletterCta } from './NewsletterCta';
 import { SaveForLaterCta } from './SaveForLaterCta';
+import { WhatsappAutoRedirect } from './WhatsappAutoRedirect';
 import {
   buildResultVars,
   getHeadline,
@@ -42,6 +43,17 @@ export function ResultWarm({
 
   return (
     <>
+      {/* Auto-redirect WhatsApp pro morno também — mas tier morno tende a
+          ser mais auto-serviço (Sereninho/email), então o cancel é mais comum.
+          Mensagem dele é mais suave ("Posso saber mais?" vs "Quero ativar"). */}
+      <WhatsappAutoRedirect
+        tier="morno"
+        leadId={leadId}
+        leadName={leadName}
+        answers={answers}
+        phoneNumber={whatsappNumber}
+      />
+
       <span className="text-5xl" aria-hidden="true">
         🌻
       </span>

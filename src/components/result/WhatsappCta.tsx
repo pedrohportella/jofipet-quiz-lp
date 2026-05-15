@@ -36,8 +36,20 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
   const utms = loadStoredUtms();
   const especie = String(answers['especie'] ?? '');
   const idade = String(answers['idade'] ?? '');
+  const gasto = answers['gasto-mensal'];
+  const ultimaVet = answers['ultima-vet'];
 
-  const url = buildWhatsappUrl(phoneNumber, { tier, especie, idade, utms });
+  // Mensagem enriquecida com nome, gasto e última visita ao vet —
+  // Nicole abre o chat já com o contexto todo do quiz.
+  const url = buildWhatsappUrl(phoneNumber, {
+    tier,
+    especie,
+    idade,
+    utms,
+    leadName: state.leadName,
+    gastoMensal: typeof gasto === 'number' ? gasto : null,
+    ultimaVet: typeof ultimaVet === 'string' ? ultimaVet : null,
+  });
 
   const handleClick = () => {
     // Clique no WhatsApp = forte sinal de intenção. Dispara:
