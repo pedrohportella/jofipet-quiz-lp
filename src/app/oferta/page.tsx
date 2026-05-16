@@ -13,14 +13,14 @@ import { OfertaClient } from './oferta-client';
 export const metadata: Metadata = {
   title: 'Plano de saúde pet a partir de R$ 49,90/mês',
   description:
-    'Cuidado completo pro seu pet: consultas, vacinas, exames, emergências e cirurgias. Atendimento humano 24h via WhatsApp. Sem fidelidade. Comece hoje 🐾',
+    'Cuidado completo pro seu pet: consultas, vacinas, exames, emergências e cirurgias. Atendimento humano via WhatsApp. Sem fidelidade. Comece hoje 🐾',
   alternates: {
     canonical: '/oferta',
   },
   openGraph: {
     title: 'Jofi Pet — Planos a partir de R$ 49,90/mês',
     description:
-      'Cuidado completo + atendimento humano 24h via WhatsApp. Sem fidelidade. 🐾',
+      'Cuidado completo + atendimento humano via WhatsApp. Sem fidelidade. 🐾',
     type: 'website',
     locale: 'pt_BR',
     url: '/oferta',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Jofi Pet — Planos a partir de R$ 49,90/mês',
-    description: 'Cuidado completo + atendimento humano 24h. Sem fidelidade.',
+    description: 'Cuidado completo + atendimento humano. Sem fidelidade.',
   },
   robots: {
     index: true,

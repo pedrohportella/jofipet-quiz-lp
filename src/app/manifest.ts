@@ -15,7 +15,7 @@ export default function manifest(): MetadataRoute.Manifest {
     name: 'Jofi Pet Quiz',
     short_name: 'Jofi Quiz',
     description:
-      'Descubra qual plano de saúde pet é ideal pro seu pequeno em ~90 segundos.',
+      'Descubra qual plano de saúde pet é ideal pro seu pequeno em menos de 1 minuto.',
     start_url: '/',
     display: 'standalone',
     background_color: '#FFFBF5',
