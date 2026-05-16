@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { Hero } from '@/components/oferta/Hero';
 import { Problem } from '@/components/oferta/Problem';
 import { Solution } from '@/components/oferta/Solution';
+import { HowItWorks } from '@/components/oferta/HowItWorks';
 import { VideoSection } from '@/components/oferta/VideoSection';
 import { PlanComparison } from '@/components/oferta/PlanComparison';
 import { Testimonials } from '@/components/oferta/Testimonials';
@@ -78,6 +79,7 @@ export function OfertaClient({ videoEmbedUrl }: OfertaClientProps) {
       <Hero />
       <Problem />
       <Solution />
+      <HowItWorks />
       <VideoSection videoEmbedUrl={videoEmbedUrl} />
       <PlanComparison />
       <Testimonials />

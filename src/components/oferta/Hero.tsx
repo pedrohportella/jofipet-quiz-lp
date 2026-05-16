@@ -51,14 +51,17 @@ export function Hero() {
             className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Cuidar do seu pet
+            Do check-up
             <br />
-            <span className="text-accent">do jeito certo.</span>
+            à <span className="text-accent">emergência</span>,
+            <br />
+            tudo para o seu pet.
           </h1>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
-            Planos pet a partir de <strong>R$ 49,90/mês</strong>. Atendimento humano,
-            cobertura ampla e zero burocracia. Mais de 500 tutores já cuidam com a Jofi 🐾
+            A plataforma de saúde que o seu bichinho merece. Planos pet a partir
+            de <strong>R$ 49,90/mês</strong>, com atendimento humano e cobertura
+            ampla 🐾
           </p>
 
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
