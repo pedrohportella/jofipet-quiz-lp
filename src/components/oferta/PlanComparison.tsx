@@ -111,7 +111,9 @@ function PlanCard({ plan }: PlanCardProps) {
           <span className="text-sm font-medium text-neutral-500">/mês</span>
         </p>
         <p className="text-xs text-neutral-500">
-          Carência: {plan.waitingDays} dias · sem fidelidade
+          {plan.waitingDays !== null
+            ? `Carência: ${plan.waitingDays} dias · sem fidelidade`
+            : 'Sem fidelidade · cancele quando quiser'}
         </p>
       </div>
 
