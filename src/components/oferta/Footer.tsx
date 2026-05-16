@@ -21,7 +21,8 @@ export function OfertaFooter() {
               </span>
             </div>
             <p className="max-w-xs text-sm text-neutral-400">
-              Planos de saúde pet com atendimento humano. Cuidar é amar.
+              A plataforma de saúde que o seu bichinho merece. Do check-up à
+              emergência, tudo para o seu pet.
             </p>
           </div>
 
@@ -45,13 +46,14 @@ export function OfertaFooter() {
 
         <div className="mt-8 border-t border-neutral-800 pt-6 text-xs text-neutral-500">
           <p>
-            © {year} Jofi Pet · Plano de saúde pet ·{' '}
-            {/* TODO Pedro/Jofi: confirmar CNPJ Jofi pra rodapé legal */}
-            CNPJ a confirmar
+            © {year} Jofi Pet · CNPJ 33.508.354/0001-09
           </p>
           <p className="mt-1">
-            Esta página é uma oferta promocional. Valores e coberturas estão sujeitos à
-            aprovação e confirmação Jofi.
+            Rua Álvares Cabral, 155, 2º andar · Recife/PE · CEP 50.030-160
+          </p>
+          <p className="mt-3">
+            Esta página é uma oferta promocional. Valores e coberturas estão
+            sujeitos à aprovação e confirmação Jofi.
           </p>
         </div>
       </div>
