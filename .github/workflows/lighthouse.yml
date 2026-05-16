@@ -14,6 +14,9 @@ jobs:
   lighthouse:
     name: Lighthouse on Vercel deployment
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: projects/jofipet-quiz-lp
     steps:
       - uses: actions/checkout@v4
 
@@ -29,9 +32,7 @@ jobs:
         with:
           node-version: 20
           cache: npm
-
-      - name: Install dependencies
-        run: npm ci
+          cache-dependency-path: projects/jofipet-quiz-lp/package-lock.json
 
       - name: Resolve target URL
         id: target
