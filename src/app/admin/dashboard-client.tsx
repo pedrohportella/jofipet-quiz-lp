@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { TierDonut, FunnelBars } from '@/components/admin/Charts';
 
 interface VariantStats {
   totals: Record<string, number>;
@@ -238,25 +239,39 @@ export function DashboardClient() {
         </section>
       )}
 
-      <section>
-        <h2 className="mb-3 text-sm font-semibold uppercase tracking-wider text-neutral-500">
-          Distribuição por tier
-        </h2>
-        <div className="grid grid-cols-3 gap-3">
-          <KpiCard
-            label="🔥 Quente"
-            value={view.byTier.quente}
-            sub={totalLeads > 0 ? pct(view.byTier.quente / totalLeads) : '—'}
-          />
-          <KpiCard
-            label="🌻 Morno"
-            value={view.byTier.morno}
-            sub={totalLeads > 0 ? pct(view.byTier.morno / totalLeads) : '—'}
-          />
-          <KpiCard
-            label="💙 Frio"
-            value={view.byTier.frio}
-            sub={totalLeads > 0 ? pct(view.byTier.frio / totalLeads) : '—'}
+      <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div className="rounded-xl bg-white p-5 shadow-jofi-1">
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500">
+            Distribuição por tier
+          </h2>
+          <TierDonut data={view.byTier} />
+        </div>
+
+        <div className="rounded-xl bg-white p-5 shadow-jofi-1">
+          <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500">
+            Funil de conversão
+          </h2>
+          <FunnelBars
+            steps={[
+              {
+                label: 'Quiz iniciados',
+                value: view.totals.quiz_started ?? 0,
+              },
+              {
+                label: 'Quiz concluídos',
+                value: view.totals.quiz_complete ?? 0,
+                pctOfPrevious: view.conversionRate.quizStartToComplete,
+              },
+              {
+                label: 'Captura aberta',
+                value: view.totals.captura_view ?? 0,
+              },
+              {
+                label: 'Leads capturados',
+                value: view.totals.lead_captured ?? 0,
+                pctOfPrevious: view.conversionRate.completeToCapture,
+              },
+            ]}
           />
         </div>
       </section>
