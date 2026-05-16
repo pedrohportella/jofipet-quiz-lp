@@ -283,10 +283,14 @@ function FilterBar(props: {
     <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-jofi-1">
       <div className="flex flex-wrap items-end gap-3">
         <div className="flex flex-1 min-w-[200px] flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+          <label
+            htmlFor="filter-search"
+            className="text-xs font-semibold uppercase tracking-wider text-neutral-500"
+          >
             Buscar
           </label>
           <input
+            id="filter-search"
             type="search"
             value={props.search}
             onChange={(e) => props.setSearch(e.target.value)}
@@ -296,10 +300,14 @@ function FilterBar(props: {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+          <label
+            htmlFor="filter-range"
+            className="text-xs font-semibold uppercase tracking-wider text-neutral-500"
+          >
             Período
           </label>
           <select
+            id="filter-range"
             value={props.range}
             onChange={(e) => props.setRange(e.target.value as Range)}
             className={selectClass}
@@ -312,10 +320,14 @@ function FilterBar(props: {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+          <label
+            htmlFor="filter-variant"
+            className="text-xs font-semibold uppercase tracking-wider text-neutral-500"
+          >
             Variante
           </label>
           <select
+            id="filter-variant"
             value={props.variant}
             onChange={(e) => props.setVariant(e.target.value as VariantFilter)}
             className={selectClass}
@@ -327,10 +339,14 @@ function FilterBar(props: {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+          <label
+            htmlFor="filter-tier"
+            className="text-xs font-semibold uppercase tracking-wider text-neutral-500"
+          >
             Tier
           </label>
           <select
+            id="filter-tier"
             value={props.tier}
             onChange={(e) => props.setTier(e.target.value as Tier | '')}
             className={selectClass}
@@ -343,10 +359,14 @@ function FilterBar(props: {
         </div>
 
         <div className="flex flex-col gap-1">
-          <label className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
+          <label
+            htmlFor="filter-rd-status"
+            className="text-xs font-semibold uppercase tracking-wider text-neutral-500"
+          >
             Status RD
           </label>
           <select
+            id="filter-rd-status"
             value={props.rdStatus}
             onChange={(e) => props.setRdStatus(e.target.value as RdStatusFilter)}
             className={selectClass}
