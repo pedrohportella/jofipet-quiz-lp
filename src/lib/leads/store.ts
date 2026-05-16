@@ -165,7 +165,10 @@ export async function listLeads(opts: {
         opts.utmSource || opts.rdStatus || opts.q || opts.until || (opts.variant && opts.tier)
       );
       const fetchCount = hasSecondaryFilters ? 10_000 : opts.limit ?? 50;
-      const ids = await kv.zrange(indexKey, min, '+inf', {
+      // Redis ZRANGE com BYSCORE + REV: start/stop são INVERTIDOS (start=max, stop=min).
+      // https://redis.io/commands/zrange/ — "the start and stop are exchanged when REV is also provided"
+      // Sem essa inversão, zrange retorna [] mesmo com zset populado (bug observado em produção).
+      const ids = await kv.zrange(indexKey, '+inf', min, {
         byScore: true,
         rev: true,
         offset: hasSecondaryFilters ? 0 : opts.offset ?? 0,
@@ -271,7 +274,8 @@ export async function listEvents(opts: { limit?: number; since?: number } = {}):
   if (isKvEnabled()) {
     try {
       const min = opts.since ?? 0;
-      const ids = await kv.zrange('events:by-date', min, '+inf', {
+      // Redis ZRANGE com BYSCORE + REV exige args invertidos (start=max, stop=min).
+      const ids = await kv.zrange('events:by-date', '+inf', min, {
         byScore: true,
         rev: true,
         offset: 0,
