@@ -48,7 +48,7 @@ export function ResumeQuizBanner() {
             className="flex flex-1 items-center justify-between gap-3 rounded-l-2xl px-4 py-3 transition-colors hover:bg-primary/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/60 focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
           >
             <span className="text-left text-sm leading-tight">
-              <strong className="block">Você começou um quiz</strong>
+              <strong className="block">Bem-vindo de volta!</strong>
               <span className="text-xs opacity-90">
                 {answered} de {total} respondidas · Continuar →
               </span>

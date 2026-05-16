@@ -28,15 +28,16 @@ const AUTO_ADVANCE_DELAY_MS = 200;
 /**
  * Micro-encouragement contextual baseado no progresso.
  * UX hipothesis: copy emocional reduz drop-off entre steps (especialmente no meio).
+ * Sem fallback: current===1 já cobre o início, então pct<25% nunca dispara
+ * em quizzes com >=5 perguntas (no nosso caso, 1/8 = 12.5% mas current===1 antes).
  */
 function getProgressCopy(current: number, total: number): string {
   const pct = (current / total) * 100;
   if (current === 1) return 'Vamos lá!';
   if (current === total) return 'Última! 🎉';
   if (pct >= 75) return 'Quase lá!';
-  if (pct >= 50) return 'Você está indo bem';
-  if (pct >= 25) return 'Boa, continua';
-  return 'Começando';
+  if (pct >= 50) return 'Mandando bem 💛';
+  return 'Tá indo bem 👍';
 }
 
 export function QuizStep({ stepIndex }: { stepIndex: number }) {

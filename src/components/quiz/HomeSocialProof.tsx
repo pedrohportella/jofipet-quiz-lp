@@ -45,7 +45,7 @@ export function HomeSocialProof() {
         className="text-sm font-semibold text-neutral-500"
         aria-hidden="true"
       >
-        Comunidade Jofi 🐾
+        Junte-se à comunidade Jofi 🐾
       </p>
     );
   }

@@ -36,7 +36,7 @@ export function SocialProofBadge() {
 
   return (
     <p className="text-center text-xs font-medium text-neutral-500">
-      <span className="text-primary">{count} tutores</span> fizeram o quiz hoje
+      🐾 <span className="text-primary">{count} tutores</span> fizeram o quiz hoje
     </p>
   );
 }
