@@ -11,6 +11,8 @@ interface FunnelEventInput {
   tier?: Tier;
   step?: number;
   utmSource?: string;
+  /** Variant do funil — distingue Quiz vs LP /oferta no dashboard. */
+  variant?: 'quiz' | 'oferta_lp';
   payload?: Record<string, unknown>;
 }
 

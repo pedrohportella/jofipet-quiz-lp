@@ -18,6 +18,7 @@ export function CapturaClient() {
       type: 'captura_view',
       tier: state.tier,
       utmSource: utms.utm_source,
+      variant: 'quiz',
     });
   }, [hydrated, state.tier]);
 

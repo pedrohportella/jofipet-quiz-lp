@@ -222,6 +222,7 @@ export async function POST(request: NextRequest) {
     ip,
     tier,
     score: 0, // sem quiz
+    variant: 'oferta_lp',
     payload: {
       name: lead.name,
       whatsapp: lead.whatsapp,
@@ -265,6 +266,7 @@ export async function POST(request: NextRequest) {
       type: 'lead_captured',
       tier,
       utmSource: lead.utms?.utm_source,
+      variant: 'oferta_lp',
       payload: { leadId, source: 'oferta_lp', rdStatus: 'token_missing' },
     });
     await fireCapi();
@@ -352,6 +354,7 @@ export async function POST(request: NextRequest) {
       type: 'lead_captured',
       tier,
       utmSource: lead.utms?.utm_source,
+      variant: 'oferta_lp',
       payload: { leadId, source: 'oferta_lp', rdStatus },
     });
     await fireCapi();

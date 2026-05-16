@@ -17,6 +17,7 @@ const EventSchema = z.object({
   tier: z.enum(['quente', 'morno', 'frio']).optional(),
   step: z.number().int().nonnegative().optional(),
   utmSource: z.string().max(120).optional(),
+  variant: z.enum(['quiz', 'oferta_lp']).optional(),
   payload: z.record(z.string(), z.unknown()).optional(),
 });
 

@@ -60,12 +60,17 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
     trackQuizStep(clampedIndex + 1, question.id);
     const utms = loadStoredUtms();
     if (clampedIndex === 0) {
-      postFunnelEvent({ type: 'quiz_started', utmSource: utms.utm_source });
+      postFunnelEvent({
+        type: 'quiz_started',
+        utmSource: utms.utm_source,
+        variant: 'quiz',
+      });
     }
     postFunnelEvent({
       type: 'quiz_step_view',
       step: clampedIndex + 1,
       utmSource: utms.utm_source,
+      variant: 'quiz',
     });
   }, [clampedIndex, question?.id, question]);
 
@@ -73,7 +78,11 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
     if (clampedIndex + 1 >= total) {
       dispatch({ type: 'FINISH' });
       const utms = loadStoredUtms();
-      postFunnelEvent({ type: 'quiz_complete', utmSource: utms.utm_source });
+      postFunnelEvent({
+        type: 'quiz_complete',
+        utmSource: utms.utm_source,
+        variant: 'quiz',
+      });
       router.push('/captura');
       return;
     }

@@ -18,6 +18,7 @@ function makeLead(overrides: Partial<StoredLead> = {}): StoredLead {
     ip: '127.0.0.1',
     tier: 'quente',
     score: 80,
+    variant: 'quiz',
     payload: {
       name: 'Pedro',
       whatsapp: '(81) 99999-8888',

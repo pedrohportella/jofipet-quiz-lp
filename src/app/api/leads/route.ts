@@ -221,6 +221,7 @@ export async function POST(request: NextRequest) {
     ip,
     tier: lead.tier,
     score: lead.score,
+    variant: 'quiz',
     payload: lead,
   };
 
@@ -236,6 +237,7 @@ export async function POST(request: NextRequest) {
       type: 'lead_captured',
       tier: lead.tier,
       utmSource: lead.utms?.utm_source,
+      variant: 'quiz',
       payload: { leadId, rdStatus: 'token_missing' },
     });
     recordIdempotent(lead, { leadId, correlationId, warning: 'rd_token_missing' });
@@ -311,6 +313,7 @@ export async function POST(request: NextRequest) {
       type: 'lead_captured',
       tier: lead.tier,
       utmSource: lead.utms?.utm_source,
+      variant: 'quiz',
       payload: { leadId, rdStatus: 'rejected' },
     });
     await fireCapi();
