@@ -12,20 +12,21 @@ interface FaqItem {
   answer: string;
 }
 
-// TODO Pedro/Jofi: revisar com a equipe Jofi se essas respostas batem com a
-// realidade operacional (carências, cobertura, cancelamento, rede etc).
+// Respostas validadas contra site oficial jofi.pet (WebFetch 2026-05-16).
+// Coberturas alinhadas com folder oficial Jofi (catalog.ts).
+// Taxa de adesão: Sereninho/Sereno TÊM · Parceiro/Melhor Amigo NÃO TÊM (diferencial!).
 const FAQ_ITEMS: FaqItem[] = [
   {
     id: 'cobertura',
     question: 'O que a Jofi cobre exatamente?',
     answer:
-      'Depende do plano. Sereninho cobre consultas, vacinas e exames essenciais. Sereno adiciona exames de imagem e atendimento 24h. Parceiro inclui internação, cirurgias e especialistas. Melhor Amigo é a cobertura máxima — desde tratamento oncológico até fisioterapia. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
+      'Depende do plano que você escolher. O Sereninho cobre consultas clínicas, vacinação essencial, exames de rotina e aplicação de medicamentos. O Sereno adiciona exames laboratoriais, exames de imagem e sedação. O Parceiro inclui internamento, cirurgias, tomografia, anestesias e consultas com especialistas. O Melhor Amigo é a cobertura mais que completa — consultas ilimitadas, ressonância magnética, transfusão sanguínea e mais. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
   },
   {
     id: 'carencia',
     question: 'Qual o tempo de carência?',
     answer:
-      'A carência varia por plano: Sereninho e Sereno têm 30 dias, Parceiro 60 dias, Melhor Amigo 90 dias. Pra emergências há condições especiais — pergunte ao nosso time no WhatsApp.',
+      'A carência varia conforme o plano e o tipo de cobertura. Nosso time confirma todos os prazos pra você no WhatsApp antes da contratação — sem letra miúda, sem surpresa.',
   },
   {
     id: 'cancelamento',
@@ -37,25 +38,31 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'rede',
     question: 'Onde encontro vets parceiros Jofi?',
     answer:
-      'Temos rede credenciada nas principais cidades do Brasil. Quando você assina, nosso time te envia o mapa de vets parceiros perto do seu CEP. Se sua região ainda não tem rede, oferecemos reembolso em vets de sua escolha (consulte condições no plano Melhor Amigo).',
+      'A Jofi conecta seu pet à clínica veterinária favorita da rede credenciada. Temos parceiros em diversas cidades do Brasil. Quando você assina, nosso time te ajuda a escolher o vet mais conveniente perto de você. Se seu vet de confiança ainda não é parceiro Jofi, conta pra gente — estamos sempre expandindo a rede.',
   },
   {
     id: 'pet-idoso',
     question: 'Meu pet é idoso — aceito mesmo assim?',
     answer:
-      'Sim! A Jofi aceita pets de qualquer idade. Pets idosos geralmente entram no Plano Parceiro ou Melhor Amigo (cobertura mais ampla pra demandas que vêm com a idade). A consulta inicial é gratuita pra avaliar o estado de saúde.',
+      'Sim! A Jofi aceita pets de todas as idades. Pets idosos geralmente se beneficiam mais do Plano Parceiro ou Melhor Amigo (cobertura ampla pras demandas que vêm com a idade). Nosso time te ajuda a escolher o plano certo pro estágio de vida do seu pequeno.',
   },
   {
     id: 'gato',
     question: 'A Jofi atende gatos também?',
     answer:
-      'Sim. Todos os planos cobrem cães e gatos. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra na cobertura.',
+      'Sim! Todos os planos cobrem cães e gatos com a mesma estrutura. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra na cobertura.',
   },
   {
     id: 'pagamento',
-    question: 'Como funciona o pagamento?',
+    question: 'Como funciona o pagamento e a taxa de adesão?',
     answer:
-      'Mensal via cartão de crédito, débito recorrente ou Pix. Sem taxa de adesão, sem entrada. Você só paga a mensalidade do plano escolhido.',
+      'O pagamento é mensal via cartão de crédito, débito recorrente ou Pix. Sobre a taxa de adesão: os planos Parceiro e Melhor Amigo são sem taxa de adesão. Sereninho e Sereno têm uma taxa única de adesão paga no início — nosso time te explica os valores certinhos no WhatsApp.',
+  },
+  {
+    id: 'como-contratar',
+    question: 'Como faço pra contratar?',
+    answer:
+      'Em 4 passos simples: 1) Você conta sobre o seu pet (espécie, idade, hábitos); 2) Escolhe a cobertura ideal junto com nosso time; 3) Decide qual parceiro vai atender seu pet; 4) Pronto! Já pode usar imediatamente. Sem burocracias dos modelos convencionais.',
   },
 ];
 

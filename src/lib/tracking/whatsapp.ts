@@ -1,6 +1,6 @@
 import type { Tier } from '@/lib/quiz/types';
 import type { Utms } from './utms';
-import { getPlanById, type PlanId } from '@/lib/plans/catalog';
+import { getPlanById, TIER_TO_PLAN, type PlanId } from '@/lib/plans/catalog';
 
 /**
  * Invisible Unicode marker that identifies this lead as coming from the quiz LP.
@@ -11,11 +11,17 @@ import { getPlanById, type PlanId } from '@/lib/plans/catalog';
  */
 const QUIZ_INVISIBLE_MARKER = '⁡⁣⁡⁣⁡';
 
-const PLAN_BY_TIER: Record<Tier, { name: string; priceLabel: string }> = {
-  quente: { name: 'Parceiro', priceLabel: 'a partir de R$ 169,90' },
-  morno: { name: 'Sereno', priceLabel: 'a partir de R$ 79,90' },
-  frio: { name: 'Sereninho', priceLabel: 'a partir de R$ 49,90' },
-};
+/**
+ * Lookup tier → dados do plano (nome + label de preço).
+ * REUSA o catalog.ts (TIER_TO_PLAN + getPlanById) pra evitar duplicação
+ * de info de preços. Se preço mudar no catalog, mensagens atualizam auto.
+ */
+function planByTier(tier: Tier): { name: string; priceLabel: string } {
+  const plan = getPlanById(TIER_TO_PLAN[tier]);
+  if (plan) return { name: plan.name, priceLabel: plan.priceLabel };
+  // Fallback defensivo (não deve acontecer, mas TS exige)
+  return { name: 'Jofi', priceLabel: 'a partir de R$ 49,90/mês' };
+}
 
 const ESPECIE_LABEL: Record<string, string> = {
   cao: 'cãozinho',
@@ -94,7 +100,7 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
     const plan = getPlanById(input.selectedPlanId);
     if (plan) {
       lines.push(
-        `Vi o **Plano ${plan.name}** (${plan.priceLabel}) na página de ofertas`,
+        `Vi o Plano ${plan.name} (${plan.priceLabel}) na página de ofertas`,
       );
       lines.push('e quero saber mais sobre essa cobertura.');
       lines.push('');
@@ -105,14 +111,14 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
     }
   }
 
-  // === Variante 2: Lead do quiz com tier definido (caminho legacy) ===
+  // === Variante 2: Lead do quiz com tier definido (mensagem rica) ===
   if (input.tier) {
-    const plan = PLAN_BY_TIER[input.tier];
+    const plan = planByTier(input.tier);
     const especie = ESPECIE_LABEL[input.especie ?? ''] ?? 'pet';
     const idade = IDADE_LABEL[input.idade ?? ''] ?? '';
     const petDescription = idade ? `${especie} ${idade}` : especie;
 
-    lines.push(`Fiz o quiz no site e meu ${petDescription} foi avaliado.`);
+    lines.push(`Fiz o quiz no site sobre meu ${petDescription}.`);
 
     if (
       typeof input.gastoMensal === 'number' &&
@@ -131,17 +137,19 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
 
     lines.push('');
 
+    // Closing por tier — tom alinhado com a temperatura do lead.
+    // Inclui descritor curto do plano pra ajudar o time a abrir conversa.
     if (input.tier === 'quente') {
       lines.push(
-        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Queria entender melhor pra ativar logo! 💛`,
+        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — proteção completa e tradicional. Quero ativar logo, pode me ajudar? 💛`,
       );
     } else if (input.tier === 'morno') {
       lines.push(
-        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Posso saber mais como funciona? 💛`,
+        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — cuidado preventivo. Posso entender melhor como funciona? 💛`,
       );
     } else {
       lines.push(
-        `O resultado indicou o Plano ${plan.name} (${plan.priceLabel}). Gostaria de tirar algumas dúvidas. 💛`,
+        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — o essencial. Queria tirar algumas dúvidas, pode me ajudar? 💛`,
       );
     }
 
@@ -150,8 +158,9 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
   }
 
   // === Variante 3: Fallback genérico (sem tier, sem plano selecionado) ===
-  lines.push('Vi a Jofi no site e quero saber mais sobre os planos.');
-  lines.push('Pode me ajudar? 💛');
+  lines.push('Vi a plataforma e quero saber mais sobre os planos.');
+  lines.push('');
+  lines.push('Pode me ajudar a escolher o ideal pro meu pet? 💛');
 
   const visibleText = lines.join('\n');
   return `${visibleText[0]}${QUIZ_INVISIBLE_MARKER}${visibleText.slice(1)}`;
@@ -172,4 +181,4 @@ export function buildWhatsappUrl(
   return `https://api.whatsapp.com/send/?${params.toString()}`;
 }
 
-export const _internals = { QUIZ_INVISIBLE_MARKER, PLAN_BY_TIER };
+export const _internals = { QUIZ_INVISIBLE_MARKER, planByTier };
