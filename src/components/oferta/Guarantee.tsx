@@ -5,8 +5,8 @@ import { ShieldCheck, Award, Lock } from 'lucide-react';
 const TRUST_SIGNALS = [
   {
     icon: ShieldCheck,
-    title: '30 dias pra cancelar',
-    body: 'Sem multa, sem letra miúda. Testou e não rolou? É só avisar.',
+    title: 'Sem fidelidade',
+    body: 'Cancela pelo WhatsApp ou email a qualquer momento. Sem multa, sem burocracia.',
   },
   {
     icon: Award,

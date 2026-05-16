@@ -29,7 +29,7 @@ export function MidCta() {
         >
           Conversar com nosso time agora 🐾
         </button>
-        <p className="text-xs opacity-75">Resposta em minutos · Atendimento 24h</p>
+        <p className="text-xs opacity-75">Resposta em minutos · Atendimento humano</p>
       </div>
     </section>
   );

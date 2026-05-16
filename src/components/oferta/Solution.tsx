@@ -10,8 +10,8 @@ const BENEFITS = [
   },
   {
     icon: MessageCircle,
-    title: 'Atendimento humano 24h',
-    body: 'Nosso time tira suas dúvidas no WhatsApp, qualquer hora. Sem chatbot, sem URA.',
+    title: 'Atendimento humano de verdade',
+    body: 'Nosso time tira suas dúvidas no WhatsApp. Você fala com pessoa de verdade, não com bot.',
   },
   {
     icon: Stethoscope,

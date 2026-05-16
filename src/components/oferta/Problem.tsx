@@ -6,7 +6,7 @@ const SCENARIOS = [
   {
     icon: AlertCircle,
     title: 'Pet com problema fora de hora',
-    body: 'Madrugada, fim de semana, emergência — vet de plantão cobra fortuna e nem sempre tá disponível.',
+    body: 'Madrugada, fim de semana, emergência — vet de plantão custa caro e nem sempre tá disponível.',
   },
   {
     icon: Wallet,
