@@ -38,7 +38,7 @@
     {
       "id": "ultima-vet",
       "type": "single-choice",
-      "text": "Quando foi a última ida ao vet?",
+      "text": "Há quanto tempo seu pet não vai ao vet?",
       "emoji": "🩺",
       "options": [
         { "id": "menos-1-mes", "label": "Há menos de 1 mês" },
@@ -50,7 +50,7 @@
     {
       "id": "gasto-mensal",
       "type": "scale",
-      "text": "Quanto você gasta por mês com seu pet hoje?",
+      "text": "Quanto você costuma gastar por mês com saúde do seu pet?",
       "emoji": "💰",
       "min": 0,
       "max": 500,
@@ -67,7 +67,7 @@
         { "id": "saude", "label": "Saúde e imprevistos", "emoji": "🩺" },
         { "id": "custo", "label": "Custo das consultas", "emoji": "💰" },
         { "id": "rotina", "label": "Rotina de cuidado", "emoji": "📅" },
-        { "id": "tudo-bem", "label": "Está tudo ok", "emoji": "✨" }
+        { "id": "tudo-bem", "label": "Está tudo tranquilo", "emoji": "✨" }
       ]
     },
     {
@@ -84,7 +84,7 @@
     {
       "id": "cep",
       "type": "text-input",
-      "text": "Qual seu CEP? (pra ver vets perto)",
+      "text": "Qual seu CEP? Pra ver vets parceiros perto de você",
       "emoji": "📍",
       "mask": "cep",
       "placeholder": "00000-000",

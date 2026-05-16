@@ -7,6 +7,8 @@ interface TierPreviewProps {
   tier: Tier;
 }
 
+// Bullets alinhados com o folder oficial Jofi (catalog.ts).
+// Mantém só 3-4 itens por linha pra caber no card preview sem quebrar layout.
 const TIER_HEADLINES: Record<
   Tier,
   { emoji: string; kicker: string; headline: string; subhead: string; bullet: string }
@@ -16,21 +18,21 @@ const TIER_HEADLINES: Record<
     kicker: 'Você é um tutor protetor',
     headline: 'Plano Parceiro',
     subhead: 'Proteção completa pro seu companheiro de toda hora.',
-    bullet: 'Internação 24h + cirurgias + especialistas inclusos',
+    bullet: 'Internamento + cirurgias + especialistas + tomografia',
   },
   morno: {
     emoji: '🌻',
     kicker: 'Você é um tutor consciente',
     headline: 'Plano Sereno',
     subhead: 'Cuidado preventivo pra ter tranquilidade no dia a dia.',
-    bullet: 'Vacinação completa + consultas 24h + exames laboratoriais',
+    bullet: 'Vacinação completa + exames de imagem + sedação',
   },
   frio: {
     emoji: '💙',
     kicker: 'Você é um tutor cuidadoso',
     headline: 'Plano Sereninho',
     subhead: 'O essencial pra começar a cuidar do seu pet com carinho.',
-    bullet: 'Consultas + vacinas essenciais + exames iniciais',
+    bullet: 'Consultas clínicas + vacinação + exames de rotina',
   },
 };
 
