@@ -378,9 +378,14 @@ export interface FunnelStatsResult {
  *   - `totals`/`byTier`/`byUtmSource`/`conversionRate` = agregado de TODOS variants (compat com UI existente)
  *   - `byVariant.{quiz,oferta_lp}` = mesmo shape, isolado por origem (pra A/B comparison)
  *
- * Leads sem `variant` (legado pré-2026-05-16) são contabilizados como 'quiz'.
- * Eventos sem `variant` são contabilizados só no agregado (não vão pra nenhuma das duas
- * sub-categorias), pra evitar inflar uma das variants com legado ambíguo.
+ * Backward compat (legado pré-2026-05-16):
+ *   - Leads sem `variant` → contabilizados como 'quiz'
+ *   - Events sem `variant` → contabilizados como 'quiz' (calcular como diff total - oferta_lp)
+ *
+ * Por que essa estratégia pra events: dados legados são quase 100% de tráfego
+ * do funil quiz original (LP /oferta foi adicionada depois). Atribuir legados
+ * a 'quiz' deixa o card 🧩 Quiz coerente com a contagem de leads. Oferta LP
+ * fica zerado pra dados antigos (correto — ela não existia).
  */
 export async function getFunnelStats(
   opts: { since?: number } = {},
@@ -406,19 +411,17 @@ export async function getFunnelStats(
         totals[type] = Number(counts[i] ?? 0);
       });
 
-      // Por variant: 1 zcount por tipo por variant (12 calls — paraleliza tudo)
-      const variants: LeadVariant[] = ['quiz', 'oferta_lp'];
-      const variantCounts = await Promise.all(
-        variants.flatMap((v) =>
-          EVENT_TYPES.map((type) =>
-            kv.zcount(`events:by-variant:${v}:${type}`, since, '+inf'),
-          ),
+      // Por variant: oferta_lp lemos direto; quiz = total - oferta_lp
+      // (assim eventos legados sem variant viram 'quiz' por default)
+      const ofertaCounts = await Promise.all(
+        EVENT_TYPES.map((type) =>
+          kv.zcount(`events:by-variant:oferta_lp:${type}`, since, '+inf'),
         ),
       );
-      variants.forEach((v, vi) => {
-        EVENT_TYPES.forEach((type, ti) => {
-          variantTotals[v][type] = Number(variantCounts[vi * EVENT_TYPES.length + ti] ?? 0);
-        });
+      EVENT_TYPES.forEach((type, i) => {
+        const oferta = Number(ofertaCounts[i] ?? 0);
+        variantTotals.oferta_lp[type] = oferta;
+        variantTotals.quiz[type] = Math.max(0, totals[type] - oferta);
       });
     } catch {
       // KV failed → fall back to in-memory aggregation
@@ -426,9 +429,9 @@ export async function getFunnelStats(
       for (const e of events) {
         if (EVENT_TYPES.includes(e.type as EventType)) {
           totals[e.type as EventType] += 1;
-          if (e.variant) {
-            variantTotals[e.variant][e.type as EventType] += 1;
-          }
+          // Sem variant → 'quiz' (legado default)
+          const v: LeadVariant = e.variant ?? 'quiz';
+          variantTotals[v][e.type as EventType] += 1;
         }
       }
     }
@@ -437,9 +440,9 @@ export async function getFunnelStats(
     for (const e of events) {
       if (EVENT_TYPES.includes(e.type as EventType)) {
         totals[e.type as EventType] += 1;
-        if (e.variant) {
-          variantTotals[e.variant][e.type as EventType] += 1;
-        }
+        // Sem variant → 'quiz' (legado default)
+        const v: LeadVariant = e.variant ?? 'quiz';
+        variantTotals[v][e.type as EventType] += 1;
       }
     }
   }
