@@ -51,7 +51,7 @@ export const PLANS: Plan[] = [
   {
     id: 'sereninho',
     name: 'Sereninho',
-    tagline: 'Essencial',
+    tagline: 'Pra começar com tranquilidade',
     priceMonthly: 49.9,
     priceLabel: 'R$ 49,90/mês',
     bullets: [
@@ -71,7 +71,7 @@ export const PLANS: Plan[] = [
   {
     id: 'sereno',
     name: 'Sereno',
-    tagline: 'Rotina e proteção',
+    tagline: 'A mais escolhida pra rotina diária',
     priceMonthly: 79.9,
     priceLabel: 'R$ 79,90/mês',
     bullets: [
@@ -92,7 +92,7 @@ export const PLANS: Plan[] = [
   {
     id: 'parceiro',
     name: 'Parceiro',
-    tagline: 'Cobertura completa',
+    tagline: 'Pra dormir tranquilo com emergência',
     priceMonthly: 169.9,
     priceLabel: 'A partir de R$ 169,90/mês',
     bullets: [
@@ -114,7 +114,7 @@ export const PLANS: Plan[] = [
   {
     id: 'melhor-amigo',
     name: 'Melhor Amigo',
-    tagline: 'Mais que completa',
+    tagline: 'Pra quem quer o cuidado todo',
     priceMonthly: 259.9,
     priceLabel: 'A partir de R$ 259,90/mês',
     bullets: [
