@@ -52,8 +52,8 @@ npm run dev                   # localhost:3000
 
 ## Contexto Jofi (referências no workspace)
 
-- Skill cliente: `skills/clientes/jofipet-operacao.skill`
-- Skill agência: `skills/agencia/dc-ofertas.skill`
+- Skill cliente: `~/DoubleCheck/Interno/Operação/skills/clientes/jofipet-operacao.skill`
+- Skill agência: `~/DoubleCheck/Interno/Operação/skills/agencia/dc-ofertas.skill`
 - CRM: **RD Station Marketing** (ver memória `project_jofi_pet.md`)
 
 ## Delegações @devops (não-dev)
