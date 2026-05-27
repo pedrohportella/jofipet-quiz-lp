@@ -44,7 +44,7 @@ export function Hero() {
                 JOFI
               </span>
             </div>
-            <span className="jofi-kicker text-primary">Plano de saúde pet</span>
+            <span className="jofi-kicker text-primary">Cobertura de saúde pet</span>
           </div>
 
           <h1
@@ -59,9 +59,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
-            A plataforma de saúde que o seu bichinho merece. Planos pet a partir
-            de <strong>R$ 49,90/mês</strong>, com atendimento humano e cobertura
-            ampla 🐾
+            Quando a conta inesperada chega às 3 da manhã, a Jofi já tá pronta.
+            Cobertura ampla com consultas, vacinas, exames, internação e cirurgias —
+            atendimento humano via WhatsApp, sem letra miúda 🐾
           </p>
 
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
@@ -73,15 +73,21 @@ export function Hero() {
               Falar com nosso time no WhatsApp 🐾
             </button>
             <a
-              href="#planos"
+              href="/"
               className="text-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary-700 sm:text-left"
             >
-              Conhecer os planos ↓
+              Não sabe qual faz sentido pro seu pet? Faz o quiz em 90s →
+            </a>
+            <a
+              href="#planos"
+              className="text-center text-sm font-medium text-neutral-600 underline underline-offset-4 hover:text-neutral-800 sm:text-left"
+            >
+              Conhecer as coberturas ↓
             </a>
           </div>
 
           <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
-            ⭐ +500 tutores · Atendimento 24h · LGPD compliant
+            ⭐ +500 tutores · Atendimento humano · Sem fidelidade
           </p>
         </motion.div>
 
