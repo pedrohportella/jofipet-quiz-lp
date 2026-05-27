@@ -5,18 +5,18 @@ import { ShieldCheck, MessageCircle, Stethoscope } from 'lucide-react';
 const BENEFITS = [
   {
     icon: ShieldCheck,
-    title: 'Cobertura ampla, zero pegadinha',
-    body: 'Consultas, vacinação, exames, emergências e cirurgias. Sem coparticipação, sem limite escondido.',
+    title: 'Cobertura sem pegadinha',
+    body: 'Consultas, vacinação, exames, emergências e cirurgias. Sem coparticipação, sem limite escondido, sem "letrinhas pequenas". Você sabe exatamente o que tá contratando.',
   },
   {
     icon: MessageCircle,
     title: 'Atendimento humano de verdade',
-    body: 'Nosso time tira suas dúvidas no WhatsApp. Você fala com pessoa de verdade, não com bot.',
+    body: 'Nosso time tira suas dúvidas no WhatsApp — pessoa de verdade, não bot. E continua disponível depois que você assina, não só pra vender.',
   },
   {
     icon: Stethoscope,
-    title: 'Rede credenciada de confiança',
-    body: 'Vets parceiros selecionados pela Jofi. Você não precisa ficar caçando profissional bom — já indicamos.',
+    title: 'Rede de confiança',
+    body: 'Hospitais e clínicas parceiras nas principais cidades de Pernambuco e Paraíba. A gente te ajuda a escolher o vet ideal pro seu pet.',
   },
 ];
 
@@ -30,9 +30,9 @@ export function Solution() {
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Tudo que seu pet precisa,
+            Cuidado completo,
             <br />
-            <span className="text-primary">cabendo no seu bolso.</span>
+            <span className="text-accent">com transparência total.</span>
           </h2>
         </div>
 
