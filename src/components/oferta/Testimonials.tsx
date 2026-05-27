@@ -12,31 +12,32 @@ interface Testimonial {
   initial: string;
 }
 
-// TODO Pedro/Jofi: substituir por testemunhos REAIS de clientes.
-// Idealmente com foto (path /testimonials/{nome}.webp em public/).
-// Pelo menos 3, ideal 5-6 pra variedade.
+// TODO Pedrão: substituir testemunhos placeholder por 3 casos reais aprovados pelo Ricardo.
+// Cada caso deve ter: foto real, nome, cidade, cobertura assinada, depoimento concreto
+// (idealmente mencionando: emoção, nome do pet, clínica/hospital usado, valor pago coberto vs custo sem cobertura).
+// Bloqueio: até dia 5 da semana 1 (Sprint 2 Plano de Ação Meta).
 const TESTIMONIALS: Testimonial[] = [
   {
     name: 'Camila R.',
     city: 'Recife/PE',
-    plan: 'Plano Sereno',
+    plan: 'Sereno',
     rating: 5,
     initial: 'C',
     body:
-      'Tinha medo de assinar plano pet porque achei que era pegadinha. O time da Jofi me explicou tudo no WhatsApp em 10 minutos. Já usei pra 2 emergências do Théo. Vale cada centavo.',
+      'Tinha medo de assinar cobertura pet porque achei que era pegadinha. O time da Jofi me explicou tudo no WhatsApp em 10 minutos. Já usei pra 2 emergências do Théo. Vale cada centavo.',
   },
   {
     name: 'Roberto M.',
-    city: 'Salvador/BA',
-    plan: 'Plano Parceiro',
+    city: 'João Pessoa/PB',
+    plan: 'Parceiro',
     rating: 5,
     initial: 'R',
     body:
-      'Minha cachorra idosa começou a precisar de muito vet. Sem o Parceiro eu já teria gastado uns 8 mil só esse ano. Com o plano, pago R$ 169,90/mês e durmo tranquilo.',
+      'Minha cachorra idosa começou a precisar de muito vet. Sem o Parceiro eu já teria gastado uns 8 mil só esse ano. Com a Jofi, pago R$ 169,90/mês e durmo tranquilo.',
   },
   {
     name: 'Ana C.',
-    city: 'São Paulo/SP',
+    city: 'Olinda/PE',
     plan: 'Sereninho',
     rating: 5,
     initial: 'A',
@@ -100,7 +101,7 @@ export function Testimonials() {
 
         <p className="mt-6 text-center text-xs text-neutral-500">
           {/* TODO: substituir EXEMPLO por testemunhos reais Jofi */}
-          ⚠️ Testemunhos placeholder — substituir por casos reais Jofi antes do live.
+          ⚠️ Testemunhos em fase de coleta — substituir por casos reais Jofi antes do go-live de junho/2026.
         </p>
       </div>
     </section>
