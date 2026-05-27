@@ -108,6 +108,11 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
       return;
     }
 
+    if (question.id === 'cidade' && value === 'outra') {
+      router.push('/quiz/outra-cidade');
+      return;
+    }
+
     if (options?.autoAdvance) {
       setPendingAdvance(true);
       window.setTimeout(() => {
