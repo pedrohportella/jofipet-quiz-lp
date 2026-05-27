@@ -25,7 +25,7 @@ export default function ThankYouNoPetPage() {
       <div className="flex w-full max-w-sm flex-col gap-3 pt-4">
         <ShareButton
           label="Compartilhar com um amigo 💛"
-          text="Descobri um quiz que ajuda a escolher plano pet em 1 min — dá uma olhada!"
+          text="Descobri um quiz que ajuda a escolher cobertura pet em 1 min — dá uma olhada!"
         />
 
         <Link

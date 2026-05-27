@@ -16,7 +16,7 @@ export function MidCta() {
           className="text-2xl uppercase leading-tight sm:text-3xl md:text-4xl"
           style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
         >
-          Não sabe qual plano escolher?
+          Não sabe qual cobertura escolher?
         </h2>
         <p className="max-w-xl text-base opacity-90">
           Nosso time te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma

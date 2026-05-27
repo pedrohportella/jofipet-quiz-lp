@@ -22,21 +22,21 @@ export default function HomePage() {
             JOFI
           </span>
         </div>
-        <p className="jofi-kicker text-primary">Plano de saúde pet</p>
+        <p className="jofi-kicker text-primary">Cobertura de saúde pet</p>
       </div>
 
       <h1
         className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
       >
-        Cuidar hoje.
+        Qual cobertura Jofi
         <br />
-        <span className="text-accent">Proteger sempre.</span>
+        <span className="text-accent">combina com seu pet?</span>
       </h1>
 
       <p className="max-w-sm text-base text-neutral-700 md:text-lg">
-        Em <strong>~90 segundos</strong>, a gente identifica o plano ideal pro
-        seu pequeno 🐾
+        Em <strong>~90 segundos</strong>, a gente te mostra qual das 4 coberturas Jofi
+        faz mais sentido pra rotina, idade e bolso do seu pequeno 🐾
       </p>
 
       <HomeSocialProof />
@@ -45,11 +45,11 @@ export default function HomePage() {
         href="/quiz/0"
         className="jofi-btn jofi-btn--primary mt-2 w-full max-w-sm"
       >
-        Descobrir meu plano ideal →
+        Começar o quiz →
       </Link>
 
       <p className="text-xs text-neutral-500">
-        Sem cadastro pra começar · 100% gratuito
+        Sem cadastro · 100% gratuito · Atendimento humano via WhatsApp no final
       </p>
       </main>
     </>

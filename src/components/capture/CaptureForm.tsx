@@ -283,12 +283,12 @@ export function CaptureForm() {
                 className="inline-block h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white"
                 aria-hidden="true"
               />
-              Liberando seu plano…
+              Liberando seu resultado…
             </span>
           ) : WHATSAPP_NUMBER ? (
             'Falar com nosso time no WhatsApp 🐾'
           ) : (
-            'Ver meu plano ideal →'
+            'Ver minha cobertura ideal →'
           )}
         </button>
         <p className="text-center text-xs text-neutral-500">
