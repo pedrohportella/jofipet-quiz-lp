@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
 import { loadStoredUtms } from '@/lib/tracking/utms';
 import { trackWhatsappClick, trackInitiateCheckout } from '@/lib/tracking/events';
+import { trackWhatsAppClickFromQuiz } from '@/lib/tracking/quiz-events';
 import { useQuizState } from '@/hooks/useQuizState';
 import type { Answers, Tier } from '@/lib/quiz/types';
 
@@ -36,8 +37,15 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
   const utms = loadStoredUtms();
   const especie = String(answers['especie'] ?? '');
   const idade = String(answers['idade'] ?? '');
+  const cidade = typeof answers['cidade'] === 'string' ? answers['cidade'] : null;
+  const preocupacao =
+    typeof answers['preocupacao'] === 'string' ? answers['preocupacao'] : null;
+  const planoAtual =
+    typeof answers['plano-atual'] === 'string' ? answers['plano-atual'] : null;
   const gasto = answers['gasto-mensal'];
   const ultimaVet = answers['ultima-vet'];
+  const gastoMensal = typeof gasto === 'number' ? gasto : null;
+  const ultimaVetLabel = typeof ultimaVet === 'string' ? ultimaVet : null;
 
   // Mensagem enriquecida com nome, gasto e última visita ao vet —
   // O time abre o chat já com o contexto todo do quiz.
@@ -47,14 +55,15 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
     idade,
     utms,
     leadName: state.leadName,
-    gastoMensal: typeof gasto === 'number' ? gasto : null,
-    ultimaVet: typeof ultimaVet === 'string' ? ultimaVet : null,
+    gastoMensal,
+    ultimaVet: ultimaVetLabel,
   });
 
   const handleClick = () => {
     // Clique no WhatsApp = forte sinal de intenção. Dispara:
     //   - Lead event via Pixel (existente, sem CAPI — é só ack que clicou)
     //   - InitiateCheckout via Pixel + CAPI server (mensurado pela Meta como conversão)
+    //   - WA click from quiz (Sprint 2 — dossiê pré-preenchido, GA + Pixel custom)
     // Context 'wa_click' diferencia de view/sereninho_click no dedup.
     trackWhatsappClick({ tier, utms });
     trackInitiateCheckout({
@@ -62,6 +71,16 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
       value: TIER_VALUE[tier],
       leadId: state.leadId ?? undefined,
       context: 'wa_click',
+    });
+    trackWhatsAppClickFromQuiz({
+      tier,
+      especie,
+      idade,
+      cidade,
+      preocupacao,
+      gastoMensal,
+      planoAtual,
+      ultimaVet: ultimaVetLabel,
     });
     setClicked(true);
   };
