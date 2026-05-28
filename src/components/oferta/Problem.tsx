@@ -42,7 +42,7 @@ export function Problem() {
             return (
               <div
                 key={s.title}
-                className="flex flex-col gap-3 rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md md:items-start md:text-left"
               >
                 <Icon className="h-8 w-8 text-accent" strokeWidth={2} aria-hidden="true" />
                 <h3 className="text-lg font-bold text-neutral-900">{s.title}</h3>

@@ -28,7 +28,10 @@ export function Guarantee() {
           {TRUST_SIGNALS.map((s) => {
             const Icon = s.icon;
             return (
-              <div key={s.title} className="flex items-start gap-4">
+              <div
+                key={s.title}
+                className="flex flex-col items-center gap-3 text-center md:flex-row md:items-start md:gap-4 md:text-left"
+              >
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-success-50 text-success-500">
                   <Icon className="h-6 w-6" strokeWidth={2} aria-hidden="true" />
                 </div>

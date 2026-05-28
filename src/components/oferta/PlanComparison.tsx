@@ -93,7 +93,7 @@ function PlanCard({ plan }: PlanCardProps) {
         </div>
       )}
 
-      <header className="flex flex-col items-start gap-1 pt-2">
+      <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">
         <span className="text-3xl" aria-hidden="true">
           {plan.emoji}
         </span>
@@ -107,7 +107,7 @@ function PlanCard({ plan }: PlanCardProps) {
         <p className="text-xs text-neutral-500">{plan.targetPersona}</p>
       </header>
 
-      <div className="border-y border-neutral-200 py-3">
+      <div className="border-y border-neutral-200 py-3 text-center md:text-left">
         <p className="text-3xl font-extrabold text-neutral-900">
           R$ {plan.priceMonthly.toFixed(2).replace('.', ',')}
           <span className="text-sm font-medium text-neutral-500">/mês</span>

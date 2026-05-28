@@ -53,7 +53,7 @@ export function HiddenCost() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4 }}
-            className="rounded-2xl border-2 border-neutral-300 bg-white p-6 md:p-8"
+            className="rounded-2xl border-2 border-neutral-300 bg-white p-6 text-center md:p-8 md:text-left"
           >
             <p className="jofi-kicker mb-3 text-neutral-500">Hoje, difuso e invisível</p>
             <h3 className="mb-5 text-xl font-bold text-neutral-900">O que você já gasta sem ver</h3>
@@ -80,7 +80,7 @@ export function HiddenCost() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.4, delay: 0.1 }}
-            className="rounded-2xl border-2 border-primary bg-primary/5 p-6 md:p-8"
+            className="rounded-2xl border-2 border-primary bg-primary/5 p-6 text-center md:p-8 md:text-left"
           >
             <p className="jofi-kicker mb-3 text-primary">Com Jofi, previsível</p>
             <h3 className="mb-5 text-xl font-bold text-neutral-900">
@@ -88,7 +88,7 @@ export function HiddenCost() {
             </h3>
             <ul className="space-y-3">
               {JOFI_INCLUDES.map((item) => (
-                <li key={item} className="flex items-center gap-2 text-neutral-700">
+                <li key={item} className="flex items-center justify-center gap-2 text-neutral-700 md:justify-start">
                   <span className="text-primary" aria-hidden>
                     ✓
                   </span>
