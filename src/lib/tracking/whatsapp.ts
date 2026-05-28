@@ -100,9 +100,9 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
     const plan = getPlanById(input.selectedPlanId);
     if (plan) {
       lines.push(
-        `Vi o Plano ${plan.name} (${plan.priceLabel}) na página de ofertas`,
+        `Vi a cobertura ${plan.name} (${plan.priceLabel}) na página`,
       );
-      lines.push('e quero saber mais sobre essa cobertura.');
+      lines.push('e quero saber mais sobre ela.');
       lines.push('');
       lines.push('Pode me explicar como funciona? 💛');
 
@@ -141,15 +141,15 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
     // Inclui descritor curto do plano pra ajudar o time a abrir conversa.
     if (input.tier === 'quente') {
       lines.push(
-        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — proteção completa e tradicional. Quero ativar logo, pode me ajudar? 💛`,
+        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — proteção completa e tradicional. Quero ativar logo, pode me ajudar? 💛`,
       );
     } else if (input.tier === 'morno') {
       lines.push(
-        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — cuidado preventivo. Posso entender melhor como funciona? 💛`,
+        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — cuidado preventivo. Posso entender melhor como funciona? 💛`,
       );
     } else {
       lines.push(
-        `O perfil indicou o Plano ${plan.name} (${plan.priceLabel}) — o essencial. Queria tirar algumas dúvidas, pode me ajudar? 💛`,
+        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — o essencial. Queria tirar algumas dúvidas, pode me ajudar? 💛`,
       );
     }
 
@@ -158,9 +158,9 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
   }
 
   // === Variante 3: Fallback genérico (sem tier, sem plano selecionado) ===
-  lines.push('Vi a plataforma e quero saber mais sobre os planos.');
+  lines.push('Vi a plataforma e quero saber mais sobre as coberturas.');
   lines.push('');
-  lines.push('Pode me ajudar a escolher o ideal pro meu pet? 💛');
+  lines.push('Pode me ajudar a escolher a ideal pro meu pet? 💛');
 
   const visibleText = lines.join('\n');
   return `${visibleText[0]}${QUIZ_INVISIBLE_MARKER}${visibleText.slice(1)}`;
@@ -175,9 +175,31 @@ export function buildWhatsappUrl(
     phone: phoneNumber,
     text: message,
   });
-  if (input.utms?.utm_source) {
-    params.set('utm_source', input.utms.utm_source);
+
+  // UTMs canônicas pro WhatsApp — preservam atribuição da campanha original
+  // mas adicionam camada de medium/campaign/content pra cruzar com o funil.
+  // utm_source: o real (ad/instagram/...) ou fallback 'site'
+  // utm_medium: sempre 'whatsapp' nesse touchpoint
+  // utm_campaign: 'quiz' (quiz funnel) ou 'oferta_lp' (LP /oferta)
+  // utm_content: tier do quiz OU plano selecionado na LP
+  // utm_term: contexto fino (quiz_completo, plan_card, etc.)
+  params.set('utm_source', input.utms?.utm_source ?? 'site');
+  params.set('utm_medium', 'whatsapp');
+
+  if (input.source === 'oferta_lp') {
+    params.set('utm_campaign', 'oferta_lp');
+    if (input.selectedPlanId) {
+      params.set('utm_content', input.selectedPlanId);
+      params.set('utm_term', 'plan_card');
+    }
+  } else {
+    params.set('utm_campaign', 'quiz');
+    if (input.tier) {
+      params.set('utm_content', input.tier);
+      params.set('utm_term', 'quiz_completo');
+    }
   }
+
   return `https://api.whatsapp.com/send/?${params.toString()}`;
 }
 

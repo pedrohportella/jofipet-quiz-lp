@@ -1,6 +1,6 @@
 'use client';
 
-import { PawPrint } from 'lucide-react';
+import Image from 'next/image';
 import Link from 'next/link';
 
 export function OfertaFooter() {
@@ -11,15 +11,14 @@ export function OfertaFooter() {
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <PawPrint className="h-6 w-6 text-primary" strokeWidth={2.5} aria-hidden="true" />
-              <span
-                className="text-xl text-white"
-                style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
-              >
-                JOFI
-              </span>
-            </div>
+            <Image
+              src="/brand/jofi/variant-7.svg"
+              alt="Jofi"
+              width={100}
+              height={40}
+              className="h-9 w-auto"
+              style={{ filter: 'brightness(0) invert(1)' }}
+            />
             <p className="max-w-xs text-sm text-neutral-400">
               A plataforma de saúde que o seu bichinho merece. Do check-up à
               emergência, tudo para o seu pet.

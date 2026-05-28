@@ -1,6 +1,6 @@
 'use client';
 
-import { PawPrint } from 'lucide-react';
+import Image from 'next/image';
 
 /**
  * Card de "Atendente Jofi" no resultado.
@@ -13,8 +13,14 @@ import { PawPrint } from 'lucide-react';
 export function AttendantCard() {
   return (
     <div className="flex w-full items-center gap-3 rounded-xl bg-cream px-4 py-3 text-left">
-      <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-primary text-white">
-        <PawPrint className="h-6 w-6" strokeWidth={2.5} aria-hidden="true" />
+      <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-primary/10">
+        <Image
+          src="/brand/jofi/variant-5.svg"
+          alt="Jofi"
+          width={48}
+          height={48}
+          className="h-10 w-10"
+        />
       </div>
       <div className="flex flex-1 flex-col">
         <p className="text-sm font-bold text-neutral-900">Time Jofi</p>

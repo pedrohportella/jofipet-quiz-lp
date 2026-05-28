@@ -1,5 +1,5 @@
 {
-  "version": "2026-04-17",
+  "version": "2026-05-27",
   "axes": ["pet_ativo", "gasto", "dor", "cobertura"],
   "thresholds": {
     "quente": 70,
@@ -12,6 +12,13 @@
       "type": "weights",
       "weights": { "sim": 0, "nao": -999 },
       "notes": "Eliminatório: -999 força tier=frio via flag eliminated"
+    },
+    {
+      "questionId": "cidade",
+      "axis": "cobertura",
+      "type": "weights",
+      "weights": { "pe": 12, "pb": 12, "outra": 0 },
+      "notes": "PE/PB têm rede credenciada (boost cobertura). 'outra' tem bifurcação separada — score zero é defensivo."
     },
     {
       "questionId": "idade",

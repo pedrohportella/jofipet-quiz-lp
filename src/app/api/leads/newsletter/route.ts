@@ -15,6 +15,8 @@ const NewsletterPayloadSchema = z.object({
   name: z.string().optional().nullable(),
   tier: z.enum(['quente', 'morno', 'frio']).optional().nullable(),
   utms: z.record(z.string(), z.string().optional()).optional(),
+  /** Origem do signup. Default 'newsletter'. 'quiz_out_of_area' = lista de espera fora de área. */
+  source: z.enum(['newsletter', 'quiz_out_of_area']).optional(),
 });
 
 function extractIp(req: NextRequest): string {
@@ -160,11 +162,17 @@ export async function POST(request: NextRequest) {
         event_type: 'CONVERSION',
         event_family: 'CDP',
         payload: {
-          conversion_identifier: 'jofipet-newsletter',
+          conversion_identifier:
+            lead.source === 'quiz_out_of_area'
+              ? 'jofipet-fora-area'
+              : 'jofipet-newsletter',
           email: lead.email,
           name: lead.name ?? undefined,
-          tags: ['newsletter-jofi', 'quiz-jofipet'],
-          cf_origem: 'quiz_lp',
+          tags:
+            lead.source === 'quiz_out_of_area'
+              ? ['fora-area-jofi', 'quiz-jofipet']
+              : ['newsletter-jofi', 'quiz-jofipet'],
+          cf_origem: lead.source === 'quiz_out_of_area' ? 'quiz_fora_area' : 'quiz_lp',
           cf_quiz_tier: lead.tier ?? 'frio',
           ...utmFields,
         },

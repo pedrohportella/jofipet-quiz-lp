@@ -2,11 +2,13 @@
 
 import { useEffect, useRef } from 'react';
 import { Hero } from '@/components/oferta/Hero';
+import { HiddenCost } from '@/components/oferta/HiddenCost';
 import { Problem } from '@/components/oferta/Problem';
 import { Solution } from '@/components/oferta/Solution';
 import { HowItWorks } from '@/components/oferta/HowItWorks';
 import { VideoSection } from '@/components/oferta/VideoSection';
 import { PlanComparison } from '@/components/oferta/PlanComparison';
+import { TransparencyTable } from '@/components/oferta/TransparencyTable';
 import { Testimonials } from '@/components/oferta/Testimonials';
 import { MidCta } from '@/components/oferta/MidCta';
 import { Guarantee } from '@/components/oferta/Guarantee';
@@ -77,11 +79,15 @@ export function OfertaClient({ videoEmbedUrl }: OfertaClientProps) {
   return (
     <OfertaCaptureProvider>
       <Hero />
+      <HiddenCost />
       <Problem />
       <Solution />
       <HowItWorks />
-      <VideoSection videoEmbedUrl={videoEmbedUrl} />
+      {/* VideoSection ocultado temporariamente até Jofi entregar o vídeo institucional.
+          Manter aqui (comentado) pra remount instantâneo quando o videoEmbedUrl chegar. */}
+      {false && <VideoSection videoEmbedUrl={videoEmbedUrl} />}
       <PlanComparison />
+      <TransparencyTable />
       <Testimonials />
       <MidCta />
       <Guarantee />

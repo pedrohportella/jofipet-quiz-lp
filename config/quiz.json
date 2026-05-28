@@ -1,6 +1,6 @@
 {
   "$schema": "./quiz.schema.json",
-  "version": "2026-04-17",
+  "version": "2026-05-27",
   "questions": [
     {
       "id": "pet-ativo",
@@ -11,6 +11,17 @@
       "options": [
         { "id": "sim", "label": "Sim, tenho!" },
         { "id": "nao", "label": "Ainda não tenho" }
+      ]
+    },
+    {
+      "id": "cidade",
+      "type": "single-choice",
+      "text": "Onde você mora?",
+      "emoji": "📍",
+      "options": [
+        { "id": "pe", "label": "Recife / Olinda / Camaragibe (PE)" },
+        { "id": "pb", "label": "João Pessoa / Santa Rita (PB)" },
+        { "id": "outra", "label": "Outra cidade" }
       ]
     },
     {

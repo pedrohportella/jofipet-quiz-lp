@@ -4,7 +4,7 @@
 **Owner:** Pedro Portella (Double Check)
 **Gerado por:** @analyst (via aiox-master), 2026-04-16
 **Workflow:** greenfield-ui
-**Inputs usados:** `skills/clientes/jofipet-operacao.skill`, `skills/agencia/dc-ofertas.skill`, padrões DC OS
+**Inputs usados:** `~/DoubleCheck/Interno/Operação/skills/clientes/jofipet-operacao.skill`, `~/DoubleCheck/Interno/Operação/skills/agencia/dc-ofertas.skill`, padrões DC OS
 
 ---
 
@@ -237,7 +237,7 @@ Quiz como porta de entrada padrão de todas as campanhas pagas Jofi — substitu
 ## Appendices
 
 ### A. Research Summary
-- **Tom de voz Jofi (de `skills/clientes/jofipet-operacao.skill`):** próximo, acolhedor, leve; "tutores" (não "donos"); emojis 🐾 🐶 🐱 💛; sem jargão vet; foco em cuidado preventivo + economia
+- **Tom de voz Jofi (de `~/DoubleCheck/Interno/Operação/skills/clientes/jofipet-operacao.skill`):** próximo, acolhedor, leve; "tutores" (não "donos"); emojis 🐾 🐶 🐱 💛; sem jargão vet; foco em cuidado preventivo + economia
 - **Editoria "Que tipo de tutor você é?"** já existe no calendário orgânico — premissa validada de que o formato engaja
 - **Oferta de entrada Sereninho R$49,90** — produto já vivo, serve como destino de morno
 - **Programa "Amigo + banho grátis"** — base para ramificação pós-MVP de quiz de indicação
@@ -249,8 +249,8 @@ Quiz como porta de entrada padrão de todas as campanhas pagas Jofi — substitu
 - David Miranda (arte): a envolver em design/criação de assets pós-wireframes
 
 ### C. References
-- Skill: `skills/clientes/jofipet-operacao.skill`
-- Skill: `skills/agencia/dc-ofertas.skill`
+- Skill: `~/DoubleCheck/Interno/Operação/skills/clientes/jofipet-operacao.skill`
+- Skill: `~/DoubleCheck/Interno/Operação/skills/agencia/dc-ofertas.skill`
 - Memória: `project_jofi_pet.md` (Jofi usa RD Station)
 - RD Station Marketing API: https://developers.rdstation.com/reference/post_platform-conversions
 

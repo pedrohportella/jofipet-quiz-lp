@@ -64,7 +64,7 @@ export interface OfertaCaptureContext {
   /** Plano clicado (vem dos PlanCards). Undefined em CTAs genéricos. */
   selectedPlanId?: PlanId;
   /** Posição do CTA na página (pra tracking). */
-  source: 'hero' | 'mid' | 'final' | 'sticky' | 'card';
+  source: 'hero' | 'mid' | 'final' | 'sticky' | 'card' | 'hidden_cost';
 }
 
 interface OfertaCaptureModalProps {
@@ -191,7 +191,11 @@ export function OfertaCaptureModal({
       if (context.selectedPlanId) {
         trackLpOfertaPlanClick(context.selectedPlanId, 'card');
       }
-      trackLpOfertaWhatsappClick(context.source === 'card' ? 'mid' : context.source);
+      trackLpOfertaWhatsappClick(
+        context.source === 'card' || context.source === 'hidden_cost'
+          ? 'mid'
+          : context.source,
+      );
 
       // Fallback: sem WHATSAPP_NUMBER, só fecha modal (lead já foi salvo)
       if (!WHATSAPP_NUMBER) {
@@ -232,7 +236,7 @@ export function OfertaCaptureModal({
 
   // Header dinâmico baseado em qual CTA o lead clicou
   const heading = plan
-    ? `Quer saber sobre o Plano ${plan.name}?`
+    ? `Quer saber sobre o ${plan.name}?`
     : 'Vamos conversar?';
   const sub = plan
     ? `Conta seus dados e nosso time te explica tudo sobre o ${plan.name} no WhatsApp.`
@@ -399,7 +403,7 @@ export function OfertaCaptureModal({
             </button>
 
             <p className="text-center text-xs text-neutral-500">
-              🔒 Seus dados ficam protegidos · Só te chamamos sobre o plano
+              🔒 Seus dados ficam protegidos · Só te chamamos sobre a cobertura
             </p>
           </form>
         </motion.div>

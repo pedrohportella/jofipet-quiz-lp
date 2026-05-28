@@ -24,8 +24,8 @@ export function FinalCta() {
           <span className="text-accent">do jeito certo?</span>
         </h2>
         <p className="max-w-md text-base text-neutral-700 md:text-lg">
-          Nosso time tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher o plano
-          ideal pro seu pet. Sem compromisso. 💛
+          Nosso time tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher a
+          cobertura ideal pro seu pet. Sem compromisso. 💛
         </p>
         <button
           type="button"

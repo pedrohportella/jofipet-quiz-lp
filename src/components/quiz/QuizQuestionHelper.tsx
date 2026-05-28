@@ -17,7 +17,7 @@ import { cn } from '@/lib/utils/cn';
 const HELPER_TEXTS: Record<string, string> = {
   cep: 'A gente usa o CEP só pra mostrar vets parceiros perto de você. Não é obrigatório — pode pular se preferir.',
   'gasto-mensal':
-    'Saber seu gasto atual ajuda a recomendar um plano que cabe no seu orçamento. Não compartilhamos com ninguém.',
+    'Saber seu gasto atual ajuda a recomendar uma cobertura que cabe no seu orçamento. Não compartilhamos com ninguém.',
 };
 
 export function QuizQuestionHelper({ questionId }: { questionId: string }) {

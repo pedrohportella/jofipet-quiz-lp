@@ -7,30 +7,30 @@ import { cn } from '@/lib/utils/cn';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
 /**
- * Tabela visual dos 4 planos Jofi.
+ * Tabela visual das 4 coberturas Jofi.
  *
- * Cada clique em "Quero o Plano X" abre o popup de captura
+ * Cada clique em "Quero o {Nome}" abre o popup de captura
  * (OfertaCaptureModal). Lead preenche dados, sistema envia pro
  * RD/CAPI/Admin, depois redireciona pro WhatsApp com mensagem rica
- * mencionando o plano selecionado.
+ * mencionando a cobertura selecionada.
  */
 export function PlanComparison() {
   return (
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <p className="jofi-kicker mb-2 text-accent">Planos Jofi</p>
+          <p className="jofi-kicker mb-2 text-accent">Coberturas Jofi</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-5xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Escolha o ideal pro
+            Escolha a cobertura ideal
             <br />
-            <span className="text-primary">seu pequeno.</span>
+            pro seu <span className="text-accent">pequeno.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
-            Todos os planos incluem orientação 24h via WhatsApp e cobertura nacional na rede Jofi.
-            Sem fidelidade, sem letra miúda.
+            Todas as coberturas incluem orientação 24h via WhatsApp e rede credenciada
+            nas principais cidades de PE e PB. Sem fidelidade, sem letra miúda.
           </p>
         </div>
 
@@ -41,8 +41,10 @@ export function PlanComparison() {
         </div>
 
         <p className="mt-8 text-center text-sm text-neutral-500">
-          {/* TODO Pedro/Jofi: validar carências, limites e bullets de cada plano. */}
-          ⚠️ Valores e coberturas sujeitos a confirmação Jofi antes da contratação.
+          {/* TODO Pedro/Jofi: validar carências, limites e bullets de cada cobertura. */}
+          ⚠️ Valores apresentados são a partir de — o valor exato considera a idade
+          do pet (até 7 anos ou 8+). Sem taxa de adesão extra: o primeiro pagamento
+          já libera atendimento.
         </p>
       </div>
     </section>
@@ -91,7 +93,7 @@ function PlanCard({ plan }: PlanCardProps) {
         </div>
       )}
 
-      <header className="flex flex-col items-start gap-1 pt-2">
+      <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">
         <span className="text-3xl" aria-hidden="true">
           {plan.emoji}
         </span>
@@ -105,7 +107,7 @@ function PlanCard({ plan }: PlanCardProps) {
         <p className="text-xs text-neutral-500">{plan.targetPersona}</p>
       </header>
 
-      <div className="border-y border-neutral-200 py-3">
+      <div className="border-y border-neutral-200 py-3 text-center md:text-left">
         <p className="text-3xl font-extrabold text-neutral-900">
           R$ {plan.priceMonthly.toFixed(2).replace('.', ',')}
           <span className="text-sm font-medium text-neutral-500">/mês</span>
@@ -130,7 +132,7 @@ function PlanCard({ plan }: PlanCardProps) {
         type="button"
         onClick={handleClick}
         className={cn('jofi-btn mt-2 w-full text-center', buttonClass)}
-        aria-label={`Quero o Plano ${plan.name} — falar com nosso time`}
+        aria-label={`Quero o ${plan.name} — falar com nosso time`}
       >
         Quero o {plan.name} →
       </button>

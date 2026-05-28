@@ -97,8 +97,8 @@ describe('getHeadline + getSubheadline + getBullets', () => {
     answers: baseAnswers,
   });
 
-  it('quente headline mentions Parceiro/plano completo', () => {
-    expect(getHeadline('quente')).toMatch(/plano completo/i);
+  it('quente headline mentions cobertura completa', () => {
+    expect(getHeadline('quente')).toMatch(/cobertura completa/i);
   });
 
   it('quente subheadline interpolates primeiroNome + especie', () => {

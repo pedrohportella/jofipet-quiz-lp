@@ -6,17 +6,17 @@ const SCENARIOS = [
   {
     icon: AlertCircle,
     title: 'Pet com problema fora de hora',
-    body: 'Madrugada, fim de semana, emergência — vet de plantão custa caro e nem sempre tá disponível.',
+    body: 'Madrugada, fim de semana, feriado. Vet de plantão custa caro e nem sempre atende. A Jofi tá no WhatsApp 24h pra te orientar antes da emergência virar pânico.',
   },
   {
     icon: Wallet,
     title: 'Conta de vet inesperada',
-    body: 'Aquela consulta de rotina vira R$ 1.500 quando o vet pede 3 exames. Vacina sozinha já passa de R$ 200.',
+    body: 'Consulta vira R$ 1.500 quando o vet pede 3 exames. Vacina sozinha já passa de R$ 200. Castração? R$ 800 a R$ 1.800. Com a Jofi, você pagou R$ 79 e tá tudo coberto.',
   },
   {
     icon: Clock,
-    title: 'Esperar pra resolver',
-    body: 'Sem plano, você adia. E o pet sofre. Quando vai ao vet, o problema cresceu — custa mais e dói mais.',
+    title: 'Esperar e o problema crescer',
+    body: 'Sem cobertura, dá pra empurrar pro mês que vem. E o pet sofre em silêncio. Quando chega no vet, o problema cresceu — custa mais, dói mais, demora mais.',
   },
 ];
 
@@ -30,7 +30,7 @@ export function Problem() {
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Cuidar de pet sem plano
+            Cuidar de pet sem cobertura
             <br />
             <span className="text-accent">é estressante e caro.</span>
           </h2>
@@ -42,7 +42,7 @@ export function Problem() {
             return (
               <div
                 key={s.title}
-                className="flex flex-col gap-3 rounded-2xl bg-white p-6 shadow-sm transition-shadow hover:shadow-md"
+                className="flex flex-col items-center gap-3 rounded-2xl bg-white p-6 text-center shadow-sm transition-shadow hover:shadow-md md:items-start md:text-left"
               >
                 <Icon className="h-8 w-8 text-accent" strokeWidth={2} aria-hidden="true" />
                 <h3 className="text-lg font-bold text-neutral-900">{s.title}</h3>
@@ -53,7 +53,8 @@ export function Problem() {
         </div>
 
         <p className="mt-10 text-center text-base text-neutral-700 md:text-lg">
-          A Jofi existe pra você nunca mais passar por isso. <strong>Plano completo</strong> a partir de
+          A Jofi existe pra você nunca mais passar por isso.{' '}
+          <strong>Cobertura completa</strong> a partir de
           <strong> R$ 49,90/mês</strong>.
         </p>
       </div>

@@ -78,8 +78,26 @@ describe('buildWhatsappUrl', () => {
     expect(url).toContain('utm_source=instagram');
   });
 
-  it('omits utm_source when utms not provided', () => {
+  it('falls back to utm_source=site when utms not provided', () => {
     const url = buildWhatsappUrl('558007779745', { tier: 'frio' });
-    expect(url).not.toContain('utm_source');
+    expect(url).toContain('utm_source=site');
+  });
+
+  it('attaches canonical quiz UTMs (medium + campaign + content + term)', () => {
+    const url = buildWhatsappUrl('558007779745', { tier: 'quente' });
+    expect(url).toContain('utm_medium=whatsapp');
+    expect(url).toContain('utm_campaign=quiz');
+    expect(url).toContain('utm_content=quente');
+    expect(url).toContain('utm_term=quiz_completo');
+  });
+
+  it('attaches oferta_lp UTMs when source=oferta_lp + selectedPlanId', () => {
+    const url = buildWhatsappUrl('558007779745', {
+      source: 'oferta_lp',
+      selectedPlanId: 'sereno',
+    });
+    expect(url).toContain('utm_campaign=oferta_lp');
+    expect(url).toContain('utm_content=sereno');
+    expect(url).toContain('utm_term=plan_card');
   });
 });

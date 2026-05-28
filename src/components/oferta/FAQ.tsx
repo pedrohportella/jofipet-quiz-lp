@@ -17,52 +17,64 @@ interface FaqItem {
 // Taxa de adesão: Sereninho/Sereno TÊM · Parceiro/Melhor Amigo NÃO TÊM (diferencial!).
 const FAQ_ITEMS: FaqItem[] = [
   {
+    id: 'vale-pena',
+    question: 'Vale a pena ter cobertura de saúde pet ou pago avulso quando precisa?',
+    answer:
+      'A resposta honesta: se você só vai precisar de consulta de rotina, talvez não compense. Mas a maioria dos tutores subestima quanto já gasta por ano com pet difuso — vacina, vermífugo, antipulgas, exame, consultas. Some o ano passado: provavelmente foi entre R$ 1.200 e R$ 1.700. A Jofi torna esse custo previsível e ainda cobre o imprevisto que vem do nada (cirurgia, internação) — onde a conta passa fácil de R$ 4.000.',
+  },
+  {
     id: 'cobertura',
     question: 'O que a Jofi cobre exatamente?',
     answer:
-      'Depende do plano que você escolher. O Sereninho cobre consultas clínicas, vacinação essencial, exames de rotina e aplicação de medicamentos. O Sereno adiciona exames laboratoriais, exames de imagem e sedação. O Parceiro inclui internamento, cirurgias, tomografia, anestesias e consultas com especialistas. O Melhor Amigo é a cobertura mais que completa — consultas ilimitadas, ressonância magnética, transfusão sanguínea e mais. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
+      'Depende da cobertura que você escolher. O Sereninho cobre consultas clínicas, vacinação essencial, exames de rotina e aplicação de medicamentos. O Sereno adiciona exames laboratoriais, exames de imagem e sedação. O Parceiro inclui internamento, cirurgias, tomografia, anestesias e consultas com especialistas. O Melhor Amigo é a cobertura mais que completa — consultas ilimitadas, ressonância magnética, transfusão sanguínea e mais. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
   },
   {
     id: 'carencia',
     question: 'Qual o tempo de carência?',
     answer:
-      'A carência varia conforme o plano e o tipo de cobertura. Nosso time confirma todos os prazos pra você no WhatsApp antes da contratação — sem letra miúda, sem surpresa.',
+      'Consultas clínicas e vacinas: liberadas no dia 1. Exames de imagem, sedação, internação e cirurgias têm carência específica por tipo (mais detalhes na cartilha). Na assinatura anual, as carências são reduzidas. Nosso time confirma todos os prazos pra você no WhatsApp antes da contratação.',
+  },
+  {
+    id: 'coparticipacao',
+    question: 'Existe coparticipação?',
+    answer:
+      'Não. Você paga só a mensalidade. Sem cobrança por procedimento, sem cobrança surpresa depois.',
   },
   {
     id: 'cancelamento',
     question: 'Posso cancelar quando quiser?',
     answer:
-      'Sim. Nenhum plano Jofi tem fidelidade. Você cancela a qualquer momento pelo WhatsApp do nosso time ou pelo email de contato. Sem multa, sem burocracia.',
+      'Sim. Nenhuma cobertura Jofi tem fidelidade. Você cancela a qualquer momento pelo WhatsApp do nosso time ou pelo email de contato. Sem multa, sem burocracia.',
   },
   {
-    id: 'rede',
-    question: 'Onde encontro vets parceiros Jofi?',
+    id: 'vet-confianca',
+    question: 'Posso usar meu veterinário de confiança?',
     answer:
-      'A Jofi conecta seu pet à clínica veterinária favorita da rede credenciada. Temos parceiros em diversas cidades do Brasil. Quando você assina, nosso time te ajuda a escolher o vet mais conveniente perto de você. Se seu vet de confiança ainda não é parceiro Jofi, conta pra gente — estamos sempre expandindo a rede.',
+      'A Jofi funciona via rede credenciada — hospitais e clínicas parceiras em PE e PB. Se o seu vet de confiança é da rede, beleza. Se não, podemos te apresentar uma das parceiras mais perto de você. A gente conhece bem todas elas.',
   },
   {
     id: 'pet-idoso',
     question: 'Meu pet é idoso — aceito mesmo assim?',
     answer:
-      'Sim! A Jofi aceita pets de todas as idades. Pets idosos geralmente se beneficiam mais do Plano Parceiro ou Melhor Amigo (cobertura ampla pras demandas que vêm com a idade). Nosso time te ajuda a escolher o plano certo pro estágio de vida do seu pequeno.',
+      'Sim! A Jofi aceita pets de todas as idades. Pets com 8 anos ou mais entram numa faixa de preço própria (ex: o Sereno passa de R$ 79,90 para R$ 109,90/mês). Sem recusa por idade. Pets idosos geralmente se beneficiam mais do Parceiro ou Melhor Amigo (cobertura ampla pras demandas que vêm com a idade).',
   },
   {
     id: 'gato',
     question: 'A Jofi atende gatos também?',
     answer:
-      'Sim! Todos os planos cobrem cães e gatos com a mesma estrutura. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra na cobertura.',
+      'Sim! Todas as coberturas incluem cães e gatos com a mesma estrutura. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra.',
   },
   {
     id: 'pagamento',
     question: 'Como funciona o pagamento e a taxa de adesão?',
     answer:
-      'O pagamento é mensal via cartão de crédito, débito recorrente ou Pix. Sobre a taxa de adesão: os planos Parceiro e Melhor Amigo são sem taxa de adesão. Sereninho e Sereno têm uma taxa única de adesão paga no início — nosso time te explica os valores certinhos no WhatsApp.',
+      'A adesão custa só o valor da 1ª mensalidade — sem taxa extra. Pagamento por boleto/pix ou cartão. No cartão, 5% de desconto na mensalidade. Vencimento dia 10 ou 20.',
   },
   {
     id: 'como-contratar',
-    question: 'Como faço pra contratar?',
+    question: 'Como faço pra assinar?',
     answer:
-      'Em 4 passos simples: 1) Você conta sobre o seu pet (espécie, idade, hábitos); 2) Escolhe a cobertura ideal junto com nosso time; 3) Decide qual parceiro vai atender seu pet; 4) Pronto! Já pode usar imediatamente. Sem burocracias dos modelos convencionais.',
+      '3 jeitos: 1) faz o quiz em 90 segundos e a gente te chama no WhatsApp; 2) fala direto com nosso time no WhatsApp agora; 3) preenche seus dados aqui no site e a gente entra em contato. Em qualquer um deles, você não vai ouvir "preencha cadastro" antes de saber o preço.',
   },
 ];
 

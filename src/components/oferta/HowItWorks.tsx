@@ -61,7 +61,7 @@ export function HowItWorks() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-80px' }}
               transition={{ duration: 0.4, delay: idx * 0.08 }}
-              className="relative flex flex-col gap-3"
+              className="relative flex flex-col items-center gap-3 text-center md:items-start md:text-left"
             >
               {/* Número grande + linha conectora (visível só em desktop) */}
               <div className="flex items-center gap-3">

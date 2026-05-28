@@ -1,6 +1,6 @@
 'use client';
 
-import { PawPrint } from 'lucide-react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
@@ -22,10 +22,14 @@ export function Hero() {
           className="relative aspect-[5/3] w-full max-w-xs overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-lg md:hidden"
           aria-hidden="true"
         >
-          {/* TODO Pedro/Jofi: substituir por foto real Jofi (5:3, 500x300 mobile) */}
-          <div className="absolute inset-0 flex items-center justify-center text-6xl">
-            🐶🐱
-          </div>
+          <Image
+            src="/hero/dog-highfive.png"
+            alt="Cachorro Jofi dando high-five"
+            fill
+            sizes="(max-width: 768px) 320px, 0px"
+            className="object-cover object-center"
+            priority
+          />
         </motion.div>
 
         <motion.div
@@ -34,17 +38,16 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="flex-1"
         >
-          <div className="mb-4 flex flex-col items-center gap-1 sm:flex-row sm:flex-wrap sm:gap-2 md:justify-start">
-            <div className="flex items-center gap-2">
-              <PawPrint className="h-6 w-6 text-primary md:h-7 md:w-7" strokeWidth={2.5} aria-hidden="true" />
-              <span
-                className="text-2xl text-primary"
-                style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
-              >
-                JOFI
-              </span>
-            </div>
-            <span className="jofi-kicker text-primary">Plano de saúde pet</span>
+          <div className="mb-4 flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3 md:justify-start">
+            <Image
+              src="/brand/jofi/variant-6.svg"
+              alt="Jofi"
+              width={200}
+              height={80}
+              priority
+              className="h-14 w-auto md:h-20"
+            />
+            <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
           </div>
 
           <h1
@@ -59,9 +62,9 @@ export function Hero() {
           </h1>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
-            A plataforma de saúde que o seu bichinho merece. Planos pet a partir
-            de <strong>R$ 49,90/mês</strong>, com atendimento humano e cobertura
-            ampla 🐾
+            Quando a conta inesperada chega às 3 da manhã, a Jofi já tá pronta.
+            Cobertura ampla com consultas, vacinas, exames, internação e cirurgias —
+            atendimento humano via WhatsApp, sem letra miúda 🐾
           </p>
 
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
@@ -73,15 +76,21 @@ export function Hero() {
               Falar com nosso time no WhatsApp 🐾
             </button>
             <a
-              href="#planos"
+              href="/"
               className="text-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary-700 sm:text-left"
             >
-              Conhecer os planos ↓
+              Não sabe qual faz sentido pro seu pet? Faz o quiz em 90s →
+            </a>
+            <a
+              href="#planos"
+              className="text-center text-sm font-medium text-neutral-600 underline underline-offset-4 hover:text-neutral-800 sm:text-left"
+            >
+              Conhecer as coberturas ↓
             </a>
           </div>
 
           <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
-            ⭐ +500 tutores · Atendimento 24h · LGPD compliant
+            ⭐ +500 tutores · Atendimento humano · Sem fidelidade
           </p>
         </motion.div>
 
@@ -92,17 +101,18 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="hidden flex-1 md:block"
         >
-          {/* TODO Pedro/Jofi: substituir por foto real Jofi (1:1 quadrado, 600x600 idealmente) */}
           <div
-            className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-xl"
-            aria-label="Imagem ilustrativa de pet"
+            className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-xl"
+            aria-label="Cachorro Jofi dando high-five"
           >
-            <div className="absolute inset-0 flex items-center justify-center text-9xl">
-              🐶🐱
-            </div>
-            <div className="absolute bottom-3 right-3 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-neutral-700 backdrop-blur">
-              Placeholder · Substituir por foto real
-            </div>
+            <Image
+              src="/hero/dog-highfive.png"
+              alt="Cachorro Jofi dando high-five — atendimento próximo e humano"
+              fill
+              sizes="(min-width: 768px) 28rem, 0px"
+              className="object-cover object-center"
+              priority
+            />
           </div>
         </motion.div>
       </div>

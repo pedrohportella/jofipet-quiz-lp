@@ -62,7 +62,7 @@ export function ResultCold({
         {whatsappNumber && (
           <div className="border-t border-neutral-300 pt-4">
             <p className="mb-3 text-left text-sm text-neutral-700">
-              Quer tirar dúvidas sobre o plano sem compromisso?
+              Quer tirar dúvidas sobre a cobertura sem compromisso?
             </p>
             <div className="flex flex-col gap-3">
               <AttendantCard />

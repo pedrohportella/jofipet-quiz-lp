@@ -67,7 +67,7 @@ export function renderTemplate(template: string, vars: ResultVars): string {
 }
 
 const HEADLINES: Record<Tier, string> = {
-  quente: 'Seu pet precisa do plano completo',
+  quente: 'Seu pet precisa da cobertura completa',
   morno: 'Comece com o Sereninho',
   frio: 'Toma um café com a gente',
 };
@@ -84,7 +84,7 @@ const SUBHEADLINES: Record<Tier, string> = {
 const BULLETS: Record<Tier, string[]> = {
   quente: [
     'Internação 24h + cirurgias + especialistas inclusos',
-    'Cobertura imediata pro seu pet {idade}, com carências reduzidas no plano anual',
+    'Cobertura imediata pro seu pet {idade}, com carências reduzidas na assinatura anual',
     'Sem coparticipação — você paga só a mensalidade',
   ],
   morno: [
@@ -94,7 +94,7 @@ const BULLETS: Record<Tier, string[]> = {
   ],
   frio: [
     'Conteúdo sobre vacinação, alimentação e check-ups essenciais',
-    'Quando quiser, conheça os planos a partir de R$ 49,90',
+    'Quando quiser, conheça as coberturas a partir de R$ 49,90',
     'Sem spam — só dicas úteis pro seu {especie}',
   ],
 };
