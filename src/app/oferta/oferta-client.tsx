@@ -83,7 +83,9 @@ export function OfertaClient({ videoEmbedUrl }: OfertaClientProps) {
       <Problem />
       <Solution />
       <HowItWorks />
-      <VideoSection videoEmbedUrl={videoEmbedUrl} />
+      {/* VideoSection ocultado temporariamente até Jofi entregar o vídeo institucional.
+          Manter aqui (comentado) pra remount instantâneo quando o videoEmbedUrl chegar. */}
+      {false && <VideoSection videoEmbedUrl={videoEmbedUrl} />}
       <PlanComparison />
       <TransparencyTable />
       <Testimonials />

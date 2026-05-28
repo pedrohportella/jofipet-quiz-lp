@@ -38,10 +38,10 @@ export function Hero() {
             <Image
               src="/brand/jofi/variant-6.svg"
               alt="Jofi"
-              width={120}
-              height={48}
+              width={200}
+              height={80}
               priority
-              className="h-10 w-auto md:h-12"
+              className="h-14 w-auto md:h-20"
             />
             <span className="jofi-kicker text-primary">Cobertura de saúde pet</span>
           </div>

@@ -12,10 +12,10 @@ export default function HomePage() {
         <Image
           src="/brand/jofi/variant-6.svg"
           alt="Jofi"
-          width={160}
-          height={64}
+          width={240}
+          height={96}
           priority
-          className="h-14 w-auto md:h-16"
+          className="h-20 w-auto md:h-24"
         />
         <p className="jofi-kicker text-primary">Cobertura de saúde pet</p>
       </div>
