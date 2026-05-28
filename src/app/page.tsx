@@ -17,7 +17,7 @@ export default function HomePage() {
           priority
           className="h-20 w-auto md:h-24"
         />
-        <p className="jofi-kicker text-primary">Cobertura de saúde pet</p>
+        <p className="jofi-kicker text-primary">Assinatura de Saúde Pet</p>
       </div>
 
       <h1

@@ -38,7 +38,7 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="flex-1"
         >
-          <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:gap-3 md:justify-start">
+          <div className="mb-4 flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3 md:justify-start">
             <Image
               src="/brand/jofi/variant-6.svg"
               alt="Jofi"
@@ -47,7 +47,7 @@ export function Hero() {
               priority
               className="h-14 w-auto md:h-20"
             />
-            <span className="jofi-kicker text-primary">Cobertura de saúde pet</span>
+            <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
           </div>
 
           <h1
