@@ -9,6 +9,10 @@ const nextConfig = {
       { protocol: 'https', hostname: 'blog.jofipet.com.br' },
       { protocol: 'https', hostname: 'jofipet.com.br' },
     ],
+    // Permite servir SVGs próprios (logos Jofi em /public/brand/jofi/).
+    // CSP sandbox impede execução de scripts embedded — segurança preservada.
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
 
   async headers() {

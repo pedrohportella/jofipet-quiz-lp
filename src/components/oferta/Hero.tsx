@@ -1,6 +1,6 @@
 'use client';
 
-import { PawPrint } from 'lucide-react';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
@@ -34,16 +34,15 @@ export function Hero() {
           transition={{ duration: 0.5 }}
           className="flex-1"
         >
-          <div className="mb-4 flex flex-col items-center gap-1 sm:flex-row sm:flex-wrap sm:gap-2 md:justify-start">
-            <div className="flex items-center gap-2">
-              <PawPrint className="h-6 w-6 text-primary md:h-7 md:w-7" strokeWidth={2.5} aria-hidden="true" />
-              <span
-                className="text-2xl text-primary"
-                style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
-              >
-                JOFI
-              </span>
-            </div>
+          <div className="mb-4 flex flex-col items-center gap-2 sm:flex-row sm:flex-wrap sm:gap-3 md:justify-start">
+            <Image
+              src="/brand/jofi/variant-6.svg"
+              alt="Jofi"
+              width={120}
+              height={48}
+              priority
+              className="h-10 w-auto md:h-12"
+            />
             <span className="jofi-kicker text-primary">Cobertura de saúde pet</span>
           </div>
 

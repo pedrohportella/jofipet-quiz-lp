@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { PawPrint } from 'lucide-react';
+import Image from 'next/image';
 import { HomeSocialProof } from '@/components/quiz/HomeSocialProof';
 import { ResumeQuizBanner } from '@/components/quiz/ResumeQuizBanner';
 
@@ -9,19 +9,14 @@ export default function HomePage() {
       <ResumeQuizBanner />
       <main className="mx-auto flex min-h-[100dvh] max-w-mobile flex-col items-center justify-center gap-7 px-4 py-10 text-center md:max-w-desktop">
       <div className="flex flex-col items-center gap-3">
-        <div className="flex items-center gap-2">
-          <PawPrint
-            className="h-10 w-10 text-primary"
-            strokeWidth={2.5}
-            aria-hidden="true"
-          />
-          <span
-            className="text-4xl text-primary"
-            style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
-          >
-            JOFI
-          </span>
-        </div>
+        <Image
+          src="/brand/jofi/variant-6.svg"
+          alt="Jofi"
+          width={160}
+          height={64}
+          priority
+          className="h-14 w-auto md:h-16"
+        />
         <p className="jofi-kicker text-primary">Cobertura de saúde pet</p>
       </div>
 
