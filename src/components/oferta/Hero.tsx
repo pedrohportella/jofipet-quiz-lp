@@ -22,10 +22,14 @@ export function Hero() {
           className="relative aspect-[5/3] w-full max-w-xs overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-lg md:hidden"
           aria-hidden="true"
         >
-          {/* TODO Pedro/Jofi: substituir por foto real Jofi (5:3, 500x300 mobile) */}
-          <div className="absolute inset-0 flex items-center justify-center text-6xl">
-            🐶🐱
-          </div>
+          <Image
+            src="/hero/dog-highfive.png"
+            alt="Cachorro Jofi dando high-five"
+            fill
+            sizes="(max-width: 768px) 320px, 0px"
+            className="object-cover object-center"
+            priority
+          />
         </motion.div>
 
         <motion.div
@@ -97,17 +101,18 @@ export function Hero() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="hidden flex-1 md:block"
         >
-          {/* TODO Pedro/Jofi: substituir por foto real Jofi (1:1 quadrado, 600x600 idealmente) */}
           <div
-            className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-xl"
-            aria-label="Imagem ilustrativa de pet"
+            className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-xl"
+            aria-label="Cachorro Jofi dando high-five"
           >
-            <div className="absolute inset-0 flex items-center justify-center text-9xl">
-              🐶🐱
-            </div>
-            <div className="absolute bottom-3 right-3 rounded-full bg-white/80 px-3 py-1 text-xs font-medium text-neutral-700 backdrop-blur">
-              Placeholder · Substituir por foto real
-            </div>
+            <Image
+              src="/hero/dog-highfive.png"
+              alt="Cachorro Jofi dando high-five — atendimento próximo e humano"
+              fill
+              sizes="(min-width: 768px) 28rem, 0px"
+              className="object-cover object-center"
+              priority
+            />
           </div>
         </motion.div>
       </div>
