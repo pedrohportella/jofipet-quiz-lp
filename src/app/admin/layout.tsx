@@ -40,6 +40,12 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             >
               🗂 Kanban
             </Link>
+            <Link
+              href="/admin/analytics/quiz"
+              className="text-neutral-700 hover:text-primary"
+            >
+              📊 Análise Quiz
+            </Link>
             <Link href="/" className="text-neutral-500 hover:text-neutral-900">
               Ver site →
             </Link>
