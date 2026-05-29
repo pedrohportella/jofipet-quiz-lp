@@ -14,11 +14,21 @@ import { createDeal } from './client';
 
 export interface RdCrmDispatchResult {
   ok: boolean;
-  skipped?: 'config_missing' | 'tier_not_eligible';
+  skipped?: 'feature_disabled' | 'config_missing' | 'tier_not_eligible';
   dealId?: string;
   errorStatus?: number;
   errorMessage?: string;
   retryable?: boolean;
+}
+
+/**
+ * Feature flag — quando off (default), nenhum deal é criado no RD CRM.
+ * Pra reativar: setar RD_CRM_ENABLED=true na env (Vercel ou .env.local)
+ * e redeploy. Mantém o código vivo, fácil de ligar/desligar a feature
+ * sem mexer em code.
+ */
+function isRdCrmEnabled(): boolean {
+  return process.env.RD_CRM_ENABLED === 'true';
 }
 
 function safeLog(
@@ -41,6 +51,17 @@ function safeLog(
 export async function dispatchRdCrmDeal(
   lead: StoredLead,
 ): Promise<RdCrmDispatchResult> {
+  // 0. Feature flag — desligado por default. Pausado a pedido da Jofi em
+  //    2026-05-29. Pra reativar: setar RD_CRM_ENABLED=true.
+  if (!isRdCrmEnabled()) {
+    safeLog('info', {
+      event: 'feature_disabled',
+      leadId: lead.leadId,
+      hint: 'Set RD_CRM_ENABLED=true to reactivate',
+    });
+    return { ok: true, skipped: 'feature_disabled' };
+  }
+
   // 1. Tier-gate: Frio nunca cria deal
   if (!shouldCreateDeal(lead.tier)) {
     safeLog('info', {

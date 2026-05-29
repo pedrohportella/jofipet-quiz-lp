@@ -32,11 +32,44 @@ describe('dispatchRdCrmDeal', () => {
     delete process.env.RD_CRM_TOKEN;
     delete process.env.RD_CRM_DEAL_STAGE_ID;
     delete process.env.RD_CRM_DEFAULT_USER_ID;
+    // Por padrão habilita pros testes que validam o fluxo "happy path".
+    // Tests específicos da feature flag desligada sobrescrevem.
+    process.env.RD_CRM_ENABLED = 'true';
   });
 
   afterEach(() => {
     vi.unstubAllGlobals();
     process.env = { ...originalEnv };
+  });
+
+  it('skipa quando feature flag off (RD_CRM_ENABLED diferente de "true")', async () => {
+    process.env.RD_CRM_ENABLED = 'false';
+    process.env.RD_CRM_TOKEN = 't';
+    process.env.RD_CRM_DEAL_STAGE_ID = 's';
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const { dispatchRdCrmDeal } = await import('./dispatch');
+    const r = await dispatchRdCrmDeal(makeLead({ tier: 'quente' }));
+
+    expect(r.ok).toBe(true);
+    expect(r.skipped).toBe('feature_disabled');
+    expect(fetchSpy).not.toHaveBeenCalled();
+  });
+
+  it('skipa quando feature flag ausente (default off)', async () => {
+    delete process.env.RD_CRM_ENABLED;
+    process.env.RD_CRM_TOKEN = 't';
+    process.env.RD_CRM_DEAL_STAGE_ID = 's';
+    const fetchSpy = vi.fn();
+    vi.stubGlobal('fetch', fetchSpy);
+
+    const { dispatchRdCrmDeal } = await import('./dispatch');
+    const r = await dispatchRdCrmDeal(makeLead({ tier: 'quente' }));
+
+    expect(r.ok).toBe(true);
+    expect(r.skipped).toBe('feature_disabled');
+    expect(fetchSpy).not.toHaveBeenCalled();
   });
 
   it('skipa tier frio sem chamar fetch', async () => {
