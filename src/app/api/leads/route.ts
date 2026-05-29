@@ -12,6 +12,7 @@ import {
   sendCapiEvent,
 } from '@/lib/meta-capi/client';
 import { crmIngestLead } from '@/lib/crm/ingest';
+import { dispatchRdCrmDeal } from '@/lib/rd-station-crm/dispatch';
 import type { Tier } from '@/lib/quiz/types';
 
 export const runtime = 'nodejs';
@@ -260,9 +261,48 @@ export async function POST(request: NextRequest) {
     }
   };
 
-  // Dispara CAPI + CRM em paralelo pra cortar latência somada (~500ms cada).
+  /**
+   * Cria negociação no RD Station CRM (só pra tiers configurados — quente + morno).
+   * Fail-safe: erro nunca bloqueia captura.
+   */
+  const fireRdCrm = async (
+    rdStatus: StoredLead['rdStatus'],
+    rdWarning?: string,
+  ): Promise<void> => {
+    try {
+      const result = await dispatchRdCrmDeal({
+        ...baseStored,
+        rdStatus,
+        ...(rdWarning ? { rdWarning } : {}),
+      });
+      logJson(result.ok ? 'info' : 'warn', {
+        event: 'rd_crm_dispatch_result',
+        correlationId,
+        leadId,
+        tier: lead.tier,
+        ok: result.ok,
+        skipped: result.skipped,
+        dealId: result.dealId,
+        errorStatus: result.errorStatus,
+        errorMessage: result.errorMessage,
+      });
+    } catch (err) {
+      logJson('error', {
+        event: 'rd_crm_dispatch_unexpected_error',
+        correlationId,
+        leadId,
+        message: err instanceof Error ? err.message : 'unknown',
+      });
+    }
+  };
+
+  // Dispara CAPI + Supabase CRM + RD CRM em paralelo pra cortar latência somada.
   const fireDownstream = (rdStatus: StoredLead['rdStatus'], rdWarning?: string) =>
-    Promise.all([fireCapi(), fireCrm(rdStatus, rdWarning)]);
+    Promise.all([
+      fireCapi(),
+      fireCrm(rdStatus, rdWarning),
+      fireRdCrm(rdStatus, rdWarning),
+    ]);
 
   if (!rdToken) {
     logJson('warn', {
