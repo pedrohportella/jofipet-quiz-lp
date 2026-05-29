@@ -17,8 +17,12 @@ interface LeadRow {
   score: number;
   variant: 'quiz' | 'oferta_lp';
   utm_source: string | null;
-  utm_campaign: string | null;
   utm_medium: string | null;
+  utm_campaign: string | null;
+  /** Conjunto/Ad set */
+  utm_term: string | null;
+  /** Anúncio/Ad */
+  utm_content: string | null;
   answers: Record<string, unknown>;
   breakdown: Record<string, number> | null;
   steps_answered: number;
@@ -124,7 +128,10 @@ function downloadCsv(rows: LeadRow[], questions: QuestionMeta[]): void {
     'tier',
     'score',
     'utm_source',
+    'utm_medium',
     'utm_campaign',
+    'utm_term_conjunto',
+    'utm_content_anuncio',
     ...questions.map((q) => `q_${q.id}`),
   ];
   const lines = rows.map((row) => {
@@ -137,7 +144,10 @@ function downloadCsv(rows: LeadRow[], questions: QuestionMeta[]): void {
       row.tier,
       row.score,
       row.utm_source ?? '',
+      row.utm_medium ?? '',
       row.utm_campaign ?? '',
+      row.utm_term ?? '',
+      row.utm_content ?? '',
       ...questions.map((q) => {
         const raw = row.answers[q.id];
         if (raw === undefined || raw === null || raw === '') return '';
@@ -527,16 +537,63 @@ function LeadTableRow({
         );
       })}
 
-      {/* UTM */}
-      <td className="whitespace-nowrap px-3 py-2 text-xs text-neutral-500">
-        {row.utm_source ?? '(direto)'}
-        {row.utm_campaign && (
-          <div className="text-[10px] text-neutral-400">
-            {row.utm_campaign}
-          </div>
-        )}
+      {/* UTM — source · medium · campaign · adset · ad */}
+      <td className="px-3 py-2 text-xs text-neutral-500 min-w-[200px]">
+        <UtmCell row={row} />
       </td>
     </tr>
+  );
+}
+
+// =============================================================================
+// Célula UTM rica — source · medium · campaign · adset · ad
+// =============================================================================
+function UtmCell({ row }: { row: LeadRow }) {
+  const allEmpty =
+    !row.utm_source &&
+    !row.utm_medium &&
+    !row.utm_campaign &&
+    !row.utm_term &&
+    !row.utm_content;
+
+  if (allEmpty) {
+    return <span className="text-neutral-300">(direto)</span>;
+  }
+
+  return (
+    <div className="flex flex-col gap-0.5 leading-tight">
+      {/* Source · medium na 1ª linha (compactos) */}
+      <div className="flex flex-wrap items-center gap-1 text-[11px] font-semibold text-neutral-700">
+        {row.utm_source && (
+          <span className="rounded bg-neutral-100 px-1.5 py-0.5">
+            {row.utm_source}
+          </span>
+        )}
+        {row.utm_medium && (
+          <span className="rounded bg-neutral-100 px-1.5 py-0.5">
+            {row.utm_medium}
+          </span>
+        )}
+      </div>
+      {/* Campanha, conjunto, anúncio em linhas separadas */}
+      {row.utm_campaign && (
+        <UtmLine label="Camp" value={row.utm_campaign} />
+      )}
+      {row.utm_term && <UtmLine label="Conj" value={row.utm_term} />}
+      {row.utm_content && <UtmLine label="Ad" value={row.utm_content} />}
+    </div>
+  );
+}
+
+function UtmLine({ label, value }: { label: string; value: string }) {
+  return (
+    <div
+      className="flex items-baseline gap-1 truncate text-[10px]"
+      title={`${label}: ${value}`}
+    >
+      <span className="font-bold uppercase text-neutral-400">{label}</span>
+      <span className="truncate text-neutral-600">{value}</span>
+    </div>
   );
 }
 

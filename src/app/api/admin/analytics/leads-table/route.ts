@@ -33,8 +33,12 @@ interface LeadRow {
   score: number;
   variant: 'quiz' | 'oferta_lp';
   utm_source: string | null;
-  utm_campaign: string | null;
   utm_medium: string | null;
+  utm_campaign: string | null;
+  /** Conjunto (ad set) — convenção: {{adset.name}} ou {{adset.id}} */
+  utm_term: string | null;
+  /** Anúncio (ad) — convenção: {{ad.name}} ou {{ad.id}} */
+  utm_content: string | null;
   /** Respostas raw — chave = id da pergunta (ex 'pet-ativo'), valor = id da opção ou número */
   answers: Record<string, unknown>;
   /** Decomposição do score por categoria */
@@ -65,7 +69,7 @@ export async function GET(request: NextRequest) {
   let query = supa
     .from('crm_leads')
     .select(
-      'lead_id, captured_at, name, whatsapp_e164, email, tier, score, variant, utm_source, utm_campaign, utm_medium, payload',
+      'lead_id, captured_at, name, whatsapp_e164, email, tier, score, variant, utm_source, utm_campaign, utm_medium, utm_term, utm_content, payload',
       { count: 'exact' },
     )
     .order('captured_at', { ascending: false })
@@ -97,8 +101,10 @@ export async function GET(request: NextRequest) {
       score: Number(r.score),
       variant: r.variant,
       utm_source: r.utm_source,
-      utm_campaign: r.utm_campaign,
       utm_medium: r.utm_medium,
+      utm_campaign: r.utm_campaign,
+      utm_term: r.utm_term,
+      utm_content: r.utm_content,
       answers,
       breakdown,
       steps_answered: Object.keys(answers).length,
@@ -108,7 +114,16 @@ export async function GET(request: NextRequest) {
   if (q) {
     const needle = q.toLowerCase();
     rows = rows.filter((row) => {
-      const hay = `${row.name} ${row.whatsapp_e164} ${row.email ?? ''} ${row.utm_source ?? ''}`.toLowerCase();
+      const utmHay = [
+        row.utm_source,
+        row.utm_medium,
+        row.utm_campaign,
+        row.utm_term,
+        row.utm_content,
+      ]
+        .filter(Boolean)
+        .join(' ');
+      const hay = `${row.name} ${row.whatsapp_e164} ${row.email ?? ''} ${utmHay}`.toLowerCase();
       return hay.includes(needle);
     });
   }

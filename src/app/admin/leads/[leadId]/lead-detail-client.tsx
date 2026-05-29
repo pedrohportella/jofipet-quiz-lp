@@ -133,15 +133,33 @@ export function LeadDetailClient({ leadId }: { leadId: string }) {
       {lead.payload.utms && Object.keys(lead.payload.utms).length > 0 && (
         <section className="rounded-xl bg-white p-5 shadow-jofi-1">
           <h2 className="mb-3 text-xs font-semibold uppercase tracking-wider text-neutral-500">
-            UTMs
+            Origem do tráfego (UTMs)
           </h2>
           <dl className="grid gap-2 text-sm md:grid-cols-2">
-            {Object.entries(lead.payload.utms).map(([key, value]) => (
-              <div key={key} className="flex justify-between gap-3 border-b border-neutral-100 py-1">
-                <dt className="text-neutral-500">{key}</dt>
-                <dd className="font-medium text-neutral-900">{String(value)}</dd>
-              </div>
-            ))}
+            {([
+              ['utm_source', 'Origem (source)', '🌐'],
+              ['utm_medium', 'Canal (medium)', '📡'],
+              ['utm_campaign', 'Campanha', '🎯'],
+              ['utm_term', 'Conjunto (ad set)', '👥'],
+              ['utm_content', 'Anúncio (ad)', '🖼️'],
+            ] as const).map(([key, label, emoji]) => {
+              const value = lead.payload.utms?.[key];
+              if (!value) return null;
+              return (
+                <div
+                  key={key}
+                  className="flex flex-col gap-0.5 rounded-lg border border-neutral-100 bg-neutral-50/50 p-3"
+                >
+                  <dt className="flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-neutral-500">
+                    <span>{emoji}</span>
+                    <span>{label}</span>
+                  </dt>
+                  <dd className="font-semibold text-neutral-900">
+                    {String(value)}
+                  </dd>
+                </div>
+              );
+            })}
           </dl>
         </section>
       )}
