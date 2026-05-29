@@ -11,6 +11,7 @@ import {
   readCapiConfig,
   sendCapiEvent,
 } from '@/lib/meta-capi/client';
+import { crmIngestLead } from '@/lib/crm/ingest';
 import type { Tier } from '@/lib/quiz/types';
 
 export const runtime = 'nodejs';
@@ -225,6 +226,44 @@ export async function POST(request: NextRequest) {
     payload: lead,
   };
 
+  /**
+   * Espelha o lead pro Supabase (tabela crm_leads + cria conversation).
+   * Fail-safe: erro aqui nunca quebra a captura — apenas loga.
+   * Roda em paralelo ao CAPI pra não somar latências.
+   */
+  const fireCrm = async (
+    rdStatus: StoredLead['rdStatus'],
+    rdWarning?: string,
+  ): Promise<void> => {
+    try {
+      const result = await crmIngestLead({
+        ...baseStored,
+        rdStatus,
+        ...(rdWarning ? { rdWarning } : {}),
+      });
+      logJson(result.ok ? 'info' : 'warn', {
+        event: 'crm_ingest_result',
+        correlationId,
+        leadId,
+        ok: result.ok,
+        reason: result.reason,
+        conversationId: result.conversationId,
+        hsmSent: result.hsmSent,
+      });
+    } catch (err) {
+      logJson('error', {
+        event: 'crm_ingest_unexpected_error',
+        correlationId,
+        leadId,
+        message: err instanceof Error ? err.message : 'unknown',
+      });
+    }
+  };
+
+  // Dispara CAPI + CRM em paralelo pra cortar latência somada (~500ms cada).
+  const fireDownstream = (rdStatus: StoredLead['rdStatus'], rdWarning?: string) =>
+    Promise.all([fireCapi(), fireCrm(rdStatus, rdWarning)]);
+
   if (!rdToken) {
     logJson('warn', {
       event: 'rd_token_missing',
@@ -241,7 +280,7 @@ export async function POST(request: NextRequest) {
       payload: { leadId, rdStatus: 'token_missing' },
     });
     recordIdempotent(lead, { leadId, correlationId, warning: 'rd_token_missing' });
-    await fireCapi();
+    await fireDownstream('token_missing');
     return NextResponse.json(
       {
         success: true,
@@ -272,7 +311,7 @@ export async function POST(request: NextRequest) {
         payload: { leadId, rdStatus: 'sent' },
       });
       recordIdempotent(lead, { leadId, correlationId });
-      await fireCapi();
+      await fireDownstream('sent');
       return NextResponse.json({ success: true, leadId, correlationId });
     }
 
@@ -290,7 +329,7 @@ export async function POST(request: NextRequest) {
         utmSource: lead.utms?.utm_source,
         payload: { leadId, rdStatus: 'queued' },
       });
-      await fireCapi();
+      await fireDownstream('queued', 'rd_5xx_queued');
       return NextResponse.json(
         {
           success: true,
@@ -316,7 +355,7 @@ export async function POST(request: NextRequest) {
       variant: 'quiz',
       payload: { leadId, rdStatus: 'rejected' },
     });
-    await fireCapi();
+    await fireDownstream('rejected', 'rd_rejected');
     return NextResponse.json(
       { success: true, leadId, correlationId, warning: 'rd_rejected' },
       { status: 200 },
@@ -336,7 +375,7 @@ export async function POST(request: NextRequest) {
         utmSource: lead.utms?.utm_source,
         payload: { leadId, rdStatus: 'unreachable' },
       });
-      await fireCapi();
+      await fireDownstream('unreachable', 'rd_unreachable_queued');
       return NextResponse.json(
         {
           success: true,

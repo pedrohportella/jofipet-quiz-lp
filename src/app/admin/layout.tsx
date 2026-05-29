@@ -28,6 +28,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/admin/leads" className="text-neutral-700 hover:text-primary">
               Leads
             </Link>
+            <Link
+              href="/admin/crm/inbox"
+              className="text-neutral-700 hover:text-primary"
+            >
+              💬 Inbox
+            </Link>
+            <Link
+              href="/admin/crm/kanban"
+              className="text-neutral-700 hover:text-primary"
+            >
+              🗂 Kanban
+            </Link>
             <Link href="/" className="text-neutral-500 hover:text-neutral-900">
               Ver site →
             </Link>
