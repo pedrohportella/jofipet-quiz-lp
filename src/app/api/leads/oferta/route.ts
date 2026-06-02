@@ -13,6 +13,8 @@ import {
   WHATSAPP_BR_REGEX,
 } from '@/lib/validation/schemas';
 import { getPlanById, type PlanId } from '@/lib/plans/catalog';
+import { crmIngestLead } from '@/lib/crm/ingest';
+import { dispatchRdCrmDeal } from '@/lib/rd-station-crm/dispatch';
 import type { Tier } from '@/lib/quiz/types';
 
 export const runtime = 'nodejs';
@@ -255,6 +257,82 @@ export async function POST(request: NextRequest) {
       sourceUrl,
     });
 
+  /**
+   * Espelha o lead pro Supabase (crm_leads + crm_conversations).
+   * Fail-safe: erro nunca quebra a captura — apenas loga.
+   */
+  const fireCrm = async (
+    rdStatus: StoredLead['rdStatus'],
+    rdWarning?: string,
+  ): Promise<void> => {
+    try {
+      const result = await crmIngestLead({
+        ...baseStored,
+        rdStatus,
+        ...(rdWarning ? { rdWarning } : {}),
+      });
+      logJson(result.ok ? 'info' : 'warn', {
+        event: 'oferta_crm_ingest_result',
+        correlationId,
+        leadId,
+        ok: result.ok,
+        reason: result.reason,
+        conversationId: result.conversationId,
+      });
+    } catch (err) {
+      logJson('error', {
+        event: 'oferta_crm_ingest_unexpected_error',
+        correlationId,
+        leadId,
+        message: err instanceof Error ? err.message : 'unknown',
+      });
+    }
+  };
+
+  /**
+   * Dispara criação de negociação no RD CRM (respeitando feature flag
+   * RD_CRM_ENABLED + tier-gate quente/morno). Fail-safe.
+   */
+  const fireRdCrm = async (
+    rdStatus: StoredLead['rdStatus'],
+    rdWarning?: string,
+  ): Promise<void> => {
+    try {
+      const result = await dispatchRdCrmDeal({
+        ...baseStored,
+        rdStatus,
+        ...(rdWarning ? { rdWarning } : {}),
+      });
+      logJson(result.ok ? 'info' : 'warn', {
+        event: 'oferta_rd_crm_dispatch_result',
+        correlationId,
+        leadId,
+        tier,
+        ok: result.ok,
+        skipped: result.skipped,
+        dealId: result.dealId,
+      });
+    } catch (err) {
+      logJson('error', {
+        event: 'oferta_rd_crm_dispatch_unexpected_error',
+        correlationId,
+        leadId,
+        message: err instanceof Error ? err.message : 'unknown',
+      });
+    }
+  };
+
+  // Dispara CAPI + Supabase CRM + RD CRM em paralelo (corta latência somada).
+  const fireDownstream = (
+    rdStatus: StoredLead['rdStatus'],
+    rdWarning?: string,
+  ) =>
+    Promise.all([
+      fireCapi(),
+      fireCrm(rdStatus, rdWarning),
+      fireRdCrm(rdStatus, rdWarning),
+    ]);
+
   if (!rdToken) {
     logJson('warn', {
       event: 'oferta_rd_token_missing',
@@ -269,7 +347,7 @@ export async function POST(request: NextRequest) {
       variant: 'oferta_lp',
       payload: { leadId, source: 'oferta_lp', rdStatus: 'token_missing' },
     });
-    await fireCapi();
+    await fireDownstream('token_missing');
     return NextResponse.json(
       {
         success: true,
@@ -337,7 +415,7 @@ export async function POST(request: NextRequest) {
         utmSource: lead.utms?.utm_source,
         payload: { leadId, source: 'oferta_lp', rdStatus: 'sent' },
       });
-      await fireCapi();
+      await fireDownstream('sent');
       return NextResponse.json({ success: true, leadId, correlationId });
     }
 
@@ -357,7 +435,7 @@ export async function POST(request: NextRequest) {
       variant: 'oferta_lp',
       payload: { leadId, source: 'oferta_lp', rdStatus },
     });
-    await fireCapi();
+    await fireDownstream(rdStatus, warning);
     return NextResponse.json(
       { success: true, leadId, correlationId, warning },
       { status: 200 },
@@ -381,7 +459,7 @@ export async function POST(request: NextRequest) {
         utmSource: lead.utms?.utm_source,
         payload: { leadId, source: 'oferta_lp', rdStatus: 'unreachable' },
       });
-      await fireCapi();
+      await fireDownstream('unreachable', 'rd_unreachable_queued');
       return NextResponse.json(
         {
           success: true,
