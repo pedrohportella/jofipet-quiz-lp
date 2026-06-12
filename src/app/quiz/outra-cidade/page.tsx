@@ -3,7 +3,7 @@ import { OutOfAreaClient } from './out-of-area-client';
 
 export const metadata: Metadata = {
   title: 'Fora da nossa área — Jofi Pet',
-  description: 'Atualmente atendemos PE e PB. Avise quando a Jofi chegar na sua cidade.',
+  description: 'Atualmente atendemos PE, PB e CE. Avise quando a Jofi chegar na sua cidade.',
   robots: { index: false, follow: false },
 };
 

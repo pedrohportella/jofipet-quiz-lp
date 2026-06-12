@@ -17,8 +17,8 @@
       "questionId": "cidade",
       "axis": "cobertura",
       "type": "weights",
-      "weights": { "pe": 12, "pb": 12, "outra": 0 },
-      "notes": "PE/PB têm rede credenciada (boost cobertura). 'outra' tem bifurcação separada — score zero é defensivo."
+      "weights": { "pe": 12, "pb": 12, "ce": 12, "outra": 0 },
+      "notes": "PE/PB/CE têm rede credenciada (boost cobertura). CE = nova unidade Fortaleza (2026-06). 'outra' tem bifurcação separada — score zero é defensivo."
     },
     {
       "questionId": "idade",

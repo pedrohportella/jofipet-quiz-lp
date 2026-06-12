@@ -30,7 +30,7 @@ export function PlanComparison() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
             Todas as coberturas incluem orientação 24h via WhatsApp e rede credenciada
-            nas principais cidades de PE e PB. Sem fidelidade, sem letra miúda.
+            nas principais cidades de PE, PB e CE. Sem fidelidade, sem letra miúda.
           </p>
         </div>
 

@@ -70,7 +70,7 @@ export function OutOfAreaClient() {
         className="mt-4 text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
       >
-        Atendemos PE e PB
+        Atendemos PE, PB e CE
       </h1>
       <p className="mt-4 text-base text-neutral-700">
         Estamos crescendo aos poucos. Quer ser avisado quando a Jofi chegar na sua cidade?

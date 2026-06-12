@@ -21,6 +21,7 @@
       "options": [
         { "id": "pe", "label": "Recife / Olinda / Camaragibe (PE)" },
         { "id": "pb", "label": "João Pessoa / Santa Rita (PB)" },
+        { "id": "ce", "label": "Fortaleza (CE)" },
         { "id": "outra", "label": "Outra cidade" }
       ]
     },
