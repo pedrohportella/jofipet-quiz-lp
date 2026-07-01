@@ -83,8 +83,8 @@ export const PLANS: Plan[] = [
       'Sem coparticipação',
     ],
     waitingDays: null,
-    popular: false,
-    accentColor: 'primary',
+    popular: true, // ⭐ "Mais escolhido" — melhor custo-benefício, âncora do meio da tabela
+    accentColor: 'accent',
     emoji: '🌻',
     targetPersona: 'A cobertura feita pra rotina e proteção do seu pet',
     hasOnboardingFee: true,
@@ -105,7 +105,7 @@ export const PLANS: Plan[] = [
       'Sem coparticipação · Sem taxa de adesão',
     ],
     waitingDays: null,
-    popular: true, // ⭐ "Mais escolhido" — cobertura completa tradicional
+    popular: false,
     accentColor: 'accent',
     emoji: '🔥',
     targetPersona: 'A nossa cobertura completa e tradicional',

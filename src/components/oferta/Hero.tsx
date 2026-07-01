@@ -76,6 +76,11 @@ export function Hero() {
             tudo num plano só.
           </h1>
 
+          <p className="mt-3 text-base font-semibold text-primary md:text-lg">
+            A partir de{' '}
+            <span className="text-neutral-900">R$ 49,90/mês</span> · Sem coparticipação
+          </p>
+
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
             Cobertura ampla — consultas, vacinas, exames, internação e cirurgias —
             com atendimento humano no WhatsApp. Precisou, usou: sem autorização
@@ -102,7 +107,7 @@ export function Hero() {
           </div>
 
           <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
-            ⭐ +500 tutores · Atendimento humano · Sem fidelidade · Sem coparticipação
+            Sem coparticipação · Consultas liberadas no dia 1 · Sem fidelidade · +500 tutores em PE/PB/CE
           </p>
         </motion.div>
 
