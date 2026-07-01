@@ -3,6 +3,7 @@ import { Nunito, Anton } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Providers } from './providers';
 import { MetaPixelScript } from '@/components/tracking/MetaPixelScript';
+import { GoogleAdsScript } from '@/components/tracking/GoogleAdsScript';
 import { UtmCapture } from '@/components/tracking/UtmCapture';
 import './globals.css';
 
@@ -37,10 +38,10 @@ export const metadata: Metadata = {
   keywords: [
     'plano de saúde pet',
     'plano pet',
+    'assinatura pet',
     'jofi',
     'jofi pet',
     'pet care',
-    'seguro pet',
     'plano veterinário',
     'saúde do pet',
     'cuidados pet',
@@ -138,6 +139,7 @@ export default function RootLayout({
 }) {
   const pixelId = process.env.NEXT_PUBLIC_META_PIXEL_ID ?? '';
   const gaId = process.env.NEXT_PUBLIC_GA_ID ?? '';
+  const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? '';
 
   return (
     <html lang="pt-BR" className={`${nunito.variable} ${anton.variable}`}>
@@ -159,6 +161,7 @@ export default function RootLayout({
         <Providers>{children}</Providers>
         {pixelId && <MetaPixelScript pixelId={pixelId} />}
         {gaId && gaId !== 'G-XXXXXXXXXX' && <GoogleAnalytics gaId={gaId} />}
+        {googleAdsId && <GoogleAdsScript adsId={googleAdsId} />}
       </body>
     </html>
   );

@@ -1,5 +1,6 @@
 import type { Tier } from '@/lib/quiz/types';
 import type { Utms } from './utms';
+import type { GoogleClickIds } from './gclid';
 import { getPlanById, TIER_TO_PLAN, type PlanId } from '@/lib/plans/catalog';
 
 /**
@@ -62,6 +63,11 @@ export interface WhatsappBuildInput {
   selectedPlanId?: PlanId | null;
   /** Origem do lead — controla tom da mensagem. Default: 'quiz' (legacy). */
   source?: 'quiz' | 'oferta_lp';
+  /**
+   * Google Click IDs (gclid/gbraid/wbraid) do clique de anúncio original.
+   * Preservados na URL do wa.me pra fechar o loop de atribuição no Google Ads.
+   */
+  googleClickIds?: GoogleClickIds;
 }
 
 /**
@@ -197,6 +203,15 @@ export function buildWhatsappUrl(
     if (input.tier) {
       params.set('utm_content', input.tier);
       params.set('utm_term', 'quiz_completo');
+    }
+  }
+
+  // Preserva Google Click IDs (gclid / gbraid / wbraid) até o wa.me
+  // pra manter atribuição de conversão do Google Ads intacta.
+  if (input.googleClickIds) {
+    for (const key of ['gclid', 'gbraid', 'wbraid'] as const) {
+      const value = input.googleClickIds[key];
+      if (value) params.set(key, value);
     }
   }
 

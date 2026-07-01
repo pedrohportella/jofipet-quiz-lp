@@ -9,6 +9,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
 import { LgpdConsent } from '@/components/capture/LgpdConsent';
 import { loadStoredUtms } from '@/lib/tracking/utms';
+import { loadStoredGoogleClickIds } from '@/lib/tracking/gclid';
+import { fireGoogleAdsConversion } from '@/lib/tracking/google-ads';
 import {
   trackLead,
   trackInitiateCheckout,
@@ -151,6 +153,7 @@ export function OfertaCaptureModal({
   const onSubmit = async (values: ModalValues) => {
     setSubmitState({ status: 'submitting' });
     const utms = loadStoredUtms();
+    const googleClickIds = loadStoredGoogleClickIds();
 
     try {
       const response = await fetch('/api/leads/oferta', {
@@ -197,6 +200,14 @@ export function OfertaCaptureModal({
           : context.source,
       );
 
+      // Google Ads conversion — dispara ANTES do redirect pra garantir
+      // que o gtag registre o evento mesmo com navegação subsequente.
+      fireGoogleAdsConversion({
+        value: TIER_VALUE[tier],
+        currency: 'BRL',
+        transactionId: leadId,
+      });
+
       // Fallback: sem WHATSAPP_NUMBER, só fecha modal (lead já foi salvo)
       if (!WHATSAPP_NUMBER) {
         setSubmitState({ status: 'redirecting' });
@@ -206,9 +217,10 @@ export function OfertaCaptureModal({
         return;
       }
 
-      // Build mensagem rica e redireciona
+      // Build mensagem rica e redireciona (preservando gclid/gbraid/wbraid)
       const waUrl = buildWhatsappUrl(WHATSAPP_NUMBER, {
         utms,
+        googleClickIds,
         leadName: values.name,
         selectedPlanId: context.selectedPlanId,
         source: 'oferta_lp',
