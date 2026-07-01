@@ -26,7 +26,7 @@ const STEPS = [
   {
     n: 3,
     title: 'Decide qual parceiro te atende',
-    body: 'Rede credenciada Jofi nas principais cidades. Você escolhe o vet perto de você.',
+    body: 'Rede credenciada em Pernambuco, Paraíba e Ceará. Você escolhe a clínica parceira mais perto de você.',
   },
   {
     n: 4,

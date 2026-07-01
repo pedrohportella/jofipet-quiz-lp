@@ -4,6 +4,7 @@ import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PLANS, type Plan } from '@/lib/plans/catalog';
 import { cn } from '@/lib/utils/cn';
+import { REDE_TEXT } from '@/lib/oferta/geo';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
 /**
@@ -29,8 +30,8 @@ export function PlanComparison() {
             pro seu <span className="text-accent">pequeno.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
-            Todas as coberturas incluem orientação 24h via WhatsApp e rede credenciada
-            nas principais cidades de PE, PB e CE. Sem fidelidade, sem letra miúda.
+            Todas as coberturas incluem orientação 24h via WhatsApp. {REDE_TEXT}{' '}
+            Sem fidelidade, sem letra miúda.
           </p>
         </div>
 

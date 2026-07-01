@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
-// TODO Ricardo: validar valores médios na rede credenciada (Recife/JP).
+// TODO Ricardo: validar valores médios na rede credenciada.
 const HIDDEN_COSTS = [
   { label: 'Vacina anual', value: 'R$ 280' },
   { label: '2 consultas de rotina', value: 'R$ 500' },
@@ -123,7 +123,7 @@ export function HiddenCost() {
         </div>
 
         <p className="mt-4 text-center text-xs text-neutral-500">
-          Valores médios na rede credenciada Recife/JP. Sua realidade pode variar.
+          Valores médios na rede credenciada Jofi. Sua realidade pode variar.
         </p>
       </div>
     </section>

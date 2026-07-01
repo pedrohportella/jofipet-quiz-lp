@@ -50,7 +50,7 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'vet-confianca',
     question: 'Posso usar meu veterinário de confiança?',
     answer:
-      'A Jofi funciona via rede credenciada — hospitais e clínicas parceiras em PE, PB e CE. Se o seu vet de confiança é da rede, beleza. Se não, podemos te apresentar uma das parceiras mais perto de você. A gente conhece bem todas elas.',
+      'A Jofi funciona via rede credenciada nas principais cidades de Pernambuco, Paraíba e Ceará. Se o seu vet de confiança já é da rede, beleza. Se não, podemos te apresentar uma clínica parceira mais perto de você — a gente conhece bem todas elas.',
   },
   {
     id: 'pet-idoso',

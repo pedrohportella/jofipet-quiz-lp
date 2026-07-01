@@ -1,6 +1,7 @@
 'use client';
 
 import { ShieldCheck, MessageCircle, Stethoscope } from 'lucide-react';
+import { REDE_TEXT } from '@/lib/oferta/geo';
 
 const BENEFITS = [
   {
@@ -16,7 +17,7 @@ const BENEFITS = [
   {
     icon: Stethoscope,
     title: 'Rede de confiança',
-    body: 'Hospitais e clínicas parceiras nas principais cidades de Pernambuco e Paraíba. A gente te ajuda a escolher o vet ideal pro seu pet.',
+    body: REDE_TEXT,
   },
 ];
 
