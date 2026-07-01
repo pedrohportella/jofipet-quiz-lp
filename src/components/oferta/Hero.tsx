@@ -4,6 +4,18 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
+/**
+ * H1 do Hero — 3 variantes prontas pra A/B test.
+ *   A: base implementada (message-match com "plano de saúde pet")
+ *   B: alternativa com preço no H1 (bom pra keyword de intenção alta)
+ *   C: variante geográfica (bom pra campanhas por cidade)
+ *
+ * A cópia da variante A vem colada como JSX abaixo pra permitir marcação
+ * visual (span de destaque). B/C ficam como comentário até o próximo teste.
+ */
+// const H1_B = 'Plano de saúde pet a partir de R$49,90/mês. Do check-up à emergência.';
+// const H1_C = 'Plano de saúde pet em [CIDADE]: consultas, vacinas, exames e emergências.';
+
 export function Hero() {
   const { open } = useOfertaCapture();
 
@@ -26,9 +38,10 @@ export function Hero() {
             src="/hero/dog-highfive.png"
             alt="Cachorro Jofi dando high-five"
             fill
-            sizes="(max-width: 768px) 320px, 0px"
+            sizes="(max-width: 640px) 90vw, 320px"
             className="object-cover object-center"
             priority
+            fetchPriority="high"
           />
         </motion.div>
 
@@ -47,24 +60,26 @@ export function Hero() {
               priority
               className="h-14 w-auto md:h-20"
             />
-            <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
+            <span className="jofi-kicker text-primary">Plano de Saúde Pet</span>
           </div>
 
           <h1
             className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Do check-up
+            Plano de saúde pet:
+            <br />
+            do check-up
             <br />
             à <span className="text-accent">emergência</span>,
             <br />
-            tudo para o seu pet.
+            tudo num plano só.
           </h1>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
-            Quando a conta inesperada chega às 3 da manhã, a Jofi já tá pronta.
-            Cobertura ampla com consultas, vacinas, exames, internação e cirurgias —
-            atendimento humano via WhatsApp, sem letra miúda 🐾
+            Cobertura ampla — consultas, vacinas, exames, internação e cirurgias —
+            com atendimento humano no WhatsApp. Precisou, usou: sem autorização
+            e sem letra miúda 🐾
           </p>
 
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
@@ -75,22 +90,19 @@ export function Hero() {
             >
               Falar com nosso time no WhatsApp 🐾
             </button>
+            <p className="text-center text-xs text-neutral-600 sm:text-left">
+              Resposta em minutos · Atendimento humano · Sem fidelidade
+            </p>
             <a
               href="/"
-              className="text-center text-sm font-medium text-primary underline underline-offset-4 hover:text-primary-700 sm:text-left"
+              className="text-center text-sm text-neutral-500 underline underline-offset-4 hover:text-primary sm:text-left"
             >
-              Não sabe qual faz sentido pro seu pet? Faz o quiz em 90s →
-            </a>
-            <a
-              href="#planos"
-              className="text-center text-sm font-medium text-neutral-600 underline underline-offset-4 hover:text-neutral-800 sm:text-left"
-            >
-              Conhecer as coberturas ↓
+              Prefere descobrir o plano ideal? Faça o quiz em 90s →
             </a>
           </div>
 
           <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
-            ⭐ +500 tutores · Atendimento humano · Sem fidelidade
+            ⭐ +500 tutores · Atendimento humano · Sem fidelidade · Sem coparticipação
           </p>
         </motion.div>
 
@@ -109,9 +121,10 @@ export function Hero() {
               src="/hero/dog-highfive.png"
               alt="Cachorro Jofi dando high-five — atendimento próximo e humano"
               fill
-              sizes="(min-width: 768px) 28rem, 0px"
+              sizes="(min-width: 1024px) 28rem, (min-width: 768px) 40vw, 0px"
               className="object-cover object-center"
               priority
+              fetchPriority="high"
             />
           </div>
         </motion.div>
