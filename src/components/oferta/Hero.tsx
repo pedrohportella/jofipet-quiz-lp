@@ -102,7 +102,7 @@ export function Hero() {
               href="/"
               className="text-center text-sm text-neutral-500 underline underline-offset-4 hover:text-primary sm:text-left"
             >
-              Prefere descobrir o plano ideal? Faça o quiz em 90s →
+              Prefere descobrir a cobertura ideal? Faça o quiz em 90s →
             </a>
           </div>
 

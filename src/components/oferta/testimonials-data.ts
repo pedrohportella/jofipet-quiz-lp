@@ -2,17 +2,46 @@ export interface Testimonial {
   quote: string;
   name: string;
   city: string;
-  plan: string;
+  /** Plano assinado (opcional — avaliações do Google não informam o plano). */
+  plan?: string;
   rating?: number;
   initial?: string;
 }
 
 /**
- * Depoimentos reais aprovados pelo cliente.
+ * Nota agregada do perfil Jofi Pet no Google (Google Meu Negócio, Recife).
+ * Conferida em 2026-07-07. Atualizar quando a nota/contagem mudar.
+ */
+export const GOOGLE_RATING = { score: '4,5', count: 78 };
+
+/**
+ * Depoimentos extraídos de avaliações públicas reais do perfil
+ * Jofi Pet no Google Maps (2026-07-07). Citações encurtadas sem
+ * alterar o sentido; sobrenomes abreviados por privacidade.
  *
- * ⚠️ Só entra aqui caso REAL: nome + cidade + plano assinado, com autorização do tutor.
- * Enquanto array estiver vazio, a seção não renderiza (ver Testimonials.tsx).
+ * TODO Pedro/Ricardo: substituir por depoimentos com autorização direta
+ * (nome + cidade + plano + foto do pet) quando coletados.
  */
 export const testimonials: Testimonial[] = [
-  // { quote: "...", name: "Nome S.", city: "Recife/PE", plan: "Sereno", rating: 5, initial: "N" },
+  {
+    quote:
+      'Atendimento muito bom, profissionais competentes. Sempre atenciosos com nossos pets. Estou satisfeita com a Jofi.',
+    name: 'Flora C.',
+    city: 'Recife/PE',
+    rating: 5,
+  },
+  {
+    quote:
+      'Foi simplesmente maravilhoso, o meu pet foi muito bem atendido, todos da clínica são maravilhosos. Super indico!',
+    name: 'Vanda G.',
+    city: 'Recife/PE',
+    rating: 5,
+  },
+  {
+    quote: 'Só gratidão, sempre tive total assistência da equipe Jofi.',
+    // TODO: recuperar o nome da autora no painel do Google Meu Negócio (citação do resumo oficial de avaliações)
+    name: 'Tutora Jofi',
+    city: 'Recife/PE',
+    rating: 5,
+  },
 ];

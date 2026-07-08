@@ -1,7 +1,7 @@
 'use client';
 
 import { Star, Quote } from 'lucide-react';
-import { testimonials } from './testimonials-data';
+import { testimonials, GOOGLE_RATING } from './testimonials-data';
 
 export function Testimonials() {
   if (testimonials.length === 0) return null;
@@ -19,6 +19,11 @@ export function Testimonials() {
             <br />
             <span className="text-accent">com a Jofi.</span>
           </h2>
+          <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-neutral-600">
+            <Star className="h-4 w-4 fill-accent text-accent" aria-hidden="true" />
+            <strong className="text-neutral-900">{GOOGLE_RATING.score}</strong>&nbsp;no
+            Google · {GOOGLE_RATING.count} avaliações
+          </p>
         </div>
 
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3 md:gap-6">
@@ -53,7 +58,7 @@ export function Testimonials() {
                   <div className="flex flex-col">
                     <p className="text-sm font-bold text-neutral-900">{t.name}</p>
                     <p className="text-xs text-neutral-500">
-                      {t.city} · {t.plan}
+                      {t.city} · {t.plan ?? 'Avaliação no Google'}
                     </p>
                   </div>
                 </footer>

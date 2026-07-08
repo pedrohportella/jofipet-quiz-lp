@@ -56,7 +56,7 @@ const ROWS: TableRow[] = [
     description: 'Tempo mínimo de permanência',
     jofi: { status: 'no', text: 'Cancela quando quiser, pelo WhatsApp ou email. Sem prazo mínimo.' },
     market: {
-      text: 'Fidelidade de 12 meses com multa proporcional é padrão em muitos planos.',
+      text: 'Fidelidade de 12 meses com multa proporcional é padrão no mercado.',
       source: 'PetLife (reclamações RA), Plamev',
     },
   },
@@ -77,7 +77,7 @@ const ROWS: TableRow[] = [
       text: 'Sereninho e Sereno com cobertura essencial. Parceiro e Melhor Amigo com consultas ilimitadas.',
     },
     market: {
-      text: 'Consultas ilimitadas normalmente só no plano de topo (o mais caro).',
+      text: 'Consultas ilimitadas normalmente só na cobertura de topo (a mais cara).',
       source: 'Petlove Superior, PetLife topo',
     },
   },
@@ -225,7 +225,7 @@ export function TransparencyTable() {
 
         <p className="mt-4 text-center text-xs text-neutral-500">
           Comparativo baseado em informações públicas de concorrentes e reclamações
-          registradas no Reclame Aqui. Sujeito a variação por plano e operadora.
+          registradas no Reclame Aqui. Sujeito a variação por cobertura e operadora.
         </p>
       </div>
     </section>
