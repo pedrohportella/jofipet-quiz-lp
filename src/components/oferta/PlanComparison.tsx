@@ -91,9 +91,16 @@ function PlanCard({ plan }: PlanCardProps) {
       )}
     >
       {plan.popular && (
-        <div className="absolute -top-3 left-1/2 max-w-[90%] -translate-x-1/2 truncate whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm md:text-xs">
+        <motion.div
+          initial={{ scale: 0.6, opacity: 0, y: 4 }}
+          whileInView={{ scale: 1, opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ type: 'spring', stiffness: 320, damping: 18, delay: 0.35 }}
+          className="absolute -top-3 left-1/2 max-w-[90%] truncate whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm md:text-xs"
+          style={{ x: '-50%' }}
+        >
           ⭐ Mais escolhido
-        </div>
+        </motion.div>
       )}
 
       <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">

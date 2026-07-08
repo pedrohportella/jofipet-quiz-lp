@@ -35,8 +35,8 @@ export function Hero() {
           aria-hidden="true"
         >
           <Image
-            src="/hero/dog-highfive.png"
-            alt="Cachorro Jofi dando high-five"
+            src="/hero/team-highfive-wide.jpg"
+            alt="Atendentes da Jofi abraçando o cachorro Théo"
             fill
             sizes="(max-width: 640px) 90vw, 320px"
             className="object-cover object-center"
@@ -120,14 +120,14 @@ export function Hero() {
         >
           <div
             className="relative mx-auto aspect-square w-full max-w-md overflow-hidden rounded-3xl shadow-xl"
-            aria-label="Cachorro Jofi dando high-five"
+            aria-label="Atendente da Jofi abraçando o cachorro Théo"
           >
             <Image
-              src="/hero/dog-highfive.png"
-              alt="Cachorro Jofi dando high-five — atendimento próximo e humano"
+              src="/hero/team-hug-portrait.jpg"
+              alt="Atendente da Jofi abraçando o cachorro Théo — atendimento próximo e humano"
               fill
               sizes="(min-width: 1024px) 28rem, (min-width: 768px) 40vw, 0px"
-              className="object-cover object-center"
+              className="object-cover object-top"
               priority
               fetchPriority="high"
             />

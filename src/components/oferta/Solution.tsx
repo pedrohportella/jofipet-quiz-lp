@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { ShieldCheck, MessageCircle, Stethoscope } from 'lucide-react';
 import { REDE_TEXT } from '@/lib/oferta/geo';
 
@@ -51,6 +52,23 @@ export function Solution() {
             );
           })}
         </div>
+
+        {/* Foto real da equipe — prova visual do "atendimento humano de verdade" */}
+        <figure className="mx-auto mt-12 max-w-3xl md:mt-16">
+          <div className="relative aspect-[3/2] w-full overflow-hidden rounded-3xl shadow-lg">
+            <Image
+              src="/team/equipe-jofi.jpg"
+              alt="Equipe Jofi reunida com o cachorro Théo na sede em Recife"
+              fill
+              sizes="(min-width: 768px) 48rem, 92vw"
+              className="object-cover object-center"
+              loading="lazy"
+            />
+          </div>
+          <figcaption className="mt-3 text-center text-sm text-neutral-600">
+            O time Jofi que te atende no WhatsApp — gente de verdade, em Recife 💙
+          </figcaption>
+        </figure>
       </div>
     </section>
   );
