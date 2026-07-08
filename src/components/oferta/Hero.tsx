@@ -31,7 +31,7 @@ export function Hero() {
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.4 }}
-          className="relative aspect-[5/3] w-full max-w-xs overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-lg md:hidden"
+          className="relative aspect-video w-full max-w-xs overflow-hidden rounded-2xl bg-gradient-to-br from-primary/20 to-accent/20 shadow-lg md:hidden"
           aria-hidden="true"
         >
           <Image
@@ -58,9 +58,9 @@ export function Hero() {
               width={200}
               height={80}
               priority
-              className="h-14 w-auto md:h-20"
+              className="h-14 w-auto mix-blend-multiply md:h-20"
             />
-            <span className="jofi-kicker text-primary">Plano de Saúde Pet</span>
+            <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
           </div>
 
           <h1

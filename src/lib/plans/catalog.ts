@@ -71,7 +71,7 @@ export const PLANS: Plan[] = [
   {
     id: 'sereno',
     name: 'Sereno',
-    tagline: 'A mais escolhida pra rotina diária',
+    tagline: 'Pra rotina diária com proteção',
     priceMonthly: 79.9,
     priceLabel: 'R$ 79,90/mês',
     bullets: [

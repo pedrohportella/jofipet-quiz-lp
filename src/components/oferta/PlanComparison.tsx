@@ -43,9 +43,9 @@ export function PlanComparison() {
 
         <p className="mt-8 text-center text-sm text-neutral-500">
           {/* TODO Pedro/Jofi: validar carências, limites e bullets de cada cobertura. */}
-          ⚠️ Valores apresentados são a partir de — o valor exato considera a idade
-          do pet (até 7 anos ou 8+). Sem taxa de adesão extra: o primeiro pagamento
-          já libera atendimento.
+          Valores &quot;a partir de&quot; — o valor exato considera a idade do pet
+          (até 7 anos ou 8+). Sem taxa de adesão extra: o primeiro pagamento já
+          libera atendimento.
         </p>
       </div>
     </section>
@@ -63,17 +63,19 @@ function PlanCard({ plan }: PlanCardProps) {
     open({ source: 'card', selectedPlanId: plan.id });
   };
 
-  const accentClass = {
-    primary: 'border-primary',
-    accent: 'border-accent ring-2 ring-accent/20',
-    success: 'border-success-500',
-    neutral: 'border-neutral-300',
-  }[plan.accentColor];
+  // Hierarquia visual: só o plano destacado (popular) ganha borda colorida,
+  // ring, sombra e leve scale. Os demais ficam neutros pra não competir —
+  // 4 bordas coloridas lado a lado diluem o destaque do plano prioritário.
+  const accentClass = plan.popular
+    ? 'border-accent ring-2 ring-accent/20 shadow-lg md:scale-[1.02]'
+    : 'border-neutral-200';
 
+  // Botões: escada de ênfase ao redor do destaque (ghost → azul → LARANJA → ghost).
+  // Verde fica reservado pro CTA global de WhatsApp — usar aqui confundiria.
   const buttonClass = {
     primary: 'jofi-btn--primary',
     accent: 'jofi-btn--accent',
-    success: 'jofi-btn--whatsapp',
+    success: 'jofi-btn--ghost border border-neutral-300',
     neutral: 'jofi-btn--ghost border border-neutral-300',
   }[plan.accentColor];
 
