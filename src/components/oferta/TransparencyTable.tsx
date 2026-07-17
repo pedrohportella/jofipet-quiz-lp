@@ -119,9 +119,8 @@ export function TransparencyTable() {
             <span className="text-accent">do mercado.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
-            A gente sabe que cobertura de saúde pet ganhou mal nome por causa de{' '}
-            &quot;carência escondida&quot; e &quot;coparticipação que aparece depois&quot;.
-            Aqui é diferente — e a gente quer que você veja isso lado a lado antes de fechar.
+            Cobertura de saúde pet ganhou mal nome por &quot;carência escondida&quot; e
+            &quot;coparticipação que aparece depois&quot;. Aqui é diferente — veja lado a lado antes de fechar.
           </p>
         </div>
 

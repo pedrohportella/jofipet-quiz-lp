@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { Star, Quote } from 'lucide-react';
 import { testimonials, GOOGLE_RATING } from './testimonials-data';
 
@@ -7,7 +8,22 @@ export function Testimonials() {
   if (testimonials.length === 0) return null;
 
   return (
-    <section className="bg-secondary py-16 md:py-20">
+    <section className="relative overflow-hidden bg-secondary py-16 md:py-20">
+      {/* Acento lifestyle no canto do cabeçalho (só desktop largo) */}
+      <div
+        className="pointer-events-none absolute -right-8 -top-4 hidden w-44 select-none lg:block xl:w-52"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/yellow-cat.webp"
+          alt=""
+          width={900}
+          height={788}
+          className="h-auto w-full"
+          loading="lazy"
+        />
+      </div>
+
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
           <p className="jofi-kicker mb-2 text-accent">Tutores Jofi</p>

@@ -6,6 +6,7 @@ import { HiddenCost } from '@/components/oferta/HiddenCost';
 import { Problem } from '@/components/oferta/Problem';
 import { Solution } from '@/components/oferta/Solution';
 import { HowItWorks } from '@/components/oferta/HowItWorks';
+import { Coverage } from '@/components/oferta/Coverage';
 import { VideoSection } from '@/components/oferta/VideoSection';
 import { PlanComparison } from '@/components/oferta/PlanComparison';
 import { TransparencyTable } from '@/components/oferta/TransparencyTable';
@@ -83,6 +84,7 @@ export function OfertaClient({ videoEmbedUrl }: OfertaClientProps) {
       <Problem />
       <Solution />
       <HowItWorks />
+      <Coverage />
       {/* VideoSection ocultado temporariamente até Jofi entregar o vídeo institucional.
           Manter aqui (comentado) pra remount instantâneo quando o videoEmbedUrl chegar. */}
       {false && <VideoSection videoEmbedUrl={videoEmbedUrl} />}

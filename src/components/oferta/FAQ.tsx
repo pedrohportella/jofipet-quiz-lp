@@ -20,7 +20,7 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'vale-pena',
     question: 'Vale a pena ter cobertura de saúde pet ou pago avulso quando precisa?',
     answer:
-      'A resposta honesta: se você só vai precisar de consulta de rotina, talvez não compense. Mas a maioria dos tutores subestima quanto já gasta por ano com pet difuso — vacina, vermífugo, antipulgas, exame, consultas. Some o ano passado: provavelmente foi entre R$ 1.200 e R$ 1.700. A Jofi torna esse custo previsível e ainda cobre o imprevisto que vem do nada (cirurgia, internação) — onde a conta passa fácil de R$ 4.000.',
+      'A resposta honesta: se você só vai precisar de consulta de rotina, talvez não compense. Mas a maioria dos tutores subestima quanto já gasta por ano com pet difuso — vacina, antipulgas, exame, consultas. Some o ano passado: provavelmente foi entre R$ 1.200 e R$ 1.700. A Jofi torna esse custo previsível e ainda cobre o imprevisto que vem do nada (cirurgia, internação) — onde a conta passa fácil de R$ 4.000.',
   },
   {
     id: 'cobertura',

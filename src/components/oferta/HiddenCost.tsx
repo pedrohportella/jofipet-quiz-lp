@@ -7,7 +7,7 @@ import { useOfertaCapture } from './OfertaCaptureContext';
 const HIDDEN_COSTS = [
   { label: 'Vacina anual', value: 'R$ 280' },
   { label: '2 consultas de rotina', value: 'R$ 500' },
-  { label: 'Vermífugo + antipulgas', value: 'R$ 350' },
+  { label: 'Antipulgas e prevenção', value: 'R$ 300' },
   { label: 'Exame anual', value: 'R$ 300' },
 ];
 
@@ -40,10 +40,9 @@ export function HiddenCost() {
             Você só não tá vendo todo.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
-            &quot;Pet não é caro&quot; — quase todo tutor diz isso. Mas se você somar o que gastou
-            ano passado, picado em vacina, consulta, antipulgas e exame, provavelmente passou de
-            <strong> R$ 1.200</strong>. Isso é <strong>R$ 100/mês difuso</strong>, sem cobrir
-            cirurgia, internação ou ressonância — que num único episódio passa fácil de <strong>R$ 4.000</strong>.
+            &quot;Pet não é caro&quot; — mas some o ano passado: vacina, consulta, antipulgas e
+            exame. Provavelmente passou de <strong>R$ 1.200</strong>, uns <strong>R$ 100/mês difuso</strong> —
+            e ainda sem cobrir cirurgia ou internação, que num único episódio passa de <strong>R$ 4.000</strong>.
           </p>
         </div>
 
@@ -70,8 +69,8 @@ export function HiddenCost() {
             </ul>
             <div className="mt-5 rounded-lg bg-neutral-100 p-4 text-center">
               <p className="text-sm text-neutral-600">Total estimado por ano</p>
-              <p className="mt-1 text-2xl font-bold text-neutral-900">R$ 1.430</p>
-              <p className="mt-1 text-sm text-neutral-600">≈ R$ 119/mês difuso, sem cobrir nada extra</p>
+              <p className="mt-1 text-2xl font-bold text-neutral-900">R$ 1.380</p>
+              <p className="mt-1 text-sm text-neutral-600">≈ R$ 115/mês difuso, sem cobrir nada extra</p>
             </div>
           </motion.div>
 
@@ -98,8 +97,8 @@ export function HiddenCost() {
             </ul>
             <div className="mt-5 rounded-lg bg-success-500/10 p-4">
               <p className="text-sm text-success-700">
-                <strong>+ cobertura</strong> do imprevisto que custaria R$ 4.000+
-                (com a cobertura Parceiro)
+                <strong>+ cobertura do imprevisto</strong> — cirurgia ou internação que sozinha passa de R$ 4.000 já entra na cobertura Parceiro.
+                E na assinatura anual, a carência é reduzida.
               </p>
             </div>
           </motion.div>

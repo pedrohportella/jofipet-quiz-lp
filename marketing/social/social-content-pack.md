@@ -328,7 +328,7 @@ Métrica de honestidade tem que ser monitorada igual métrica de receita.
 
 ### POST #5 — "Como decidimos o nome 'Sereninho' pro plano de entrada" (Branding inside)
 ```
-Plano de entrada da Jofi: R$49,90/mês. Cobre vacina, vermífugo e desconto em consulta.
+Plano de entrada da Jofi: R$49,90/mês. Cobre consultas, vacinação essencial e exames de rotina.
 
 Nome interno proposto pelo time: "Plano Essencial".
 

@@ -1,8 +1,9 @@
 'use client';
 
+import Image from 'next/image';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { PLANS, type Plan } from '@/lib/plans/catalog';
+import { PLANS, type Plan, type PlanId } from '@/lib/plans/catalog';
 import { cn } from '@/lib/utils/cn';
 import { REDE_TEXT } from '@/lib/oferta/geo';
 import { useOfertaCapture } from './OfertaCaptureContext';
@@ -15,6 +16,13 @@ import { useOfertaCapture } from './OfertaCaptureContext';
  * RD/CAPI/Admin, depois redireciona pro WhatsApp com mensagem rica
  * mencionando a cobertura selecionada.
  */
+const PLAN_ART: Record<PlanId, string> = {
+  sereninho: '/plans/sereninho.webp',
+  sereno: '/plans/sereno.webp',
+  parceiro: '/plans/parceiro.webp',
+  'melhor-amigo': '/plans/amigo.webp',
+};
+
 export function PlanComparison() {
   return (
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
@@ -104,16 +112,17 @@ function PlanCard({ plan }: PlanCardProps) {
       )}
 
       <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">
-        <span className="text-3xl" aria-hidden="true">
-          {plan.emoji}
-        </span>
+        <div className="relative mb-1 h-24 w-full">
+          <Image
+            src={PLAN_ART[plan.id]}
+            alt={`Cobertura ${plan.name}`}
+            fill
+            sizes="(min-width: 1024px) 22vw, (min-width: 768px) 44vw, 88vw"
+            className="object-contain object-center md:object-left"
+          />
+        </div>
+        <h3 className="sr-only">{plan.name}</h3>
         <p className="jofi-kicker text-neutral-500">{plan.tagline}</p>
-        <h3
-          className="text-2xl uppercase leading-none text-neutral-900"
-          style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
-        >
-          {plan.name}
-        </h3>
         <p className="text-xs text-neutral-500">{plan.targetPersona}</p>
       </header>
 

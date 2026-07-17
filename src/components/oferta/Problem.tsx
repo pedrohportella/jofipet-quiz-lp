@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { AlertCircle, Wallet, Clock } from 'lucide-react';
 
 const SCENARIOS = [
@@ -22,7 +23,22 @@ const SCENARIOS = [
 
 export function Problem() {
   return (
-    <section className="bg-secondary py-16 md:py-20">
+    <section className="relative overflow-hidden bg-secondary py-16 md:py-20">
+      {/* Acento lifestyle ao lado do texto de fechamento (só desktop largo) */}
+      <div
+        className="pointer-events-none absolute -bottom-4 right-2 hidden w-40 select-none xl:block"
+        aria-hidden="true"
+      >
+        <Image
+          src="/decor/homem-cao.webp"
+          alt=""
+          width={622}
+          height={627}
+          className="h-auto w-full"
+          loading="lazy"
+        />
+      </div>
+
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
           <p className="jofi-kicker mb-2 text-accent">Você já passou por isso?</p>
