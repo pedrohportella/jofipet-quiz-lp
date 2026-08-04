@@ -40,8 +40,8 @@ export function HiddenCost() {
             Você só não tá vendo todo.
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
-            &quot;Pet não é caro&quot; — mas some o ano passado: vacina, consulta, antipulgas e
-            exame. Provavelmente passou de <strong>R$ 1.200</strong>, uns <strong>R$ 100/mês difuso</strong> —
+            &quot;Pet não é caro&quot;? Some o ano passado: vacina, consulta, antipulgas e
+            exame. Provavelmente passou de <strong>R$ 1.200</strong>, uns <strong>R$ 100/mês difuso</strong>,
             e ainda sem cobrir cirurgia ou internação, que num único episódio passa de <strong>R$ 4.000</strong>.
           </p>
         </div>
@@ -97,7 +97,7 @@ export function HiddenCost() {
             </ul>
             <div className="mt-5 rounded-lg bg-success-500/10 p-4">
               <p className="text-sm text-success-700">
-                <strong>+ cobertura do imprevisto</strong> — cirurgia ou internação que sozinha passa de R$ 4.000 já entra na cobertura Parceiro.
+                <strong>+ cobertura do imprevisto:</strong> cirurgia ou internação que sozinha passa de R$ 4.000 já entra na cobertura Parceiro.
                 E na assinatura anual, a carência é reduzida.
               </p>
             </div>
@@ -107,9 +107,9 @@ export function HiddenCost() {
         <div className="mt-10 rounded-2xl bg-white p-6 text-center shadow-sm md:p-8">
           <p className="text-base text-neutral-700 md:text-lg">
             A gente não tá dizendo que tudo isso pesa de uma vez.{' '}
-            <strong>Tá pesando — só que picado e invisível.</strong>
+            <strong>Tá pesando, só que picado e invisível.</strong>
             <br className="hidden md:block" />
-            A assinatura Jofi torna esse cuidado visível, previsível e — na maioria dos casos —
+            A assinatura Jofi torna esse cuidado visível, previsível e, na maioria dos casos,
             <strong> menor no agregado</strong>.
           </p>
           <button

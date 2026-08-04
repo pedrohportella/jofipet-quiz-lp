@@ -67,9 +67,10 @@ export function Hero() {
             className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Plano de saúde pet:
-            <br />
-            do check-up
+            {/* Keyword de message match do Google Ads: fica no HTML (indexável)
+                mas invisível na tela, a pedido do cliente (sem "plano" visível). */}
+            <span className="sr-only">Plano de saúde pet: </span>
+            Do check-up
             <br />
             à <span className="text-accent">emergência</span>,
             <br />
@@ -82,7 +83,7 @@ export function Hero() {
           </p>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
-            Cobertura ampla — consultas, vacinas, exames, internação e cirurgias —
+            Cobertura ampla: consultas, vacinas, exames, internação e cirurgias,
             com atendimento humano no WhatsApp. Precisou, usou: sem autorização
             e sem letra miúda 🐾
           </p>

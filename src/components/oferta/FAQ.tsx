@@ -20,13 +20,13 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'vale-pena',
     question: 'Vale a pena ter cobertura de saúde pet ou pago avulso quando precisa?',
     answer:
-      'A resposta honesta: se você só vai precisar de consulta de rotina, talvez não compense. Mas a maioria dos tutores subestima quanto já gasta por ano com pet difuso — vacina, antipulgas, exame, consultas. Some o ano passado: provavelmente foi entre R$ 1.200 e R$ 1.700. A Jofi torna esse custo previsível e ainda cobre o imprevisto que vem do nada (cirurgia, internação) — onde a conta passa fácil de R$ 4.000.',
+      'A resposta honesta: se você só vai precisar de consulta de rotina, talvez não compense. Mas a maioria dos tutores subestima quanto já gasta por ano com pet difuso: vacina, antipulgas, exame, consultas. Some o ano passado: provavelmente foi entre R$ 1.200 e R$ 1.700. A Jofi torna esse custo previsível e ainda cobre o imprevisto que vem do nada (cirurgia, internação), onde a conta passa fácil de R$ 4.000.',
   },
   {
     id: 'cobertura',
     question: 'O que a Jofi cobre exatamente?',
     answer:
-      'Depende da cobertura que você escolher. O Sereninho cobre consultas clínicas, vacinação essencial, exames de rotina e aplicação de medicamentos. O Sereno adiciona exames laboratoriais, exames de imagem e sedação. O Parceiro inclui internamento, cirurgias, tomografia, anestesias e consultas com especialistas. O Melhor Amigo é a cobertura mais que completa — consultas ilimitadas, ressonância magnética, transfusão sanguínea e mais. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
+      'Depende da cobertura que você escolher. O Sereninho cobre consultas clínicas, vacinação essencial, exames de rotina e aplicação de medicamentos. O Sereno adiciona exames laboratoriais, exames de imagem e sedação. O Parceiro inclui internamento, cirurgias, tomografia, anestesias e consultas com especialistas. O Melhor Amigo é a cobertura mais que completa: consultas ilimitadas, ressonância magnética, transfusão sanguínea e mais. Nosso time te ajuda a escolher o que faz sentido pro seu pet.',
   },
   {
     id: 'carencia',
@@ -50,11 +50,11 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'vet-confianca',
     question: 'Posso usar meu veterinário de confiança?',
     answer:
-      'A Jofi funciona via rede credenciada nas principais cidades de Pernambuco, Paraíba e Ceará. Se o seu vet de confiança já é da rede, beleza. Se não, podemos te apresentar uma clínica parceira mais perto de você — a gente conhece bem todas elas.',
+      'A Jofi funciona via rede credenciada nas principais cidades de Pernambuco, Paraíba e Ceará. Se o seu vet de confiança já é da rede, beleza. Se não, podemos te apresentar uma clínica parceira mais perto de você. A gente conhece bem todas elas.',
   },
   {
     id: 'pet-idoso',
-    question: 'Meu pet é idoso — aceito mesmo assim?',
+    question: 'Meu pet é idoso, aceita mesmo assim?',
     answer:
       'Sim! A Jofi aceita pets de todas as idades. Pets com 8 anos ou mais entram numa faixa de preço própria (ex: o Sereno passa de R$ 79,90 para R$ 109,90/mês). Sem recusa por idade. Pets idosos geralmente se beneficiam mais do Parceiro ou Melhor Amigo (cobertura ampla pras demandas que vêm com a idade).',
   },
@@ -62,13 +62,13 @@ const FAQ_ITEMS: FaqItem[] = [
     id: 'gato',
     question: 'A Jofi atende gatos também?',
     answer:
-      'Sim! Todas as coberturas incluem cães e gatos com a mesma estrutura. Algumas espécies exóticas (aves, répteis, roedores) ainda não — estamos expandindo. Pergunta pro nosso time se seu caso entra.',
+      'Sim! Todas as coberturas incluem cães e gatos com a mesma estrutura. Algumas espécies exóticas (aves, répteis, roedores) ainda não, mas estamos expandindo. Pergunta pro nosso time se seu caso entra.',
   },
   {
     id: 'pagamento',
     question: 'Como funciona o pagamento e a taxa de adesão?',
     answer:
-      'A adesão custa só o valor da 1ª mensalidade — sem taxa extra. Pagamento por boleto/pix ou cartão. No cartão, 5% de desconto na mensalidade. Vencimento dia 10 ou 20.',
+      'A adesão custa só o valor da 1ª mensalidade, sem taxa extra. Pagamento por boleto/pix ou cartão. No cartão, 5% de desconto na mensalidade. Vencimento dia 10 ou 20.',
   },
   {
     id: 'como-contratar',

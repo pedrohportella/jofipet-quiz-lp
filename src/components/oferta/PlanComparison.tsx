@@ -51,7 +51,7 @@ export function PlanComparison() {
 
         <p className="mt-8 text-center text-sm text-neutral-500">
           {/* TODO Pedro/Jofi: validar carências, limites e bullets de cada cobertura. */}
-          Valores &quot;a partir de&quot; — o valor exato considera a idade do pet
+          Valores &quot;a partir de&quot;: o valor exato considera a idade do pet
           (até 7 anos ou 8+). Sem taxa de adesão extra: o primeiro pagamento já
           libera atendimento.
         </p>

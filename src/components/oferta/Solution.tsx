@@ -13,7 +13,7 @@ const BENEFITS = [
   {
     icon: MessageCircle,
     title: 'Atendimento humano de verdade',
-    body: 'Nosso time tira suas dúvidas no WhatsApp — pessoa de verdade, não bot. E continua disponível depois que você assina, não só pra vender.',
+    body: 'Nosso time tira suas dúvidas no WhatsApp: pessoa de verdade, não bot. E continua disponível depois que você assina, não só pra vender.',
   },
   {
     icon: Stethoscope,
@@ -66,7 +66,7 @@ export function Solution() {
             />
           </div>
           <figcaption className="mt-3 text-center text-sm text-neutral-600">
-            O time Jofi que te atende no WhatsApp — gente de verdade, em Recife 💙
+            O time Jofi que te atende no WhatsApp: gente de verdade, em Recife 💙
           </figcaption>
         </figure>
       </div>

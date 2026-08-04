@@ -17,7 +17,7 @@ const SCENARIOS = [
   {
     icon: Clock,
     title: 'Esperar e o problema crescer',
-    body: 'Sem cobertura, dá pra empurrar pro mês que vem. E o pet sofre em silêncio. Quando chega no vet, o problema cresceu — custa mais, dói mais, demora mais.',
+    body: 'Sem cobertura, dá pra empurrar pro mês que vem. E o pet sofre em silêncio. Quando chega no vet, o problema cresceu: custa mais, dói mais, demora mais.',
   },
 ];
 

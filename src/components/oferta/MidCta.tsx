@@ -35,7 +35,7 @@ export function MidCta() {
           Não sabe qual cobertura escolher?
         </h2>
         <p className="max-w-xl text-base opacity-90">
-          Nosso time te ajuda em 5 minutos. Sem compromisso, sem venda agressiva — só uma
+          Nosso time te ajuda em 5 minutos. Sem compromisso, sem venda agressiva, só uma
           conversa pra entender o que faz sentido pro seu pet.
         </p>
         <button

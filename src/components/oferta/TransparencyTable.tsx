@@ -21,7 +21,7 @@ const ROWS: TableRow[] = [
   {
     item: 'Coparticipação',
     description: 'Cobrança extra por procedimento',
-    jofi: { status: 'no', text: 'Você paga só a mensalidade — sem cobrança por consulta ou exame.' },
+    jofi: { status: 'no', text: 'Você paga só a mensalidade, sem cobrança por consulta ou exame.' },
     market: {
       text: 'Comum cobrar R$30-60 por atendimento além da mensalidade.',
       source: 'Petlove Saúde, Plamev tiers básicos',
@@ -32,10 +32,10 @@ const ROWS: TableRow[] = [
     description: 'Prazo até liberar uso após contratar',
     jofi: {
       status: 'depends',
-      text: 'Consultas e vacinas a partir do dia 1. Exames e procedimentos têm prazo por tipo — confira na cartilha.',
+      text: 'Consultas e vacinas a partir do dia 1. Exames e procedimentos têm prazo por tipo (confira na cartilha).',
     },
     market: {
-      text: 'Alguns anunciam "carência zero" mas o contrato tem 30 a 45 dias — reclamações recorrentes no Reclame Aqui.',
+      text: 'Alguns anunciam "carência zero" mas o contrato tem 30 a 45 dias, com reclamações recorrentes no Reclame Aqui.',
       source: 'PetLife (85% resolvidas), Plamev',
     },
   },
@@ -44,7 +44,7 @@ const ROWS: TableRow[] = [
     description: 'Cobrança no ato da contratação',
     jofi: {
       status: 'no',
-      text: 'Adesão custa só o valor da 1ª mensalidade — sem cobrança extra.',
+      text: 'Adesão custa só o valor da 1ª mensalidade, sem cobrança extra.',
     },
     market: {
       text: 'Cobrança de R$50-200 na adesão é comum, além da 1ª mensalidade.',
@@ -120,7 +120,7 @@ export function TransparencyTable() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
             Cobertura de saúde pet ganhou mal nome por &quot;carência escondida&quot; e
-            &quot;coparticipação que aparece depois&quot;. Aqui é diferente — veja lado a lado antes de fechar.
+            &quot;coparticipação que aparece depois&quot;. Aqui é diferente: veja lado a lado antes de fechar.
           </p>
         </div>
 

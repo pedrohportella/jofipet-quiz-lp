@@ -21,7 +21,7 @@ const STEPS = [
   {
     n: 2,
     title: 'Escolhe a cobertura ideal',
-    body: 'Sereninho, Sereno, Parceiro ou Melhor Amigo — 4 opções pra todo orçamento e momento de vida.',
+    body: 'Sereninho, Sereno, Parceiro ou Melhor Amigo: 4 opções pra todo orçamento e momento de vida.',
   },
   {
     n: 3,
