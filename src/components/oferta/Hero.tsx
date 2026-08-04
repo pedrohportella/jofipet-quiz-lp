@@ -53,12 +53,12 @@ export function Hero() {
         >
           <div className="mb-4 flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3 md:justify-start">
             <Image
-              src="/brand/jofi/variant-6.svg"
+              src="/brand/jofi/variant-6-transparent.svg"
               alt="Jofi"
               width={200}
               height={80}
               priority
-              className="h-14 w-auto mix-blend-multiply md:h-20"
+              className="h-14 w-auto md:h-20"
             />
             <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
           </div>
@@ -103,7 +103,7 @@ export function Hero() {
               href="/"
               className="text-center text-sm text-neutral-500 underline underline-offset-4 hover:text-primary sm:text-left"
             >
-              Prefere descobrir a cobertura ideal? Faça o quiz em 90s →
+              Prefere descobrir a cobertura ideal? Faça o quiz em&nbsp;90s&nbsp;→
             </a>
           </div>
 

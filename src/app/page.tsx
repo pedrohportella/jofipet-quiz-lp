@@ -31,7 +31,7 @@ export default function HomePage() {
         />
       <div className="flex flex-col items-center gap-3">
         <Image
-          src="/brand/jofi/variant-6.svg"
+          src="/brand/jofi/variant-6-transparent.svg"
           alt="Jofi"
           width={240}
           height={96}

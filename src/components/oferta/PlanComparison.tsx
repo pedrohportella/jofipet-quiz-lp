@@ -23,6 +23,13 @@ const PLAN_ART: Record<PlanId, string> = {
   'melhor-amigo': '/plans/amigo.webp',
 };
 
+// A arte do Parceiro tem o nome do plano em BRANCO — some no card branco.
+// Ela foi desenhada pra sentar num bloco laranja cheio: o fundo sólido
+// revela o texto e ainda reforça o destaque do card "Mais escolhido".
+const PLAN_ART_BG: Partial<Record<PlanId, string>> = {
+  parceiro: 'rounded-xl bg-accent',
+};
+
 export function PlanComparison() {
   return (
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
@@ -112,7 +119,7 @@ function PlanCard({ plan }: PlanCardProps) {
       )}
 
       <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">
-        <div className="relative mb-1 h-24 w-full">
+        <div className={cn('relative mb-1 h-24 w-full', PLAN_ART_BG[plan.id])}>
           <Image
             src={PLAN_ART[plan.id]}
             alt={`Cobertura ${plan.name}`}

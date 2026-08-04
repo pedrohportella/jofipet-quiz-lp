@@ -12,7 +12,7 @@ export function OfertaFooter() {
         <div className="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
           <div className="flex flex-col gap-2">
             <Image
-              src="/brand/jofi/variant-7.svg"
+              src="/brand/jofi/variant-7-transparent.svg"
               alt="Jofi"
               width={100}
               height={40}
