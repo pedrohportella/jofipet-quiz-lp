@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * Google Ads conversion tracking.
  *
@@ -9,13 +8,6 @@
  * Se qualquer um dos dois estiver vazio, os disparos viram no-op silencioso —
  * útil pra manter a página funcional em dev/preview antes do Gabriel entregar os IDs.
  */
-
-type GtagFn = (...args: any[]) => void;
-
-interface WindowWithGtag extends Window {
-  gtag?: GtagFn;
-  dataLayer?: Record<string, unknown>[];
-}
 
 export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? '';
 export const GOOGLE_ADS_CONVERSION_LABEL =
@@ -42,7 +34,7 @@ export function fireGoogleAdsConversion(payload: ConversionPayload = {}): void {
   if (typeof window === 'undefined') return;
   if (!isGoogleAdsConfigured()) return;
 
-  const gtag = (window as WindowWithGtag).gtag;
+  const gtag = window.gtag;
   if (typeof gtag !== 'function') return;
 
   const params: Record<string, unknown> = {
@@ -61,4 +53,59 @@ export function fireGoogleAdsConversion(payload: ConversionPayload = {}): void {
   } catch {
     // Tracking nunca deve quebrar UX
   }
+}
+
+/**
+ * Chaves de jornada já convertidas nesta sessão de página.
+ *
+ * O lead pode chegar no WhatsApp por caminhos que se sobrepõem (ex: no
+ * /resultado o auto-redirect e o botão manual disputam o mesmo clique).
+ * Sem guarda, a mesma ida pro WhatsApp viraria 2 conversões e inflaria a
+ * campanha. Escopo é o módulo (reseta a cada page load), que é exatamente
+ * a granularidade de "uma jornada".
+ */
+const reportedJourneys = new Set<string>();
+
+export interface WhatsAppConversionOptions extends ConversionPayload {
+  /**
+   * Onde o lead entrou no WhatsApp — só pra dedup e leitura do código.
+   * NÃO é enviado ao Google Ads (a ação de conversão é única).
+   */
+  source:
+    | 'oferta_modal'
+    | 'quiz_capture'
+    | 'resultado_cta'
+    | 'resultado_auto_redirect';
+  /**
+   * Chave de deduplicação da jornada. Mesma chave = conta uma vez só.
+   * Default: o próprio `source`. Passe o leadId quando dois componentes
+   * diferentes puderem mandar o MESMO lead pro WhatsApp.
+   */
+  dedupeKey?: string;
+}
+
+/**
+ * Registra a conversão "Clique WhatsApp" do Google Ads.
+ *
+ * Ponto único de disparo pra TODOS os CTAs de WhatsApp do funil — chame no
+ * momento em que o lead de fato vai pro WhatsApp (não no clique que só abre
+ * um modal), pra não treinar o Smart Bidding com quem abandona o formulário.
+ *
+ * Não bloqueia nem atrasa a navegação: o gtag despacha o hit de forma
+ * assíncrona e o link/redirect segue normalmente. Sem `event_callback` de
+ * propósito — ele é redundante aqui e adicionaria latência ao redirect.
+ *
+ * Seguro por construção: no-op silencioso se rodar no server, se as envs
+ * não estiverem setadas ou se o gtag ainda não tiver carregado.
+ */
+export function reportWhatsAppConversion(
+  options: WhatsAppConversionOptions,
+): void {
+  const { source, dedupeKey, ...payload } = options;
+
+  const key = dedupeKey ?? source;
+  if (reportedJourneys.has(key)) return;
+  reportedJourneys.add(key);
+
+  fireGoogleAdsConversion(payload);
 }

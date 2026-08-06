@@ -19,6 +19,7 @@ import {
   trackWhatsappClick,
 } from '@/lib/tracking/events';
 import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
+import { reportWhatsAppConversion } from '@/lib/tracking/google-ads';
 import type { Tier } from '@/lib/quiz/types';
 import { LgpdConsent } from './LgpdConsent';
 
@@ -140,6 +141,18 @@ export function CaptureForm() {
         context: 'wa_click',
       });
       trackWhatsappClick({ tier: state.tier!, utms });
+
+      // Google Ads conversion "Clique WhatsApp" — este é o ponto em que o lead
+      // do quiz sai pro WhatsApp (ele pula a página de resultado), então é aqui
+      // que a conversão precisa disparar. Dedup por leadId: se o lead voltar e
+      // reenviar, conta uma vez só.
+      reportWhatsAppConversion({
+        source: 'quiz_capture',
+        dedupeKey: leadId,
+        value: TIER_VALUE[state.tier!],
+        currency: 'BRL',
+        transactionId: leadId,
+      });
 
       // Build mensagem rica do WhatsApp com tier + tudo do quiz
       const gasto = state.answers['gasto-mensal'];

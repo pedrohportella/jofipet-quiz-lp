@@ -9,6 +9,7 @@ import {
   trackInitiateCheckout,
 } from '@/lib/tracking/events';
 import { gaEvent } from '@/lib/tracking/ga4';
+import { reportWhatsAppConversion } from '@/lib/tracking/google-ads';
 import type { Answers, Tier } from '@/lib/quiz/types';
 
 const COUNTDOWN_SECONDS = 7;
@@ -73,6 +74,16 @@ export function WhatsappAutoRedirect({
         context: 'wa_click',
       });
 
+      // Google Ads conversion "Clique WhatsApp". Dedup por leadId: o mesmo lead
+      // pode ter clicado no WhatsappCta antes do countdown zerar — conta uma vez.
+      reportWhatsAppConversion({
+        source: 'resultado_auto_redirect',
+        dedupeKey: leadId ?? `resultado_${tier}`,
+        value: TIER_VALUE[tier],
+        currency: 'BRL',
+        transactionId: leadId ?? undefined,
+      });
+
       // Redirect (mesma aba — WhatsApp app intercepta em mobile, navega em desktop)
       window.location.href = buildUrl();
       return;
@@ -116,6 +127,16 @@ export function WhatsappAutoRedirect({
       value: TIER_VALUE[tier],
       leadId: leadId ?? undefined,
       context: 'wa_click',
+    });
+
+    // Mesma conversão e mesma chave de dedup do disparo automático — o lead
+    // que antecipa o redirect não pode contar duas vezes.
+    reportWhatsAppConversion({
+      source: 'resultado_auto_redirect',
+      dedupeKey: leadId ?? `resultado_${tier}`,
+      value: TIER_VALUE[tier],
+      currency: 'BRL',
+      transactionId: leadId ?? undefined,
     });
     // Browser navigation por <a href> com keepalive das requisições
   };

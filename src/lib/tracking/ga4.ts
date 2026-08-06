@@ -1,16 +1,8 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// GA4 wrapper sobre gtag.
-
-type GtagFn = (...args: any[]) => void;
-
-interface WindowWithGtag extends Window {
-  gtag?: GtagFn;
-  dataLayer?: Record<string, unknown>[];
-}
+// GA4 wrapper sobre gtag. Tipagem de window.gtag vem de src/types/gtag.d.ts.
 
 export function hasGa(): boolean {
   if (typeof window === 'undefined') return false;
-  return typeof (window as WindowWithGtag).gtag === 'function';
+  return typeof window.gtag === 'function';
 }
 
 export function gaEvent(
@@ -19,7 +11,7 @@ export function gaEvent(
 ): void {
   try {
     if (!hasGa()) return;
-    (window as WindowWithGtag).gtag!('event', name, params ?? {});
+    window.gtag!('event', name, params ?? {});
   } catch {
     // Silent — tracking never breaks UX
   }

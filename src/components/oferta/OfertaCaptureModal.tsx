@@ -10,7 +10,7 @@ import { X } from 'lucide-react';
 import { LgpdConsent } from '@/components/capture/LgpdConsent';
 import { loadStoredUtms } from '@/lib/tracking/utms';
 import { loadStoredGoogleClickIds } from '@/lib/tracking/gclid';
-import { fireGoogleAdsConversion } from '@/lib/tracking/google-ads';
+import { reportWhatsAppConversion } from '@/lib/tracking/google-ads';
 import {
   trackLead,
   trackInitiateCheckout,
@@ -200,9 +200,14 @@ export function OfertaCaptureModal({
           : context.source,
       );
 
-      // Google Ads conversion — dispara ANTES do redirect pra garantir
-      // que o gtag registre o evento mesmo com navegação subsequente.
-      fireGoogleAdsConversion({
+      // Google Ads conversion "Clique WhatsApp" — dispara ANTES do redirect
+      // pra garantir que o gtag registre o evento mesmo com navegação
+      // subsequente. Aqui (e não no clique do CTA) porque é ESTE o momento em
+      // que o lead de fato vai pro WhatsApp: quem abre o modal e desiste não
+      // deve contar como conversão.
+      reportWhatsAppConversion({
+        source: 'oferta_modal',
+        dedupeKey: leadId,
         value: TIER_VALUE[tier],
         currency: 'BRL',
         transactionId: leadId,

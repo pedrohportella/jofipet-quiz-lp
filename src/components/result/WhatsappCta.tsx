@@ -5,6 +5,7 @@ import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
 import { loadStoredUtms } from '@/lib/tracking/utms';
 import { trackWhatsappClick, trackInitiateCheckout } from '@/lib/tracking/events';
 import { trackWhatsAppClickFromQuiz } from '@/lib/tracking/quiz-events';
+import { reportWhatsAppConversion } from '@/lib/tracking/google-ads';
 import { useQuizState } from '@/hooks/useQuizState';
 import type { Answers, Tier } from '@/lib/quiz/types';
 
@@ -82,6 +83,20 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
       planoAtual,
       ultimaVet: ultimaVetLabel,
     });
+
+    // Google Ads conversion "Clique WhatsApp". Aqui o <a> é link direto pro
+    // WhatsApp: só disparamos e deixamos a navegação seguir (sem
+    // event_callback, que só adicionaria latência — o link abre em nova aba).
+    // Dedup compartilhado com o auto-redirect: no /resultado os dois podem
+    // mandar o MESMO lead pro WhatsApp e não podem contar duas vezes.
+    reportWhatsAppConversion({
+      source: 'resultado_cta',
+      dedupeKey: state.leadId ?? `resultado_${tier}`,
+      value: TIER_VALUE[tier],
+      currency: 'BRL',
+      transactionId: state.leadId ?? undefined,
+    });
+
     setClicked(true);
   };
 
