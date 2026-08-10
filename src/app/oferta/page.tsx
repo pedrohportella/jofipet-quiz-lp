@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { ContentsquareScript } from '@/components/tracking/ContentsquareScript';
 import { OfertaClient } from './oferta-client';
 
 /**
@@ -42,9 +43,16 @@ export default function OfertaPage() {
   // Quando setado, o VideoSection renderiza embed real ao invés de placeholder.
   const videoEmbedUrl = process.env.NEXT_PUBLIC_JOFI_VIDEO_URL;
 
+  const contentsquareTagId =
+    process.env.NEXT_PUBLIC_CONTENTSQUARE_TAG_ID ?? 'e58e3318eb7eb';
+
   return (
     <main className="min-h-screen bg-white">
       <OfertaClient videoEmbedUrl={videoEmbedUrl} />
+      {/* Contentsquare roda só nesta LP — heatmap/replay do funil de oferta. */}
+      {contentsquareTagId && (
+        <ContentsquareScript tagId={contentsquareTagId} />
+      )}
     </main>
   );
 }
