@@ -1,6 +1,6 @@
 {
   "$schema": "./quiz.schema.json",
-  "version": "2026-05-27",
+  "version": "2026-09-08",
   "questions": [
     {
       "id": "pet-ativo",
@@ -22,6 +22,7 @@
         { "id": "pe", "label": "Recife / Olinda / Camaragibe (PE)" },
         { "id": "pb", "label": "João Pessoa / Santa Rita (PB)" },
         { "id": "ce", "label": "Fortaleza (CE)" },
+        { "id": "ma", "label": "São Luís (MA)" },
         { "id": "outra", "label": "Outra cidade" }
       ]
     },

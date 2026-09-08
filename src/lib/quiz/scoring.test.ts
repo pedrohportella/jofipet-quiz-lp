@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest';
 import { calculateTier } from './scoring';
-import { scoringConfig, cepCoverageConfig } from './loader';
+import { quizConfig, scoringConfig, cepCoverageConfig } from './loader';
 import type { Answers, CepCoverageConfig } from './types';
 
 const strictCepCoverage: CepCoverageConfig = {
@@ -205,5 +205,31 @@ describe('calculateTier — invariants', () => {
       result.breakdown.dor +
       result.breakdown.cobertura;
     expect(result.score).toBe(sum);
+  });
+});
+
+describe('cobertura por praça', () => {
+  const cidadeRule = scoringConfig.rules.find((r) => r.questionId === 'cidade');
+  const cidadeQuestion = quizConfig.questions.find((q) => q.id === 'cidade');
+
+  it('toda praça atendida no quiz tem peso em scoring.json', () => {
+    // Guarda contra o descasamento que zerou os cadastros em 31/08/2026: a mídia
+    // virou pra uma praça que o quiz não conhecia. Praça nova entra nos dois configs.
+    const weights = cidadeRule?.type === 'weights' ? cidadeRule.weights : {};
+    const optionIds =
+      cidadeQuestion && 'options' in cidadeQuestion
+        ? cidadeQuestion.options.map((o) => o.id)
+        : [];
+
+    expect(optionIds).toContain('outra');
+    for (const id of optionIds) {
+      expect(weights).toHaveProperty(id);
+    }
+  });
+
+  it('São Luís pontua cobertura como as demais praças atendidas', () => {
+    const weights = cidadeRule?.type === 'weights' ? cidadeRule.weights : {};
+    expect(weights.ma).toBe(weights.pe);
+    expect(weights.outra).toBe(0);
   });
 });
