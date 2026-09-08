@@ -1,43 +1,34 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import type { Tier } from '@/lib/quiz/types';
+import { getRecommendedPlan } from '@/lib/plans/catalog';
+import type { Answers, Tier } from '@/lib/quiz/types';
 
 interface TierPreviewProps {
   tier: Tier;
+  answers: Answers;
 }
 
-// Bullets alinhados com o folder oficial Jofi (catalog.ts).
-// Mantém só 3-4 itens por linha pra caber no card preview sem quebrar layout.
-const TIER_HEADLINES: Record<
-  Tier,
-  { emoji: string; kicker: string; headline: string; subhead: string; bullet: string }
-> = {
-  quente: {
-    emoji: '🔥',
-    kicker: 'Você é um tutor protetor',
-    headline: 'Parceiro',
-    subhead: 'Proteção completa pro seu companheiro de toda hora.',
-    bullet: 'Internamento + cirurgias + especialistas + tomografia',
-  },
-  morno: {
-    emoji: '🌻',
-    kicker: 'Você é um tutor consciente',
-    headline: 'Sereno',
-    subhead: 'Cuidado preventivo pra ter tranquilidade no dia a dia.',
-    bullet: 'Vacinação completa + exames de imagem + sedação',
-  },
-  frio: {
-    emoji: '💙',
-    kicker: 'Você é um tutor cuidadoso',
-    headline: 'Sereninho',
-    subhead: 'O essencial pra começar a cuidar do seu pet com carinho.',
-    bullet: 'Consultas clínicas + vacinação + exames de rotina',
-  },
+// O KICKER é do tier (a persona/temperatura do lead); o PLANO vem do gasto
+// mensal, via catalog.ts. Antes o card inteiro saía do tier e trazia nome,
+// subhead e bullets escritos à mão — que divergiam do plano citado na
+// mensagem de WhatsApp. Agora só a persona mora aqui.
+const TIER_KICKER: Record<Tier, string> = {
+  quente: 'Você é um tutor protetor',
+  morno: 'Você é um tutor consciente',
+  frio: 'Você é um tutor cuidadoso',
 };
 
-export function TierPreview({ tier }: TierPreviewProps) {
-  const data = TIER_HEADLINES[tier];
+export function TierPreview({ tier, answers }: TierPreviewProps) {
+  const gastoMensal = typeof answers['gasto-mensal'] === 'number' ? answers['gasto-mensal'] : null;
+  const plano = getRecommendedPlan(gastoMensal, tier);
+  const data = {
+    emoji: plano.emoji,
+    kicker: TIER_KICKER[tier],
+    headline: plano.name,
+    subhead: plano.targetPersona,
+    bullet: plano.bullets.slice(0, 3).join(' + '),
+  };
 
   return (
     <motion.div

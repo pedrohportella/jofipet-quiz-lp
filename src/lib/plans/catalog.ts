@@ -147,14 +147,59 @@ export function getPlanByName(name: string): Plan | undefined {
   return PLANS.find((p) => p.name.toLowerCase() === lower);
 }
 
+export type QuizTier = 'quente' | 'morno' | 'frio';
+
 /**
  * Mapping tier do quiz → plano recomendado.
- * Usado pelo result page do quiz pra recomendar o plano certo.
+ *
+ * FALLBACK desde 08/09/2026: quem manda na cobertura é o gasto mensal
+ * declarado (ver SPEND_TO_PLAN / getRecommendedPlan). Esse mapa só entra
+ * quando não há gasto na sessão — lead antigo, sessão parcial, link direto
+ * pro /resultado.
  */
-export const TIER_TO_PLAN: Record<'quente' | 'morno' | 'frio', PlanId> = {
+export const TIER_TO_PLAN: Record<QuizTier, PlanId> = {
   quente: 'parceiro',
   morno: 'sereno',
   frio: 'sereninho',
-  // Nota: Melhor Amigo NÃO é recomendado direto pelo quiz — é upsell
-  // que aparece como opção pro lead na LP /oferta e na conversa com o time.
 };
+
+/**
+ * Faixas do gasto mensal declarado no quiz → cobertura recomendada.
+ *
+ * Decidido com o Pedro em 08/09/2026: o gasto escolhe a COBERTURA, o tier
+ * segue mandando na TEMPERATURA da página (urgência, CTA, copy). Antes disso
+ * o plano saía só do tier, e as telas discordavam entre si — a tela morna
+ * dizia "Sereninho" enquanto a mensagem de WhatsApp dizia "Sereno".
+ *
+ * Consequência assumida: o Sereninho sai da recomendação do quiz (quem declara
+ * R$0 já cai no Sereno) e o Melhor Amigo passa a ser recomendável, coisa que
+ * antes era tratada como upsell só da LP /oferta.
+ *
+ * Faixas avaliadas em ordem, primeira que couber vence.
+ */
+export const SPEND_TO_PLAN: ReadonlyArray<{ maxSpend: number; planId: PlanId }> = [
+  { maxSpend: 100, planId: 'sereno' },
+  { maxSpend: 200, planId: 'parceiro' },
+  { maxSpend: Number.POSITIVE_INFINITY, planId: 'melhor-amigo' },
+];
+
+/**
+ * Cobertura recomendada pra um lead do quiz.
+ * Fonte única — result page, preview da captura e mensagem de WhatsApp
+ * chamam daqui pra não voltarem a divergir.
+ */
+export function getRecommendedPlan(
+  gastoMensal: number | null | undefined,
+  tier: QuizTier,
+): Plan {
+  if (typeof gastoMensal === 'number' && Number.isFinite(gastoMensal)) {
+    const faixa = SPEND_TO_PLAN.find((f) => gastoMensal <= f.maxSpend);
+    const plan = faixa && getPlanById(faixa.planId);
+    if (plan) return plan;
+  }
+  const fallback = getPlanById(TIER_TO_PLAN[tier]);
+  if (fallback) return fallback;
+  // Inalcançável (TIER_TO_PLAN só aponta pra ids do catálogo), mas o TS exige
+  // e um catálogo vazio nunca deve derrubar a tela de resultado.
+  return PLANS[0] as Plan;
+}

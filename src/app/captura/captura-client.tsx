@@ -39,7 +39,9 @@ export function CapturaClient() {
         </h1>
       </header>
 
-      {hydrated && state.tier && <TierPreview tier={state.tier} />}
+      {hydrated && state.tier && (
+        <TierPreview tier={state.tier} answers={state.answers} />
+      )}
 
       <CaptureForm />
 

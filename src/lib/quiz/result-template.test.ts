@@ -73,6 +73,10 @@ describe('renderTemplate', () => {
     preocupacao: 'saúde',
     gastoMensal: 200,
     planoAtual: 'Não tenho',
+    planoNome: 'Parceiro',
+    planoPreco: 'A partir de R$ 169,90/mês',
+    planoBullets: 'Internamento + Cirurgias + Tomografia',
+    comparativoGasto: '— menos que os R$ 200 que você gasta hoje',
   };
 
   it('replaces all placeholders', () => {
@@ -98,7 +102,7 @@ describe('getHeadline + getSubheadline + getBullets', () => {
   });
 
   it('quente headline mentions cobertura completa', () => {
-    expect(getHeadline('quente')).toMatch(/cobertura completa/i);
+    expect(getHeadline('quente', vars)).toMatch(/cobertura completa/i);
   });
 
   it('quente subheadline interpolates primeiroNome + especie', () => {
@@ -118,5 +122,32 @@ describe('getHeadline + getSubheadline + getBullets', () => {
     for (const b of bullets) {
       expect(b).not.toMatch(/\{\w+\}/);
     }
+  });
+});
+
+describe('cobertura recomendada sai do gasto mensal', () => {
+  const varsPara = (gastoMensal: number, tier: 'quente' | 'morno' | 'frio') =>
+    buildResultVars({
+      tier,
+      leadName: 'Pedro',
+      answers: { ...baseAnswers, 'gasto-mensal': gastoMensal },
+    });
+
+  it('a headline do morno nomeia a cobertura da faixa, não um plano fixo', () => {
+    expect(getHeadline('morno', varsPara(60, 'morno'))).toContain('Sereno');
+    expect(getHeadline('morno', varsPara(300, 'morno'))).toContain('Melhor Amigo');
+  });
+
+  it('o quente também segue o gasto', () => {
+    expect(getSubheadline('quente', varsPara(60, 'quente'))).toContain('Sereno');
+    expect(getSubheadline('quente', varsPara(150, 'quente'))).toContain('Parceiro');
+  });
+
+  it('só promete economia quando a mensalidade fica abaixo do gasto declarado', () => {
+    // Sereno custa R$ 79,90 — quem declara R$ 40 NÃO economiza, e a tela
+    // não pode dizer que economiza.
+    expect(varsPara(40, 'morno').comparativoGasto).not.toMatch(/menos que/i);
+    // Já quem declara R$ 100 economiza de verdade.
+    expect(varsPara(100, 'morno').comparativoGasto).toMatch(/menos que os R\$ 100/i);
   });
 });

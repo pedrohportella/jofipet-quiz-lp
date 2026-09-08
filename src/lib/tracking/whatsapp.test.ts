@@ -16,6 +16,23 @@ describe('buildWhatsappMessage', () => {
     expect(msg.slice(1, 6)).toBe(_internals.QUIZ_INVISIBLE_MARKER);
   });
 
+  it('cita a MESMA cobertura que a tela mostrou — a do gasto, não a do tier', () => {
+    // Regressão da divergência corrigida em 08/09/2026: a tela morna anunciava
+    // Sereninho e a mensagem dizia Sereno. Tela e mensagem chamam o mesmo
+    // getRecommendedPlan; se alguém desacoplar de novo, isso quebra.
+    const barato = buildWhatsappMessage({ tier: 'quente', gastoMensal: 60 });
+    expect(barato).toContain('Sereno');
+    expect(barato).not.toContain('Parceiro');
+
+    const caro = buildWhatsappMessage({ tier: 'morno', gastoMensal: 300 });
+    expect(caro).toContain('Melhor Amigo');
+  });
+
+  it('descreve a cobertura com a tagline do próprio plano', () => {
+    const msg = buildWhatsappMessage({ tier: 'morno', gastoMensal: 300 });
+    expect(msg).toContain('pra quem quer o cuidado todo');
+  });
+
   it('uses Parceiro for quente tier', () => {
     const msg = buildWhatsappMessage({ tier: 'quente' });
     expect(msg).toContain('Parceiro');

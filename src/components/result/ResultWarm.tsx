@@ -12,7 +12,9 @@ import {
   getSubheadline,
   getBullets,
 } from '@/lib/quiz/result-template';
+import { WhatsappCta } from './WhatsappCta';
 import { trackInitiateCheckout } from '@/lib/tracking/events';
+import { getRecommendedPlan } from '@/lib/plans/catalog';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultWarmProps {
@@ -31,15 +33,19 @@ export function ResultWarm({
   whatsappNumber,
 }: ResultWarmProps) {
   const vars = buildResultVars({ tier: 'morno', leadName, answers });
+  const gastoMensal = typeof answers['gasto-mensal'] === 'number' ? answers['gasto-mensal'] : null;
+  const plano = getRecommendedPlan(gastoMensal, 'morno');
 
   useEffect(() => {
+    // value = mensalidade da cobertura recomendada (era 49.9 fixo do Sereninho,
+    // que desde 08/09/26 não é mais o plano padrão do morno).
     trackInitiateCheckout({
       tier: 'morno',
-      value: 49.9,
+      value: plano.priceMonthly,
       leadId: leadId ?? undefined,
       context: 'view',
     });
-  }, [leadId]);
+  }, [leadId, plano.priceMonthly]);
 
   return (
     <>
@@ -62,14 +68,23 @@ export function ResultWarm({
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
       >
-        {getHeadline('morno')}
+        {getHeadline('morno', vars)}
       </h1>
       <p className="max-w-md text-base text-neutral-700">
         {getSubheadline('morno', vars)}
       </p>
       <ResultBullets bullets={getBullets('morno', vars)} />
       <div className="mt-2 flex w-full max-w-md flex-col gap-4">
-        <SereninhoCta baseUrl={sereninhoUrl} />
+        {/* O CTA segue a COBERTURA, não o tier: só o Sereninho tem checkout
+            próprio (NEXT_PUBLIC_SERENINHO_CHECKOUT_URL). Sereno, Parceiro e
+            Melhor Amigo vão pro WhatsApp — decidido em 08/09/26, também porque
+            o checkout do site estava com o bug de preço levantado na weekly
+            de 27/08 (adesão dobrando a primeira mensalidade). */}
+        {plano.id === 'sereninho' ? (
+          <SereninhoCta baseUrl={sereninhoUrl} />
+        ) : (
+          <WhatsappCta tier="morno" answers={answers} phoneNumber={whatsappNumber} />
+        )}
         <SaveForLaterCta whatsappNumber={whatsappNumber} />
         <div className="border-t border-neutral-300 pt-4">
           <NewsletterCta label="Ou receba dicas por email" />

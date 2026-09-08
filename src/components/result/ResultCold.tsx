@@ -49,7 +49,7 @@ export function ResultCold({
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
       >
-        {getHeadline('frio')}
+        {getHeadline('frio', vars)}
       </h1>
       <p className="max-w-md text-base text-neutral-700">
         {getSubheadline('frio', vars)}

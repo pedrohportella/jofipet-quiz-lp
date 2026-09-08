@@ -1,7 +1,7 @@
 import type { Tier } from '@/lib/quiz/types';
 import type { Utms } from './utms';
 import type { GoogleClickIds } from './gclid';
-import { getPlanById, TIER_TO_PLAN, type PlanId } from '@/lib/plans/catalog';
+import { getPlanById, getRecommendedPlan, type PlanId } from '@/lib/plans/catalog';
 
 /**
  * Invisible Unicode marker that identifies this lead as coming from the quiz LP.
@@ -13,15 +13,22 @@ import { getPlanById, TIER_TO_PLAN, type PlanId } from '@/lib/plans/catalog';
 const QUIZ_INVISIBLE_MARKER = '⁡⁣⁡⁣⁡';
 
 /**
- * Lookup tier → dados do plano (nome + label de preço).
- * REUSA o catalog.ts (TIER_TO_PLAN + getPlanById) pra evitar duplicação
- * de info de preços. Se preço mudar no catalog, mensagens atualizam auto.
+ * Lookup gasto mensal (+ tier como fallback) → dados do plano.
+ * REUSA o catalog.ts (getRecommendedPlan) pra evitar duplicação de info de
+ * preços. Se preço ou faixa mudar no catalog, a mensagem atualiza sozinha —
+ * e a mensagem passa a citar a MESMA cobertura que a tela mostrou.
  */
-function planByTier(tier: Tier): { name: string; priceLabel: string } {
-  const plan = getPlanById(TIER_TO_PLAN[tier]);
-  if (plan) return { name: plan.name, priceLabel: plan.priceLabel };
-  // Fallback defensivo (não deve acontecer, mas TS exige)
-  return { name: 'Jofi', priceLabel: 'a partir de R$ 49,90/mês' };
+function planForLead(
+  tier: Tier,
+  gastoMensal?: number | null,
+): { name: string; priceLabel: string; descritor: string } {
+  const plan = getRecommendedPlan(gastoMensal, tier);
+  // Descritor sai da tagline do próprio plano ("Pra rotina diária com
+  // proteção" → "pra rotina diária com proteção"). Era escrito à mão por tier,
+  // e com a cobertura vindo do gasto passaria a mentir — o morno anunciaria
+  // "cuidado preventivo" mesmo recomendando o Melhor Amigo.
+  const descritor = plan.tagline.charAt(0).toLowerCase() + plan.tagline.slice(1);
+  return { name: plan.name, priceLabel: plan.priceLabel, descritor };
 }
 
 const ESPECIE_LABEL: Record<string, string> = {
@@ -119,7 +126,7 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
 
   // === Variante 2: Lead do quiz com tier definido (mensagem rica) ===
   if (input.tier) {
-    const plan = planByTier(input.tier);
+    const plan = planForLead(input.tier, input.gastoMensal);
     const especie = ESPECIE_LABEL[input.especie ?? ''] ?? 'pet';
     const idade = IDADE_LABEL[input.idade ?? ''] ?? '';
     const petDescription = idade ? `${especie} ${idade}` : especie;
@@ -145,18 +152,13 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
 
     // Closing por tier — tom alinhado com a temperatura do lead.
     // Inclui descritor curto do plano pra ajudar o time a abrir conversa.
+    const indicacao = `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — ${plan.descritor}.`;
     if (input.tier === 'quente') {
-      lines.push(
-        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — proteção completa e tradicional. Quero ativar logo, pode me ajudar? 💛`,
-      );
+      lines.push(`${indicacao} Quero ativar logo, pode me ajudar? 💛`);
     } else if (input.tier === 'morno') {
-      lines.push(
-        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — cuidado preventivo. Posso entender melhor como funciona? 💛`,
-      );
+      lines.push(`${indicacao} Posso entender melhor como funciona? 💛`);
     } else {
-      lines.push(
-        `O perfil indicou a cobertura ${plan.name} (${plan.priceLabel}) — o essencial. Queria tirar algumas dúvidas, pode me ajudar? 💛`,
-      );
+      lines.push(`${indicacao} Queria tirar algumas dúvidas, pode me ajudar? 💛`);
     }
 
     const visibleText = lines.join('\n');
@@ -218,4 +220,4 @@ export function buildWhatsappUrl(
   return `https://api.whatsapp.com/send/?${params.toString()}`;
 }
 
-export const _internals = { QUIZ_INVISIBLE_MARKER, planByTier };
+export const _internals = { QUIZ_INVISIBLE_MARKER, planForLead };
