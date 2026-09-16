@@ -1,6 +1,6 @@
 import type { Answers, Tier } from './types';
 import { getAnswerLabel } from './loader';
-import { getRecommendedPlan } from '@/lib/plans/catalog';
+import { getPlanPrice, getRecommendedPlan } from '@/lib/plans/catalog';
 
 const ESPECIE_LABEL: Record<string, string> = {
   cao: 'cãozinho',
@@ -36,7 +36,10 @@ export interface ResultVars {
   planoAtual: string;
   /** Nome da cobertura recomendada (sai do gasto mensal, ver catalog.ts) */
   planoNome: string;
-  /** Label de preço da cobertura recomendada (ex: "R$ 79,90/mês") */
+  /**
+   * Preço da cobertura recomendada na faixa etária do pet (ex: "R$ 109,90/mês"
+   * pro Sereno de um pet com 8+). Sem idade respondida, "A partir de ...".
+   */
   planoPreco: string;
   /** Três primeiras coberturas do plano recomendado, pra bullet de features */
   planoBullets: string;
@@ -59,7 +62,8 @@ export function buildResultVars(ctx: ResultContext): ResultVars {
 
   const gastoMensal = typeof gastoRaw === 'number' ? gastoRaw : null;
   const plano = getRecommendedPlan(gastoMensal, ctx.tier);
-  const economiza = gastoMensal !== null && plano.priceMonthly < gastoMensal;
+  const preco = getPlanPrice(plano, idadeRaw);
+  const economiza = gastoMensal !== null && preco.value < gastoMensal;
 
   return {
     primeiroNome: firstName,
@@ -69,7 +73,7 @@ export function buildResultVars(ctx: ResultContext): ResultVars {
     gastoMensal,
     planoAtual: getAnswerLabel('plano-atual', planoRaw),
     planoNome: plano.name,
-    planoPreco: plano.priceLabel,
+    planoPreco: preco.label,
     planoBullets: plano.bullets.slice(0, 3).join(' + '),
     comparativoGasto: economiza
       ? `— menos que os R$ ${gastoMensal} que você gasta hoje`

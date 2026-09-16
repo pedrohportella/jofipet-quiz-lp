@@ -1,6 +1,6 @@
 {
   "$schema": "./quiz.schema.json",
-  "version": "2026-09-08",
+  "version": "2026-09-16",
   "questions": [
     {
       "id": "pet-ativo",
@@ -44,8 +44,8 @@
       "emoji": "🎂",
       "options": [
         { "id": "filhote", "label": "Filhote (até 1 ano)", "emoji": "🐣" },
-        { "id": "adulto", "label": "Adulto (1-7 anos)", "emoji": "🐕" },
-        { "id": "idoso", "label": "Idoso (7+ anos)", "emoji": "👴" }
+        { "id": "adulto", "label": "Adulto (1 a 7 anos)", "emoji": "🐕" },
+        { "id": "idoso", "label": "Idoso (8 anos ou mais)", "emoji": "👴" }
       ]
     },
     {

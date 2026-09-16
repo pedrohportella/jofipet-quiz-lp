@@ -1,7 +1,12 @@
 import type { Tier } from '@/lib/quiz/types';
 import type { Utms } from './utms';
 import type { GoogleClickIds } from './gclid';
-import { getPlanById, getRecommendedPlan, type PlanId } from '@/lib/plans/catalog';
+import {
+  getPlanById,
+  getPlanPrice,
+  getRecommendedPlan,
+  type PlanId,
+} from '@/lib/plans/catalog';
 
 /**
  * Invisible Unicode marker that identifies this lead as coming from the quiz LP.
@@ -13,22 +18,26 @@ import { getPlanById, getRecommendedPlan, type PlanId } from '@/lib/plans/catalo
 const QUIZ_INVISIBLE_MARKER = '⁡⁣⁡⁣⁡';
 
 /**
- * Lookup gasto mensal (+ tier como fallback) → dados do plano.
- * REUSA o catalog.ts (getRecommendedPlan) pra evitar duplicação de info de
- * preços. Se preço ou faixa mudar no catalog, a mensagem atualiza sozinha —
- * e a mensagem passa a citar a MESMA cobertura que a tela mostrou.
+ * Lookup gasto mensal (+ tier como fallback) → dados do plano, com o preço
+ * da faixa etária do pet.
+ * REUSA o catalog.ts (getRecommendedPlan + getPlanPrice) pra evitar duplicação
+ * de info de preços. Se preço ou faixa mudar no catalog, a mensagem atualiza
+ * sozinha — e a mensagem passa a citar a MESMA cobertura e o MESMO valor que a
+ * tela mostrou.
  */
 function planForLead(
   tier: Tier,
   gastoMensal?: number | null,
+  idade?: string,
 ): { name: string; priceLabel: string; descritor: string } {
   const plan = getRecommendedPlan(gastoMensal, tier);
+  const { label: priceLabel } = getPlanPrice(plan, idade);
   // Descritor sai da tagline do próprio plano ("Pra rotina diária com
   // proteção" → "pra rotina diária com proteção"). Era escrito à mão por tier,
   // e com a cobertura vindo do gasto passaria a mentir — o morno anunciaria
   // "cuidado preventivo" mesmo recomendando o Melhor Amigo.
   const descritor = plan.tagline.charAt(0).toLowerCase() + plan.tagline.slice(1);
-  return { name: plan.name, priceLabel: plan.priceLabel, descritor };
+  return { name: plan.name, priceLabel, descritor };
 }
 
 const ESPECIE_LABEL: Record<string, string> = {
@@ -126,7 +135,7 @@ export function buildWhatsappMessage(input: WhatsappBuildInput): string {
 
   // === Variante 2: Lead do quiz com tier definido (mensagem rica) ===
   if (input.tier) {
-    const plan = planForLead(input.tier, input.gastoMensal);
+    const plan = planForLead(input.tier, input.gastoMensal, input.idade);
     const especie = ESPECIE_LABEL[input.especie ?? ''] ?? 'pet';
     const idade = IDADE_LABEL[input.idade ?? ''] ?? '';
     const petDescription = idade ? `${especie} ${idade}` : especie;

@@ -11,6 +11,11 @@
  *
  * Diferencial Parceiro + Melhor Amigo (vs Sereninho/Sereno):
  *   - SEM taxa de adesão (Sereninho e Sereno têm "taxa de adesão imediata")
+ *
+ * Preço por idade: a Jofi cobra por faixa etária — de 0 a 7 anos é um valor,
+ * a partir dos 8 anos completos é outro (só o Sereninho não muda). Valores
+ * conferidos em 16/09/2026 na API do checkout do site (`/v1/dados/faixas-etarias`
+ * e `/v1/site/prestadores/{id}/planos`), iguais nos três prestadores.
  */
 
 export type PlanId = 'sereninho' | 'sereno' | 'parceiro' | 'melhor-amigo';
@@ -21,9 +26,15 @@ export interface Plan {
   name: string;
   /** Subtitle curto (ex: "Essencial") */
   tagline: string;
-  /** Preço mensal em BRL */
+  /** Preço mensal em BRL pra pet de 0 a 7 anos (faixa base) */
   priceMonthly: number;
-  /** Formatted price label (ex: "R$ 49,90/mês") */
+  /** Preço mensal em BRL pra pet com 8 anos ou mais */
+  priceMonthlySenior: number;
+  /**
+   * Label de preço pra quando a idade do pet não é conhecida (LP /oferta).
+   * "A partir de" sempre que a faixa 8+ custa mais. Com a idade em mãos,
+   * usar getPlanPrice, que devolve o valor exato da faixa.
+   */
   priceLabel: string;
   /** Bullets de benefícios (4-7 por plano) */
   bullets: string[];
@@ -53,6 +64,7 @@ export const PLANS: Plan[] = [
     name: 'Sereninho',
     tagline: 'Pra começar com tranquilidade',
     priceMonthly: 49.9,
+    priceMonthlySenior: 49.9,
     priceLabel: 'R$ 49,90/mês',
     bullets: [
       'Consultas clínicas',
@@ -73,7 +85,8 @@ export const PLANS: Plan[] = [
     name: 'Sereno',
     tagline: 'Pra rotina diária com proteção',
     priceMonthly: 79.9,
-    priceLabel: 'R$ 79,90/mês',
+    priceMonthlySenior: 109.9,
+    priceLabel: 'A partir de R$ 79,90/mês',
     bullets: [
       'Consultas clínicas e de emergência',
       'Vacinação completa',
@@ -94,6 +107,7 @@ export const PLANS: Plan[] = [
     name: 'Parceiro',
     tagline: 'Pra dormir tranquilo com emergência',
     priceMonthly: 169.9,
+    priceMonthlySenior: 209.9,
     priceLabel: 'A partir de R$ 169,90/mês',
     bullets: [
       'Consultas com especialistas',
@@ -116,6 +130,7 @@ export const PLANS: Plan[] = [
     name: 'Melhor Amigo',
     tagline: 'Pra quem quer o cuidado todo',
     priceMonthly: 259.9,
+    priceMonthlySenior: 309.9,
     priceLabel: 'A partir de R$ 259,90/mês',
     bullets: [
       'Consultas clínicas ilimitadas',
@@ -145,6 +160,44 @@ export function getPlanById(id: PlanId): Plan | undefined {
 export function getPlanByName(name: string): Plan | undefined {
   const lower = name.trim().toLowerCase();
   return PLANS.find((p) => p.name.toLowerCase() === lower);
+}
+
+export type PriceBand = 'base' | 'senior';
+
+/**
+ * Resposta `idade` do quiz → faixa de preço da Jofi.
+ *
+ * Filhote e adulto (1 a 7 anos) pagam a faixa base; idoso (8 anos ou mais),
+ * a faixa sênior. Até 16/09/2026 o quiz chamava de idoso o pet com 7+ e
+ * mostrava um preço só por cobertura. Sem resposta reconhecida → null.
+ */
+export function getPriceBand(idade: unknown): PriceBand | null {
+  if (idade === 'idoso') return 'senior';
+  if (idade === 'filhote' || idade === 'adulto') return 'base';
+  return null;
+}
+
+function formatMonthlyPrice(value: number): string {
+  return `R$ ${value.toFixed(2).replace('.', ',')}/mês`;
+}
+
+export interface PlanPrice {
+  /** Mensalidade em BRL (faixa base quando a idade é desconhecida) */
+  value: number;
+  /** Valor exato da faixa quando a idade é conhecida; senão, o priceLabel */
+  label: string;
+}
+
+/**
+ * Mensalidade de uma cobertura na faixa etária do pet.
+ * Fonte única pra tela de resultado, mensagem de WhatsApp e value de
+ * tracking — quem mostra preço de lead do quiz chama daqui.
+ */
+export function getPlanPrice(plan: Plan, idade: unknown): PlanPrice {
+  const band = getPriceBand(idade);
+  if (band === null) return { value: plan.priceMonthly, label: plan.priceLabel };
+  const value = band === 'senior' ? plan.priceMonthlySenior : plan.priceMonthly;
+  return { value, label: formatMonthlyPrice(value) };
 }
 
 export type QuizTier = 'quente' | 'morno' | 'frio';

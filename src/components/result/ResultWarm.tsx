@@ -14,7 +14,7 @@ import {
 } from '@/lib/quiz/result-template';
 import { WhatsappCta } from './WhatsappCta';
 import { trackInitiateCheckout } from '@/lib/tracking/events';
-import { getRecommendedPlan } from '@/lib/plans/catalog';
+import { getPlanPrice, getRecommendedPlan } from '@/lib/plans/catalog';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultWarmProps {
@@ -35,17 +35,19 @@ export function ResultWarm({
   const vars = buildResultVars({ tier: 'morno', leadName, answers });
   const gastoMensal = typeof answers['gasto-mensal'] === 'number' ? answers['gasto-mensal'] : null;
   const plano = getRecommendedPlan(gastoMensal, 'morno');
+  const mensalidade = getPlanPrice(plano, answers['idade']).value;
 
   useEffect(() => {
-    // value = mensalidade da cobertura recomendada (era 49.9 fixo do Sereninho,
-    // que desde 08/09/26 não é mais o plano padrão do morno).
+    // value = mensalidade da cobertura recomendada, na faixa etária do pet
+    // (era 49.9 fixo do Sereninho, que desde 08/09/26 não é mais o plano
+    // padrão do morno).
     trackInitiateCheckout({
       tier: 'morno',
-      value: plano.priceMonthly,
+      value: mensalidade,
       leadId: leadId ?? undefined,
       context: 'view',
     });
-  }, [leadId, plano.priceMonthly]);
+  }, [leadId, mensalidade]);
 
   return (
     <>

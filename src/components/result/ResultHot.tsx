@@ -14,7 +14,7 @@ import {
   getBullets,
 } from '@/lib/quiz/result-template';
 import { trackInitiateCheckout } from '@/lib/tracking/events';
-import { getRecommendedPlan } from '@/lib/plans/catalog';
+import { getPlanPrice, getRecommendedPlan } from '@/lib/plans/catalog';
 import type { Answers } from '@/lib/quiz/types';
 
 interface ResultHotProps {
@@ -28,19 +28,20 @@ export function ResultHot({ leadId, leadName, answers, whatsappNumber }: ResultH
   const vars = buildResultVars({ tier: 'quente', leadName, answers });
   const gastoMensal = typeof answers['gasto-mensal'] === 'number' ? answers['gasto-mensal'] : null;
   const plano = getRecommendedPlan(gastoMensal, 'quente');
+  const mensalidade = getPlanPrice(plano, answers['idade']).value;
 
   useEffect(() => {
-    // value = mensalidade da cobertura recomendada. Era 89.9 fixo ("approx
-    // Parceiro"), que não batia com plano nenhum do catálogo — e o value vai
-    // pro InitiateCheckout que a Meta usa pra otimizar.
+    // value = mensalidade da cobertura recomendada, na faixa etária do pet.
+    // Era 89.9 fixo ("approx Parceiro"), que não batia com plano nenhum do
+    // catálogo — e o value vai pro InitiateCheckout que a Meta usa pra otimizar.
     // leadId passado → CAPI server-side dispara com mesmo event_id pra dedup
     trackInitiateCheckout({
       tier: 'quente',
-      value: plano.priceMonthly,
+      value: mensalidade,
       leadId: leadId ?? undefined,
       context: 'view',
     });
-  }, [leadId, plano.priceMonthly]);
+  }, [leadId, mensalidade]);
 
   return (
     <>

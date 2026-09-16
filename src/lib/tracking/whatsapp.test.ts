@@ -51,6 +51,34 @@ describe('buildWhatsappMessage', () => {
     expect(msg).toContain('R$ 49,90');
   });
 
+  it('cita o preço da faixa etária do pet — o MESMO valor da tela', () => {
+    const adulto = buildWhatsappMessage({
+      tier: 'morno',
+      gastoMensal: 60,
+      idade: 'adulto',
+    });
+    expect(adulto).toContain('Sereno (R$ 79,90/mês)');
+
+    const idoso = buildWhatsappMessage({
+      tier: 'morno',
+      gastoMensal: 60,
+      idade: 'idoso',
+    });
+    expect(idoso).toContain('Sereno (R$ 109,90/mês)');
+
+    const idosoParceiro = buildWhatsappMessage({
+      tier: 'quente',
+      gastoMensal: 150,
+      idade: 'idoso',
+    });
+    expect(idosoParceiro).toContain('Parceiro (R$ 209,90/mês)');
+  });
+
+  it('sem idade a mensagem mantém o "a partir de"', () => {
+    const msg = buildWhatsappMessage({ tier: 'morno', gastoMensal: 60 });
+    expect(msg).toContain('Sereno (A partir de R$ 79,90/mês)');
+  });
+
   it('humanizes especie + idade', () => {
     const msg = buildWhatsappMessage({
       tier: 'quente',

@@ -147,7 +147,41 @@ describe('cobertura recomendada sai do gasto mensal', () => {
     // Sereno custa R$ 79,90 — quem declara R$ 40 NÃO economiza, e a tela
     // não pode dizer que economiza.
     expect(varsPara(40, 'morno').comparativoGasto).not.toMatch(/menos que/i);
-    // Já quem declara R$ 100 economiza de verdade.
-    expect(varsPara(100, 'morno').comparativoGasto).toMatch(/menos que os R\$ 100/i);
+    // Já quem declara R$ 100 com pet adulto economiza de verdade.
+    const adulto = buildResultVars({
+      tier: 'morno',
+      leadName: 'Pedro',
+      answers: { ...baseAnswers, idade: 'adulto', 'gasto-mensal': 100 },
+    });
+    expect(adulto.comparativoGasto).toMatch(/menos que os R\$ 100/i);
+  });
+});
+
+describe('preço na faixa etária do pet (virada aos 8 anos)', () => {
+  const varsPara = (idade: string, gastoMensal: number) =>
+    buildResultVars({
+      tier: 'morno',
+      leadName: 'Pedro',
+      answers: { ...baseAnswers, idade, 'gasto-mensal': gastoMensal },
+    });
+
+  it('o bullet de preço mostra o valor da faixa do pet', () => {
+    expect(getBullets('morno', varsPara('adulto', 60))[1]).toContain('R$ 79,90/mês');
+    expect(getBullets('morno', varsPara('idoso', 60))[1]).toContain('R$ 109,90/mês');
+    expect(getBullets('morno', varsPara('idoso', 300))[1]).toContain('R$ 309,90/mês');
+  });
+
+  it('pet 8+ que gasta R$ 100 não ouve que o Sereno de R$ 109,90 sai mais barato', () => {
+    expect(varsPara('idoso', 100).comparativoGasto).not.toMatch(/menos que/i);
+    expect(varsPara('adulto', 100).comparativoGasto).toMatch(/menos que os R\$ 100/i);
+  });
+
+  it('sem idade respondida o preço volta pro "a partir de"', () => {
+    const vars = buildResultVars({
+      tier: 'morno',
+      leadName: 'Pedro',
+      answers: { 'pet-ativo': 'sim', especie: 'cao', 'gasto-mensal': 60 },
+    });
+    expect(vars.planoPreco).toBe('A partir de R$ 79,90/mês');
   });
 });
