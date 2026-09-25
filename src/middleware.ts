@@ -1,4 +1,10 @@
 import { NextResponse, type NextRequest } from 'next/server';
+import {
+  ADMIN_SESSION_COOKIE,
+  checkCredentials,
+  readAdminAuthConfig,
+  verifySessionToken,
+} from '@/lib/admin/session';
 
 /**
  * Admin auth middleware.
@@ -6,14 +12,17 @@ import { NextResponse, type NextRequest } from 'next/server';
  * Camadas (em ordem):
  *  1. Feature flag ADMIN_PANEL_ENABLED='true' — senão, 404 (esconde existência)
  *  2. Config check (ADMIN_USER + ADMIN_PASSWORD setados) — senão, 503
- *  3. Rate limit per-IP (em memória, 10 tentativas por 5 min) — 429 se excedido
- *  4. HTTP Basic auth — 401 com WWW-Authenticate se ausente/inválido
- *  5. Constant-time string compare pra credenciais — mitiga timing attacks
+ *  3. /admin/login passa livre (quem já tem sessão volta pro painel)
+ *  4. Cookie de sessão assinado (criado pela tela de login) — ver lib/admin/session
+ *  5. Fallback HTTP Basic, com rate limit per-IP, pra script que chama a API
+ *     (ex: /api/admin/leads/export). O navegador não vê mais o popup: página
+ *     sem sessão vai pra /admin/login e API sem sessão recebe 401 em JSON.
  *
- * Matcher cobre `/admin/*` e `/api/admin/*` (inclui /api/admin/leads/export).
+ * Matcher cobre `/admin/*` e `/api/admin/*`. O POST do login fica em
+ * /api/admin-auth/*, fora do matcher, e tem rate limit próprio.
  */
 export const config = {
-  matcher: ['/admin/:path*', '/api/admin/:path*'],
+  matcher: ['/admin', '/admin/:path*', '/api/admin/:path*'],
 };
 
 // Rate limit em memória — funciona por instância serverless (cold start zera).
@@ -34,11 +43,6 @@ function checkRateLimit(ip: string): boolean {
   return entry.count <= MAX_ATTEMPTS;
 }
 
-function recordSuccess(ip: string): void {
-  // Reset on successful auth — não punir credenciais corretas vindas de IP "queimado"
-  attempts.delete(ip);
-}
-
 function extractIp(request: NextRequest): string {
   return (
     request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ??
@@ -47,73 +51,64 @@ function extractIp(request: NextRequest): string {
   );
 }
 
-/**
- * Comparação de strings em tempo constante — não vaza informação sobre
- * onde o mismatch ocorreu via tempo de execução.
- *
- * Não usamos `crypto.timingSafeEqual` porque ele requer Buffer (Node-only)
- * e middleware roda em Edge runtime. Implementação manual é suficiente:
- * processa SEMPRE todos os caracteres do candidato, independente de match.
- */
-function timingSafeEqual(a: string, b: string): boolean {
-  // Comprimentos diferentes: ainda processamos pra não vazar via tempo
-  const maxLen = Math.max(a.length, b.length);
-  let result = a.length === b.length ? 0 : 1;
-  for (let i = 0; i < maxLen; i++) {
-    const ca = i < a.length ? a.charCodeAt(i) : 0;
-    const cb = i < b.length ? b.charCodeAt(i) : 0;
-    result |= ca ^ cb;
+function parseBasicAuth(header: string | null): { user: string; password: string } | null {
+  if (!header || !header.startsWith('Basic ')) return null;
+  let decoded: string;
+  try {
+    decoded = atob(header.slice(6));
+  } catch {
+    return null;
   }
-  return result === 0;
+  const sep = decoded.indexOf(':');
+  if (sep === -1) return null;
+  return { user: decoded.slice(0, sep), password: decoded.slice(sep + 1) };
 }
 
-function unauthorized(): NextResponse {
-  return new NextResponse('Authentication required', {
-    status: 401,
-    headers: { 'WWW-Authenticate': 'Basic realm="Jofi Quiz Admin"' },
-  });
-}
-
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   if (process.env.ADMIN_PANEL_ENABLED !== 'true') {
     return new NextResponse('Admin panel disabled', { status: 404 });
   }
 
-  const adminUser = process.env.ADMIN_USER;
-  const adminPassword = process.env.ADMIN_PASSWORD;
-
-  if (!adminUser || !adminPassword) {
+  const authConfig = readAdminAuthConfig();
+  if (!authConfig) {
     return new NextResponse('Admin not configured', { status: 503 });
   }
 
-  const ip = extractIp(request);
-  if (!checkRateLimit(ip)) {
-    return new NextResponse('Too many attempts. Try again in 5 minutes.', {
-      status: 429,
-      headers: { 'Retry-After': '300' },
-    });
+  const { pathname, search } = request.nextUrl;
+  const isApi = pathname.startsWith('/api/');
+  const hasSession = await verifySessionToken(
+    authConfig,
+    request.cookies.get(ADMIN_SESSION_COOKIE)?.value,
+  );
+
+  if (pathname === '/admin/login') {
+    return hasSession
+      ? NextResponse.redirect(new URL('/admin', request.url))
+      : NextResponse.next();
   }
 
-  const auth = request.headers.get('authorization');
-  if (!auth || !auth.startsWith('Basic ')) return unauthorized();
+  if (hasSession) return NextResponse.next();
 
-  const base64 = auth.slice(6);
-  let decoded: string;
-  try {
-    decoded = atob(base64);
-  } catch {
-    return unauthorized();
+  const basic = parseBasicAuth(request.headers.get('authorization'));
+  if (basic) {
+    const ip = extractIp(request);
+    if (!checkRateLimit(ip)) {
+      return new NextResponse('Too many attempts. Try again in 5 minutes.', {
+        status: 429,
+        headers: { 'Retry-After': '300' },
+      });
+    }
+    if (checkCredentials(authConfig, basic.user, basic.password)) {
+      attempts.delete(ip);
+      return NextResponse.next();
+    }
   }
-  const sep = decoded.indexOf(':');
-  if (sep === -1) return unauthorized();
-  const user = decoded.slice(0, sep);
-  const password = decoded.slice(sep + 1);
 
-  // Constant-time compare pros 2 campos
-  const userOk = timingSafeEqual(user, adminUser);
-  const passOk = timingSafeEqual(password, adminPassword);
-  if (!userOk || !passOk) return unauthorized();
+  if (isApi) {
+    return NextResponse.json({ error: 'unauthorized' }, { status: 401 });
+  }
 
-  recordSuccess(ip);
-  return NextResponse.next();
+  const loginUrl = new URL('/admin/login', request.url);
+  loginUrl.searchParams.set('next', `${pathname}${search}`);
+  return NextResponse.redirect(loginUrl);
 }
