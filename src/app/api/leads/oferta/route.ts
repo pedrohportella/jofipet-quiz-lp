@@ -390,9 +390,15 @@ export async function POST(request: NextRequest) {
             'lead-oferta-lp',
             ...(lead.selectedPlanId ? [`plano-${lead.selectedPlanId}`] : []),
           ],
+          // Slugs conferidos no painel RD em 13/08/2026 — ver nota em
+          // src/lib/rd-station/mapper.ts. Slug divergente = descartado em silêncio.
+          cf_quiz_tier_do_lead: tier,
+          cf_quiz_score_numerico: 0,
+          // ⚠️ cf_origem / cf_plano_interesse / cf_cta_position ainda NÃO existem
+          // como campo no RD. Seguem sendo enviados (descartados sem erro) e passam
+          // a valer sozinhos quando forem criados no painel. Para segmentar a origem
+          // "LP Oferta" hoje, use a TAG `lead-oferta-lp` abaixo — tag é nativa.
           cf_origem: 'oferta_lp',
-          cf_quiz_tier: tier,
-          cf_quiz_score: 0,
           ...(planLabel ? { cf_plano_interesse: planLabel } : {}),
           ...(lead.source ? { cf_cta_position: lead.source } : {}),
           ...utmFields,

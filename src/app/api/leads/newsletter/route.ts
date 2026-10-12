@@ -172,8 +172,11 @@ export async function POST(request: NextRequest) {
             lead.source === 'quiz_out_of_area'
               ? ['fora-area-jofi', 'quiz-jofipet']
               : ['newsletter-jofi', 'quiz-jofipet'],
+          // Slug conferido no painel RD em 13/08/2026 — ver nota em
+          // src/lib/rd-station/mapper.ts. Slug divergente = descartado em silêncio.
+          // `cf_origem` ainda não existe no RD; segmentar por TAG (nativa) até criar.
           cf_origem: lead.source === 'quiz_out_of_area' ? 'quiz_fora_area' : 'quiz_lp',
-          cf_quiz_tier: lead.tier ?? 'frio',
+          cf_quiz_tier_do_lead: lead.tier ?? 'frio',
           ...utmFields,
         },
       },
