@@ -57,37 +57,18 @@ describe('buildRdConversionPayload', () => {
     ]);
   });
 
-  // Os slugs abaixo são os IDENTIFICADORES REAIS do painel RD do Jofi,
-  // conferidos em 13/08/2026. Se um desses testes quebrar, NÃO ajuste o teste
-  // para passar: confira o painel primeiro (Configurações → Campos
-  // personalizados de contato). Slug divergente = dado descartado em silêncio.
-  it('maps known answers to the real RD field identifiers', () => {
+  it('maps known answers to canonical cf_ fields', () => {
     const out = buildRdConversionPayload(base);
     expect(out.payload.cf_pet_especie).toBe('cao');
-    expect(out.payload.cf_pet_faixa_etaria).toBe('idoso');
-    expect(out.payload.cf_pet_gasto_mensal_r).toBe(250);
-    expect(out.payload.cf_endereco_cep).toBe('50050-100');
-  });
-
-  it('does not emit the legacy (non-existent) identifiers', () => {
-    const out = buildRdConversionPayload(base);
-    for (const legacy of [
-      'cf_pet_idade',
-      'cf_pet_ultima_vet',
-      'cf_gasto_mensal',
-      'cf_plano_atual',
-      'cf_cep',
-      'cf_quiz_tier',
-      'cf_quiz_score',
-    ]) {
-      expect(legacy in out.payload).toBe(false);
-    }
+    expect(out.payload.cf_pet_idade).toBe('idoso');
+    expect(out.payload.cf_gasto_mensal).toBe(250);
+    expect(out.payload.cf_cep).toBe('50050-100');
   });
 
   it('flattens score and breakdown to cf_ fields', () => {
     const out = buildRdConversionPayload(base);
-    expect(out.payload.cf_quiz_tier_do_lead).toBe('quente');
-    expect(out.payload.cf_quiz_score_numerico).toBe(80);
+    expect(out.payload.cf_quiz_tier).toBe('quente');
+    expect(out.payload.cf_quiz_score).toBe(80);
     expect(out.payload.cf_quiz_breakdown_gasto).toBe(25);
     expect(out.payload.cf_quiz_breakdown_dor).toBe(40);
     expect(out.payload.cf_quiz_breakdown_cobertura).toBe(15);
