@@ -1,195 +1,202 @@
 import Image from 'next/image';
-import Link from 'next/link';
 import type { ReactNode } from 'react';
-import { BOTAO, BOTAO_CONTORNO } from './Chrome';
-import { QUIZ_HREF, type Clinica, type Plano, checkoutHref } from './dados';
+import { BOTAO_CONTORNO } from './Chrome';
+import { type Hospital, checkoutHref } from './dados';
 
-/**
- * Estrelas brancas cortadas nos cantos, como no componente Fundo (no máximo duas por seção).
- * A marca só tem a estrela em amarelo, azul e laranja: a branca sai do amarelo com filtro.
- */
-export function Estrelas({ opacidade = 0.22 }: { cor?: string; opacidade?: number }) {
-  const src = '/institucional/estrela-amarelo.png';
+/* ───────────── Tipografia e seções ───────────── */
+
+export function Etiqueta({ children, tom = 'amarelo' }: { children: ReactNode; tom?: 'amarelo' | 'branco' }) {
   return (
-    <>
-      <Image
-        src={src}
-        alt=""
-        aria-hidden
-        width={500}
-        height={500}
-        style={{ opacity: opacidade, filter: 'brightness(0) invert(1)' }}
-        className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 md:-left-20 md:-top-20 md:h-56 md:w-56"
-      />
-      <Image
-        src={src}
-        alt=""
-        aria-hidden
-        width={500}
-        height={500}
-        style={{ opacity: opacidade, filter: 'brightness(0) invert(1)' }}
-        className="pointer-events-none absolute -bottom-20 -right-16 h-44 w-44 md:-bottom-24 md:-right-20 md:h-60 md:w-60"
-      />
-    </>
+    <span
+      className={`inline-flex w-fit rounded-2xl px-4 py-1.5 text-[12px] font-extrabold uppercase tracking-[0.1em] text-[#004f78] ${
+        tom === 'amarelo' ? 'bg-[#ffff44]' : 'bg-white'
+      }`}
+    >
+      {children}
+    </span>
   );
 }
-
-const TITULO =
-  'font-display text-[44px] uppercase leading-[1.04] tracking-[0.004em] md:text-[64px]';
 
 export function Titulo({
   children,
   tom = 'claro',
   className = '',
+  tag: Tag = 'h2',
 }: {
   children: ReactNode;
-  /** `claro`: sobre azul ou laranja (branco). `escuro`: sobre branco (azul). */
+  /** `claro`: branco, para fundo azul ou laranja. `escuro`: azul, para fundo branco. */
   tom?: 'claro' | 'escuro';
   className?: string;
+  tag?: 'h1' | 'h2';
 }) {
   return (
-    <h2 className={`${TITULO} ${tom === 'claro' ? 'text-white' : 'text-[#009af2]'} ${className}`}>
+    <Tag
+      className={`font-display text-[46px] uppercase leading-[1.02] tracking-[0.004em] md:text-[72px] ${
+        tom === 'claro' ? 'text-white' : 'text-[#009af2]'
+      } ${className}`}
+    >
       {children}
-    </h2>
+    </Tag>
   );
 }
 
 export const Realce = ({ children }: { children: ReactNode }) => <span className="text-[#ffff44]">{children}</span>;
+
+export function Lead({ children, tom = 'escuro', className = '' }: { children: ReactNode; tom?: 'claro' | 'escuro'; className?: string }) {
+  return (
+    <p
+      className={`text-[19px] font-medium leading-relaxed md:text-[21px] ${
+        tom === 'claro' ? 'text-white' : 'text-[#2f5a73]'
+      } ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
 
 export function Secao({
   fundo,
   children,
   className = '',
   id,
+  semPadding = false,
 }: {
   fundo: 'azul' | 'laranja' | 'branco' | 'suave';
   children: ReactNode;
   className?: string;
   id?: string;
+  semPadding?: boolean;
 }) {
-  const bg = {
-    azul: 'bg-[#009af2]',
-    laranja: 'bg-[#ff9625]',
-    branco: 'bg-white',
-    suave: 'bg-[#eaf6fe]',
-  }[fundo];
+  const bg = { azul: 'bg-[#009af2]', laranja: 'bg-[#ff9625]', branco: 'bg-white', suave: 'bg-[#eaf6fe]' }[fundo];
   return (
     <section id={id} className={`relative overflow-hidden ${bg} ${className}`}>
-      <div className="relative z-10 mx-auto max-w-6xl px-5 py-16 md:py-24">{children}</div>
+      <div className={`relative z-10 mx-auto max-w-6xl px-5 ${semPadding ? '' : 'py-20 md:py-28'}`}>{children}</div>
     </section>
   );
 }
 
-function Preco({ plano }: { plano: Plano }) {
+/* ───────────── Formas do design system ───────────── */
+
+type Forma = 'circulo-amarelo' | 'circulo-laranja' | 'circulo-azul' | 'quadrado-laranja' | 'quadrado-amarelo' | 'semicirculo-amarelo' | 'semicirculo-laranja' | 'estrela-amarelo' | 'estrela-laranja' | 'estrela-azul';
+
+/** Forma oficial da marca, solta e decorativa. Posicione com `className`. */
+export function Forma({ nome, className = '' }: { nome: Forma; className?: string }) {
   return (
-    <div className="mt-5 rounded-2xl bg-[#eef7fd] px-4 py-3">
-      {plano.precoUnico ? (
-        <>
-          <p className="text-[13px] font-bold text-[#2f5a73]">Em qualquer idade</p>
-          <p className="whitespace-nowrap text-[28px] font-extrabold leading-tight tracking-[-0.02em] text-[#004f78]">
-            R$ {plano.ate7}
-            <span className="text-[15px] font-medium text-[#2f5a73]">/mês</span>
-          </p>
-        </>
-      ) : (
-        <>
-          <p className="text-[13px] font-bold text-[#2f5a73]">Pet de 0 a 7 anos</p>
-          <p className="whitespace-nowrap text-[28px] font-extrabold leading-tight tracking-[-0.02em] text-[#004f78]">
-            R$ {plano.ate7}
-            <span className="text-[15px] font-medium text-[#2f5a73]">/mês</span>
-          </p>
-          <p className="mt-2 text-[13px] font-bold text-[#2f5a73]">A partir de 8 anos</p>
-          <p className="whitespace-nowrap text-[22px] font-extrabold leading-tight tracking-[-0.02em] text-[#004f78]">
-            R$ {plano.a8mais}
-            <span className="text-[14px] font-medium text-[#2f5a73]">/mês</span>
-          </p>
-        </>
-      )}
-    </div>
+    <Image
+      src={`/institucional/${nome}.png`}
+      alt=""
+      aria-hidden
+      width={500}
+      height={500}
+      className={`pointer-events-none absolute select-none ${className}`}
+    />
   );
 }
 
-export function PlanoCard({
-  plano,
-  destaque = false,
-  completo = false,
-}: {
-  plano: Plano;
-  destaque?: boolean;
-  completo?: boolean;
-}) {
+/** Estrelas brancas cortadas nos cantos (a marca só tem estrela em amarelo, azul e laranja: a branca sai do amarelo). */
+export function EstrelasBrancas({ opacidade = 0.2 }: { opacidade?: number }) {
+  const estilo = { opacity: opacidade, filter: 'brightness(0) invert(1)' };
   return (
-    <article
-      className={`flex flex-col rounded-[32px] bg-white p-6 ${
-        destaque ? 'ring-4 ring-[#ffff44]' : 'border border-[#d7ecfa]'
-      }`}
-    >
-      <h3 className="font-display text-[40px] uppercase leading-none text-[#009af2]">{plano.nome}</h3>
-      <p className="mt-2 text-[16px] font-medium leading-snug text-[#2f5a73]">{plano.frase}</p>
-      <Preco plano={plano} />
-      <div className="mt-5 flex-1">
-        {plano.herda && <p className="mb-2 text-[14px] font-bold text-[#004f78]">{plano.herda}</p>}
-        <ul className="space-y-2">
-          {(completo ? plano.inclui : plano.inclui.slice(0, 4)).map((i) => (
-            <li key={i} className="flex gap-3 text-[15px] font-medium leading-snug text-[#1f4a63]">
-              <span
-                aria-hidden
-                className="mt-[3px] flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#ff9625] text-white"
+    <>
+      <Image src="/institucional/estrela-amarelo.png" alt="" aria-hidden width={500} height={500} style={estilo}
+        className="pointer-events-none absolute -left-16 -top-16 h-40 w-40 md:-left-20 md:-top-20 md:h-60 md:w-60" />
+      <Image src="/institucional/estrela-amarelo.png" alt="" aria-hidden width={500} height={500} style={estilo}
+        className="pointer-events-none absolute -bottom-20 -right-16 h-44 w-44 md:-bottom-28 md:-right-20 md:h-64 md:w-64" />
+    </>
+  );
+}
+
+/* ───────────── Ícones de linha, traço arredondado (estilo Lucide) ───────────── */
+
+const TRACO = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
+
+export function Icone({ nome, className = 'h-6 w-6' }: { nome: 'casa' | 'etiqueta' | 'check' | 'chave' | 'seta' | 'mais'; className?: string }) {
+  const d = {
+    casa: <><path d="M3 11.5 12 4l9 7.5" /><path d="M5 10v10h14V10" /><path d="M10 20v-6h4v6" /></>,
+    etiqueta: <><path d="M3 12V4h8l10 10-8 8z" /><circle cx="7.5" cy="8.5" r="1.2" /></>,
+    check: <path d="M5 12.5l4.5 4.5L19 7.5" />,
+    chave: <><circle cx="8" cy="14" r="4" /><path d="M11 11l9-9" /><path d="M16 6l3 3" /></>,
+    seta: <path d="M5 12h14M13 6l6 6-6 6" />,
+    mais: <path d="M12 5v14M5 12h14" />,
+  }[nome];
+  return (
+    <svg viewBox="0 0 24 24" className={className} aria-hidden {...TRACO}>
+      {d}
+    </svg>
+  );
+}
+
+/** Bola laranja com ícone branco: o item de lista do design system. */
+export function BolaIcone({ nome, tamanho = 'h-12 w-12' }: { nome: Parameters<typeof Icone>[0]['nome']; tamanho?: string }) {
+  return (
+    <span className={`flex shrink-0 items-center justify-center rounded-full bg-[#ff9625] text-white ${tamanho}`}>
+      <Icone nome={nome} className="h-[52%] w-[52%]" />
+    </span>
+  );
+}
+
+/* ───────────── Rede credenciada ───────────── */
+
+export function HospitalCard({ h }: { h: Hospital }) {
+  return (
+    <article className="flex flex-col overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white">
+      <div className="relative h-52 w-full overflow-hidden bg-[#009af2]">
+        {h.foto ? (
+          <Image src={h.foto.src} alt={h.foto.alt} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover" />
+        ) : (
+          <>
+            <Forma nome="estrela-amarelo" className="-right-8 -top-8 h-44 w-44" />
+            <Forma nome="circulo-laranja" className="-bottom-12 left-6 h-32 w-32" />
+          </>
+        )}
+        {h.atendimento24h && (
+          <span className="absolute left-4 top-4 rounded-2xl bg-[#ffff44] px-3 py-1 text-[12px] font-extrabold uppercase tracking-[0.08em] text-[#004f78]">
+            Atendimento 24h
+          </span>
+        )}
+      </div>
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="font-display text-[34px] uppercase leading-[1.04] text-[#009af2]">{h.nome}</h3>
+        <p className="mt-1 text-[15px] font-bold text-[#004f78]">
+          {h.cidade}/{h.uf}
+        </p>
+        <ul className="mt-5 flex-1 space-y-3">
+          {h.unidades.map((u) => (
+            <li key={u.unidadeId} className="rounded-2xl bg-[#eaf6fe] p-4">
+              <p className="text-[15px] font-extrabold text-[#004f78]">{u.bairro}</p>
+              <p className="text-[14px] font-medium text-[#2f5a73]">{u.endereco}</p>
+              <a
+                href={checkoutHref(u.unidadeId)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={`${BOTAO_CONTORNO} mt-3 w-full !py-[10px] !text-[13px]`}
               >
-                <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3.4" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M5 12.5l4.5 4.5L19 7.5" />
-                </svg>
-              </span>
-              {i}
+                Contratar nesta unidade
+              </a>
             </li>
           ))}
         </ul>
       </div>
-      <Link href={QUIZ_HREF} className={`${BOTAO} mt-6 w-full`}>
-        Quero essa
-      </Link>
     </article>
   );
 }
 
-export function ClinicaCard({ c }: { c: Clinica }) {
+/* ───────────── Perguntas frequentes ───────────── */
+
+export function Faq({ itens }: { itens: { p: string; r: string }[] }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white">
-      {c.foto ? (
-        <div className="relative h-48 w-full bg-[#eaf6fe]">
-          <Image
-            src={c.foto.src}
-            alt={c.foto.alt}
-            fill
-            sizes="(min-width: 768px) 360px, 100vw"
-            className="object-cover"
-          />
-        </div>
-      ) : (
-        <div className="flex h-48 items-center justify-center bg-[#eaf6fe]">
-          <Image src="/institucional/estrela-azul.png" alt="" aria-hidden width={500} height={500} className="h-24 w-24" />
-        </div>
-      )}
-      <div className="flex flex-1 flex-col p-6">
-        {c.atendimento24h && (
-          <span className="mb-3 inline-flex w-fit rounded-2xl bg-[#ffff44] px-3 py-1 text-[12px] font-extrabold uppercase tracking-[0.06em] text-[#004f78]">
-            Atendimento 24h
-          </span>
-        )}
-        <h3 className="font-display text-[32px] uppercase leading-[1.05] text-[#009af2]">{c.nome}</h3>
-        <p className="mt-2 text-[15px] font-bold text-[#004f78]">
-          {c.bairro}, {c.cidade}/{c.uf}
-        </p>
-        <p className="mt-1 text-[15px] font-medium text-[#2f5a73]">{c.endereco}</p>
-        <a
-          href={checkoutHref(c.unidadeId)}
-          className={`${BOTAO_CONTORNO} mt-5 w-full`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Contratar nesta clínica
-        </a>
-      </div>
-    </article>
+    <div className="divide-y divide-[#d7ecfa] overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white">
+      {itens.map((i) => (
+        <details key={i.p} className="group">
+          <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-6 py-5 text-[17px] font-extrabold text-[#004f78] [&::-webkit-details-marker]:hidden">
+            {i.p}
+            <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#ff9625] text-white transition group-open:rotate-45">
+              <Icone nome="mais" className="h-5 w-5" />
+            </span>
+          </summary>
+          <p className="px-6 pb-6 text-[16px] font-medium leading-relaxed text-[#2f5a73]">{i.r}</p>
+        </details>
+      ))}
+    </div>
   );
 }

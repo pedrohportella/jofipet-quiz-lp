@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
-import { Cabecalho, Rodape } from '@/components/institucional/Chrome';
+import { Cabecalho } from '@/components/institucional/Cabecalho';
+import { BarraCelular, Rodape } from '@/components/institucional/Chrome';
 
 /**
  * Site institucional da Jofi no design system da Jofi (01_Marca/design-system, 29/09/2026).
@@ -24,11 +25,12 @@ const inter = Inter({
 export default function InstitucionalLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className={`${inter.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] text-[#1f4a63]`}
+      className={`${inter.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] text-[#1f4a63] [scroll-behavior:smooth]`}
     >
       <Cabecalho />
       <main>{children}</main>
       <Rodape />
+      <BarraCelular />
     </div>
   );
 }
