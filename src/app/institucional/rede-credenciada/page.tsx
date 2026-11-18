@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
+
 import Link from 'next/link';
-import { Faq, Forma, HospitalCard, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
+import { Faq, Forma, Foto, HospitalCard, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
 import { BOTAO, BOTAO_CONTORNO } from '@/components/institucional/Chrome';
 import { HOSPITAIS, QUIZ_HREF, TELEFONE, whatsappHref } from '@/components/institucional/dados';
 
@@ -33,8 +33,8 @@ export default function Rede() {
   return (
     <>
       <section className="relative overflow-hidden bg-[#009af2]">
-        <div className="relative z-10 mx-auto grid max-w-6xl items-end px-5 md:grid-cols-[1.2fr_0.8fr]">
-          <div className="py-16 md:py-24">
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-14 md:py-24">
+          <div>
             <Titulo tag="h1" className="md:!text-[96px]">
               Seu pet em <Realce>boas mãos</Realce>
             </Titulo>
@@ -43,17 +43,28 @@ export default function Rede() {
               referência para o cuidado do dia a dia.
             </Lead>
           </div>
-          <div className="relative hidden h-[420px] md:block">
-            <Forma nome="circulo-amarelo" className="bottom-[-18%] left-1/2 aspect-square w-[400px] -translate-x-1/2" />
-            <Image
-              src="/institucional/cao-97.png"
-              alt="Cachorro sentado olhando para o lado"
-              width={666}
-              height={1000}
-              priority
-              sizes="280px"
-              className="absolute bottom-0 left-1/2 h-[400px] w-auto -translate-x-1/2"
-            />
+          <div className="relative mx-auto h-[380px] w-full max-w-md md:h-[500px]">
+            <Forma nome="circulo-amarelo" className="-right-4 -top-8 aspect-square w-40 md:-right-10 md:w-64" />
+            <div className="absolute left-0 top-0 h-[78%] w-[56%] -rotate-3">
+              <Foto
+                src="gato-branco-colo.jpg"
+                alt="Gato branco no colo de uma veterinária, em clínica parceira"
+                className="h-full w-full"
+                posicao="50% 40%"
+                prioridade
+                sizes="(min-width: 1024px) 260px, 50vw"
+              />
+            </div>
+            <div className="absolute bottom-0 right-0 h-[66%] w-[48%] rotate-3">
+              <Foto
+                src="maltes-poltrona.jpg"
+                alt="Cachorro maltês sentado numa poltrona, em clínica parceira"
+                className="h-full w-full"
+                posicao="50% 45%"
+                sizes="(min-width: 1024px) 230px, 45vw"
+              />
+            </div>
+            <Forma nome="estrela-laranja" className="-bottom-4 left-4 h-20 w-20 md:-bottom-6 md:left-6 md:h-28 md:w-28" />
           </div>
         </div>
       </section>

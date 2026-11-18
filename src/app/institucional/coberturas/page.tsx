@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Assinaturas } from '@/components/institucional/Assinaturas';
-import { Forma, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
+import { Forma, Foto, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
 import { BOTAO, BOTAO_CONTORNO } from '@/components/institucional/Chrome';
 import { MATRIZ, PLANOS, QUIZ_HREF, whatsappHref } from '@/components/institucional/dados';
 
@@ -28,19 +28,31 @@ export default function Coberturas() {
   return (
     <>
       <section className="relative overflow-hidden bg-[#009af2]">
-        <Forma nome="estrela-amarelo" className="-right-12 -top-12 h-52 w-52 opacity-90 md:-right-8 md:h-72 md:w-72" />
-        <div className="relative z-10 mx-auto max-w-6xl px-5 py-16 md:py-24">
-          <Titulo tag="h1" className="max-w-4xl md:!text-[96px]">
-            Cada pet, uma <Realce>cobertura</Realce>
-          </Titulo>
-          <Lead tom="claro" className="mt-6 max-w-2xl">
-            Quatro assinaturas, do essencial à cobertura mais ampla. Compare o que cada uma cobre, a carência de
-            cada item e o valor para a idade do seu pet.
-          </Lead>
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Link href={QUIZ_HREF} className={BOTAO}>
-              Descobrir minha cobertura <span aria-hidden>→</span>
-            </Link>
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[1.15fr_0.85fr] md:gap-14 md:py-24">
+          <div>
+            <Titulo tag="h1" className="md:!text-[96px]">
+              Cada pet, uma <Realce>cobertura</Realce>
+            </Titulo>
+            <Lead tom="claro" className="mt-6 max-w-xl">
+              Quatro assinaturas, do essencial à cobertura mais ampla. Compare o que cada uma cobre, a carência de
+              cada item e o valor para a idade do seu pet.
+            </Lead>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link href={QUIZ_HREF} className={BOTAO}>
+                Descobrir minha cobertura <span aria-hidden>→</span>
+              </Link>
+            </div>
+          </div>
+          <div className="relative mx-auto w-full max-w-sm">
+            <Forma nome="circulo-amarelo" className="-bottom-8 -left-8 aspect-square w-40 md:-bottom-12 md:-left-12 md:w-60" />
+            <Foto
+              src="cao-cadeira-olhando.jpg"
+              alt="Cachorro sentado numa cadeira branca, olhando para cima"
+              className="aspect-[4/5] w-full"
+              posicao="50% 40%"
+              sizes="(min-width: 1024px) 400px, 90vw"
+            />
+            <Forma nome="estrela-laranja" className="-right-6 -top-8 h-24 w-24 md:-right-8 md:h-32 md:w-32" />
           </div>
         </div>
       </section>

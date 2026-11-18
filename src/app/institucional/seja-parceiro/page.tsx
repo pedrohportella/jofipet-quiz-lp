@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import { BolaIcone, EstrelasBrancas, Forma, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
+
+import { BolaIcone, EstrelasBrancas, Forma, Foto, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
 import { BOTAO, BOTAO_BRANCO } from '@/components/institucional/Chrome';
 import { whatsappHref } from '@/components/institucional/dados';
 
@@ -28,8 +28,8 @@ export default function Parceiro() {
     <>
       <section className="relative overflow-hidden bg-[#ff9625]">
         <EstrelasBrancas opacidade={0.25} />
-        <div className="relative z-10 mx-auto grid max-w-6xl items-end px-5 md:grid-cols-[1.2fr_0.8fr]">
-          <div className="py-16 md:py-24">
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[1.1fr_0.9fr] md:gap-14 md:py-24">
+          <div>
             <Titulo tag="h1" className="md:!text-[96px]">
               Seu hospital pode ser <Realce>parceiro</Realce>
             </Titulo>
@@ -43,16 +43,27 @@ export default function Parceiro() {
               </a>
             </div>
           </div>
-          <div className="relative hidden h-[460px] md:block">
-            <Forma nome="circulo-amarelo" className="bottom-[-14%] left-1/2 aspect-square w-[420px] -translate-x-1/2" />
-            <Image
-              src="/institucional/cao-94.png"
-              alt="Cachorro sentado dando a pata"
-              width={666}
-              height={1000}
-              sizes="300px"
-              className="absolute bottom-0 left-1/2 h-[440px] w-auto -translate-x-1/2"
-            />
+          <div className="relative mx-auto h-[380px] w-full max-w-md md:h-[500px]">
+            <Forma nome="circulo-amarelo" className="-bottom-6 left-1/2 aspect-square w-44 -translate-x-1/2 md:-bottom-10 md:w-64" />
+            <div className="absolute left-0 top-0 h-[80%] w-[52%] -rotate-2">
+              <Foto
+                src="vets-care-fachada-24h.jpg"
+                alt="Fachada do Vets Care, hospital veterinário parceiro em Fortaleza"
+                className="h-full w-full"
+                posicao="50% 38%"
+                prioridade
+                sizes="(min-width: 1024px) 240px, 50vw"
+              />
+            </div>
+            <div className="absolute bottom-0 right-0 h-[80%] w-[52%] rotate-2">
+              <Foto
+                src="quatro-patas-fachada.jpg"
+                alt="Fachada do Hospital Veterinário Quatro Patas, parceiro em São Luís"
+                className="h-full w-full"
+                posicao="50% 55%"
+                sizes="(min-width: 1024px) 240px, 50vw"
+              />
+            </div>
           </div>
         </div>
       </section>

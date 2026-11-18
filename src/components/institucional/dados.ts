@@ -110,7 +110,7 @@ export type Hospital = {
   uf: string;
   /** Só onde o Pedro confirmou (06/10/2026): Vets Care e Quatro Patas. */
   atendimento24h?: boolean;
-  foto?: { src: string; alt: string };
+  foto?: { src: string; alt: string; posicao?: string };
   unidades: { unidadeId: number; bairro: string; endereco: string }[];
 };
 
@@ -120,7 +120,11 @@ export const HOSPITAIS: Hospital[] = [
     cidade: 'Fortaleza',
     uf: 'CE',
     atendimento24h: true,
-    foto: { src: '/institucional/vets-care-gato.jpg', alt: 'Gato branco no colo de uma veterinária' },
+    foto: {
+      src: '/institucional/fotos/vets-care-fachada-24h.jpg',
+      alt: 'Fachada do Vets Care Hospital Veterinário Popular, com a placa 24h',
+      posicao: '50% 38%',
+    },
     // O 24h foi confirmado para o Vets Care como um todo; o raio-x cita as unidades Aldeota e São
     // Geraldo e a API lista Aldeota e Parque Araxá. O selo vai no hospital, não em cada unidade.
     unidades: [
@@ -133,7 +137,11 @@ export const HOSPITAIS: Hospital[] = [
     cidade: 'São Luís',
     uf: 'MA',
     atendimento24h: true,
-    foto: { src: '/institucional/quatro-patas-fachada.jpg', alt: 'Fachada do Hospital Veterinário Quatro Patas' },
+    foto: {
+      src: '/institucional/fotos/quatro-patas-fachada.jpg',
+      alt: 'Fachada do Hospital Veterinário Quatro Patas, em São Luís',
+      posicao: '50% 55%',
+    },
     unidades: [{ unidadeId: 4, bairro: 'Jardim São Francisco', endereco: 'Rua das Paparaubas, 13' }],
   },
   {

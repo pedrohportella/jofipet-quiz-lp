@@ -106,6 +106,40 @@ export function EstrelasBrancas({ opacidade = 0.2 }: { opacidade?: number }) {
   );
 }
 
+/**
+ * Foto inteira em cartão arredondado, como pede o design system. O tamanho vem de `className`
+ * (largura e proporção); `posicao` ajusta o recorte (object-position).
+ */
+export function Foto({
+  src,
+  alt,
+  className = '',
+  posicao = 'center',
+  prioridade = false,
+  sizes = '(min-width: 1024px) 560px, 100vw',
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  posicao?: string;
+  prioridade?: boolean;
+  sizes?: string;
+}) {
+  return (
+    <div className={`relative overflow-hidden rounded-[40px] bg-[#eaf6fe] ${className}`}>
+      <Image
+        src={`/institucional/fotos/${src}`}
+        alt={alt}
+        fill
+        priority={prioridade}
+        sizes={sizes}
+        style={{ objectPosition: posicao }}
+        className="object-cover"
+      />
+    </div>
+  );
+}
+
 /* ───────────── Ícones de linha, traço arredondado (estilo Lucide) ───────────── */
 
 const TRACO = { fill: 'none', stroke: 'currentColor', strokeWidth: 2.2, strokeLinecap: 'round', strokeLinejoin: 'round' } as const;
@@ -142,11 +176,28 @@ export function HospitalCard({ h }: { h: Hospital }) {
     <article className="flex flex-col overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white">
       <div className="relative h-52 w-full overflow-hidden bg-[#009af2]">
         {h.foto ? (
-          <Image src={h.foto.src} alt={h.foto.alt} fill sizes="(min-width: 768px) 380px, 100vw" className="object-cover" />
+          <Image
+            src={h.foto.src}
+            alt={h.foto.alt}
+            fill
+            sizes="(min-width: 1024px) 380px, 100vw"
+            style={{ objectPosition: h.foto.posicao ?? 'center' }}
+            className="object-cover"
+          />
         ) : (
           <>
             <Forma nome="estrela-amarelo" className="-right-8 -top-8 h-44 w-44" />
             <Forma nome="circulo-laranja" className="-bottom-12 left-6 h-32 w-32" />
+            {/* Ainda sem foto da unidade: logo da Jofi sobre as formas da marca */}
+            <Image
+              src="/institucional/logo-branca.png"
+              alt=""
+              aria-hidden
+              width={920}
+              height={1000}
+              sizes="96px"
+              className="absolute left-1/2 top-1/2 h-24 w-auto -translate-x-1/2 -translate-y-1/2"
+            />
           </>
         )}
         {h.atendimento24h && (

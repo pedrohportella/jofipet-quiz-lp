@@ -1,10 +1,11 @@
-import Image from 'next/image';
+
 import Link from 'next/link';
 import { Assinaturas } from '@/components/institucional/Assinaturas';
 import {
   BolaIcone,
   Etiqueta,
   EstrelasBrancas,
+  Foto,
   Faq,
   Forma,
   HospitalCard,
@@ -36,10 +37,10 @@ export default function Inicio() {
       {/* 1. Abertura: título grande, cão saindo pela borda inferior, forma amarela atrás */}
       <section className="relative overflow-hidden bg-[#009af2]">
         <EstrelasBrancas />
-        <div className="relative z-10 mx-auto grid max-w-6xl items-end gap-0 px-5 md:grid-cols-[1.12fr_0.88fr]">
-          <div className="pb-12 pt-14 md:pb-24 md:pt-24">
+        <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[1fr_1fr] md:gap-14 md:py-24">
+          <div>
             <Etiqueta>Assinatura de saúde pet</Etiqueta>
-            <h1 className="mt-6 font-display text-[60px] uppercase leading-[1] tracking-[0.004em] text-white md:text-[112px]">
+            <h1 className="mt-6 font-display text-[60px] uppercase leading-[1] tracking-[0.004em] text-white md:text-[84px] lg:text-[92px]">
               Cuidado começa com <Realce>clareza.</Realce>
             </h1>
             <Lead tom="claro" className="mt-6 max-w-xl">
@@ -64,18 +65,17 @@ export default function Inicio() {
             </ul>
           </div>
 
-          <div className="relative h-[340px] md:h-[640px]">
-            <Forma nome="circulo-amarelo" className="bottom-[-18%] left-1/2 aspect-square w-[340px] -translate-x-1/2 md:w-[500px]" />
-            <Forma nome="estrela-laranja" className="right-2 top-6 h-24 w-24 md:right-0 md:top-24 md:h-32 md:w-32" />
-            <Image
-              src="/institucional/cao-103.png"
-              alt="Cachorro sentado olhando para cima"
-              width={666}
-              height={1000}
-              priority
-              sizes="(min-width: 768px) 420px, 280px"
-              className="absolute bottom-0 left-1/2 h-[330px] w-auto -translate-x-1/2 md:h-[600px]"
+          <div className="relative">
+            <Forma nome="circulo-amarelo" className="-bottom-10 -left-8 aspect-square w-44 md:-bottom-14 md:-left-14 md:w-72" />
+            <Foto
+              src="equipe-duas-tutoras-cao.jpg"
+              alt="Duas tutoras de camisa azul da Jofi abraçando um cachorro, rindo"
+              className="aspect-[5/4] w-full shadow-none md:aspect-[6/5]"
+              posicao="50% 40%"
+              prioridade
+              sizes="(min-width: 1024px) 560px, 100vw"
             />
+            <Forma nome="estrela-laranja" className="-right-5 -top-7 h-24 w-24 md:-right-8 md:-top-10 md:h-36 md:w-36" />
           </div>
         </div>
       </section>
@@ -157,18 +157,15 @@ export default function Inicio() {
       <Secao fundo="azul">
         <div className="grid items-center gap-10 md:grid-cols-[0.85fr_1.15fr] md:gap-16">
           <div className="relative mx-auto w-full max-w-md">
-            <div className="relative h-[420px] md:h-[560px]">
-              <Forma nome="circulo-amarelo" className="bottom-[-6%] left-1/2 aspect-square w-[330px] -translate-x-1/2 md:w-[440px]" />
-              <Forma nome="quadrado-laranja" className="left-2 top-4 h-24 w-24 rotate-12 md:left-0 md:h-32 md:w-32" />
-              <Image
-                src="/institucional/cao-97.png"
-                alt="Cachorro sentado com a língua para fora"
-                width={666}
-                height={1000}
-                sizes="(min-width: 768px) 380px, 260px"
-                className="absolute bottom-0 left-1/2 h-[400px] w-auto -translate-x-1/2 md:h-[540px]"
-              />
-            </div>
+            <Forma nome="quadrado-amarelo" className="-left-6 -top-6 h-24 w-24 rotate-12 md:-left-10 md:-top-8 md:h-36 md:w-36" />
+            <Foto
+              src="cao-cadeira-feliz.jpg"
+              alt="Cachorro sentado numa cadeira branca, de boca aberta, parecendo sorrir"
+              className="aspect-[4/5] w-full"
+              posicao="50% 45%"
+              sizes="(min-width: 1024px) 420px, 90vw"
+            />
+            <Forma nome="estrela-laranja" className="-bottom-8 -right-6 h-28 w-28 md:-bottom-10 md:-right-10 md:h-40 md:w-40" />
           </div>
           <div>
             <Titulo>
@@ -233,17 +230,8 @@ export default function Inicio() {
 
       {/* 8. Para hospitais */}
       <Secao fundo="laranja">
-        <Forma nome="circulo-amarelo" className="-bottom-24 right-4 hidden h-72 w-72 md:block" />
-        <Image
-          src="/institucional/cao-94.png"
-          alt=""
-          aria-hidden
-          width={666}
-          height={1000}
-          sizes="260px"
-          className="pointer-events-none absolute bottom-0 right-10 hidden h-[360px] w-auto md:block"
-        />
-        <div className="max-w-2xl">
+        <div className="grid items-center gap-10 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
+        <div>
           <Titulo>Seu hospital pode ser parceiro</Titulo>
           <p className="mt-6 rounded-2xl bg-white px-5 py-4 text-[17px] font-bold leading-snug text-[#004f78]">
             A Jofi cuida da venda, do pós-venda, do suporte e da cobrança, e faz o marketing em parceria com a
@@ -254,6 +242,16 @@ export default function Inicio() {
               Quero ser parceiro
             </Link>
           </div>
+        </div>
+        <div className="relative">
+          <Forma nome="circulo-amarelo" className="-bottom-8 -right-6 aspect-square w-40 md:-bottom-12 md:-right-10 md:w-60" />
+          <Foto
+            src="equipe-dois-tutores-cao.jpg"
+            alt="Dois tutores de camisas azul e laranja da Jofi sentados com um cachorro"
+            className="aspect-[4/3] w-full"
+            sizes="(min-width: 1024px) 480px, 100vw"
+          />
+        </div>
         </div>
       </Secao>
 
