@@ -24,17 +24,17 @@ const BENEFITS = [
 
 export function Solution() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-primary py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <p className="jofi-kicker mb-2 text-primary">A solução Jofi</p>
+          <p className="mx-auto mb-3 w-fit rounded-2xl bg-highlight px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.1em] text-neutral-900">A solução Jofi</p>
           <h2
-            className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
+            className="text-3xl uppercase leading-tight text-white md:text-5xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             Cuidado completo,
             <br />
-            <span className="text-primary">com transparência total.</span>
+            <span className="text-highlight">com transparência total.</span>
           </h2>
         </div>
 
@@ -43,11 +43,11 @@ export function Solution() {
             const Icon = b.icon;
             return (
               <div key={b.title} className="flex flex-col items-center gap-4 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white">
                   <Icon className="h-8 w-8" strokeWidth={2} aria-hidden="true" />
                 </div>
-                <h3 className="text-lg font-bold text-neutral-900">{b.title}</h3>
-                <p className="text-sm leading-relaxed text-neutral-700">{b.body}</p>
+                <h3 className="text-lg font-bold text-white">{b.title}</h3>
+                <p className="text-sm font-medium leading-relaxed text-white">{b.body}</p>
               </div>
             );
           })}
@@ -65,7 +65,7 @@ export function Solution() {
               loading="lazy"
             />
           </div>
-          <figcaption className="mt-3 text-center text-sm text-neutral-600">
+          <figcaption className="mt-3 text-center text-sm font-medium text-white">
             O time Jofi que te atende no WhatsApp: gente de verdade, em Recife
           </figcaption>
         </figure>

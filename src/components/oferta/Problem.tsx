@@ -7,7 +7,7 @@ const SCENARIOS = [
   {
     icon: AlertCircle,
     title: 'Pet com problema fora de hora',
-    body: 'Madrugada, fim de semana, feriado. Vet de plantão custa caro e nem sempre atende. A Jofi tá no WhatsApp 24h pra te orientar antes da emergência virar pânico.',
+    body: 'Madrugada, fim de semana, feriado. Vet de plantão custa caro e nem sempre atende. O time da Jofi te orienta no WhatsApp antes da emergência virar pânico.',
   },
   {
     icon: Wallet,

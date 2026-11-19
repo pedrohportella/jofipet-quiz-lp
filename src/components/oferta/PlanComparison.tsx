@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { PLANS, type Plan, type PlanId } from '@/lib/plans/catalog';
+import { PLANS, type Plan } from '@/lib/plans/catalog';
+import { IDENTIDADE_PLANO } from '@/lib/plans/identidade';
 import { cn } from '@/lib/utils/cn';
 import { REDE_TEXT } from '@/lib/oferta/geo';
 import { useOfertaCapture } from './OfertaCaptureContext';
@@ -17,20 +18,6 @@ import { useOfertaCapture } from './OfertaCaptureContext';
  * RD/CAPI/Admin, depois redireciona pro WhatsApp com mensagem rica
  * mencionando a cobertura selecionada.
  */
-const PLAN_ART: Record<PlanId, string> = {
-  sereninho: '/plans/sereninho.webp',
-  sereno: '/plans/sereno.webp',
-  parceiro: '/plans/parceiro.webp',
-  'melhor-amigo': '/plans/amigo.webp',
-};
-
-// A arte do Parceiro tem o nome do plano em BRANCO — some no card branco.
-// Ela foi desenhada pra sentar num bloco laranja cheio: o fundo sólido
-// revela o texto e ainda reforça o destaque do card "Mais escolhido".
-const PLAN_ART_BG: Partial<Record<PlanId, string>> = {
-  parceiro: 'rounded-xl bg-accent',
-};
-
 export function PlanComparison() {
   return (
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
@@ -46,7 +33,7 @@ export function PlanComparison() {
             pro seu <span className="text-primary">pequeno.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
-            Todas as coberturas incluem orientação 24h via WhatsApp. {REDE_TEXT}{' '}
+            {REDE_TEXT}{' '}
           </p>
         </div>
 
@@ -59,8 +46,8 @@ export function PlanComparison() {
         <p className="mt-8 text-center text-sm text-neutral-500">
           {/* TODO Pedro/Jofi: validar carências, limites e bullets de cada cobertura. */}
           Valores &quot;a partir de&quot;: o valor exato considera a idade do pet
-          (até 7 anos ou 8+). Sem taxa de adesão extra: o primeiro pagamento já
-          libera atendimento.
+          (até 7 anos ou 8+). A carência de cada item e a taxa de adesão, quando
+          houver, aparecem antes do pagamento.
         </p>
       </div>
     </section>
@@ -118,19 +105,26 @@ function PlanCard({ plan }: PlanCardProps) {
         </motion.div>
       )}
 
-      <header className="flex flex-col items-center gap-1 pt-2 text-center md:items-start md:text-left">
-        <div className={cn('relative mb-1 h-24 w-full', PLAN_ART_BG[plan.id])}>
+      <header className="pt-2">
+        {/* Faixa na cor da assinatura e o pet dela (artes de outubro), como no site e na captura */}
+        <div
+          className="relative min-h-[156px] overflow-hidden rounded-3xl p-5 text-left"
+          style={{ backgroundColor: IDENTIDADE_PLANO[plan.id].cor, color: IDENTIDADE_PLANO[plan.id].corTexto }}
+        >
+          <div className="relative z-10 max-w-[58%]">
+            <p className="text-[11px] font-extrabold uppercase tracking-[0.08em]">{plan.tagline}</p>
+            <h3 className="mt-1 font-display text-[34px] uppercase leading-[0.95]">{plan.name}</h3>
+            <p className="mt-2 text-[13px] font-bold leading-snug">{plan.targetPersona}</p>
+          </div>
           <Image
-            src={PLAN_ART[plan.id]}
-            alt={`Cobertura ${plan.name}`}
-            fill
-            sizes="(min-width: 1024px) 22vw, (min-width: 768px) 44vw, 88vw"
-            className="object-contain object-center md:object-left"
+            src={IDENTIDADE_PLANO[plan.id].pet.src}
+            alt={IDENTIDADE_PLANO[plan.id].pet.alt}
+            width={520}
+            height={520}
+            sizes="150px"
+            className="pointer-events-none absolute -bottom-1 right-0 h-auto w-[44%] max-w-[150px]"
           />
         </div>
-        <h3 className="sr-only">{plan.name}</h3>
-        <p className="jofi-kicker text-neutral-500">{plan.tagline}</p>
-        <p className="text-xs text-neutral-500">{plan.targetPersona}</p>
       </header>
 
       <div className="border-y border-neutral-200 py-3 text-center md:text-left">
@@ -148,7 +142,7 @@ function PlanCard({ plan }: PlanCardProps) {
       <ul className="flex flex-1 flex-col gap-2">
         {plan.bullets.map((bullet, i) => (
           <li key={i} className="flex items-start gap-2 text-sm text-neutral-700">
-            <Check className="mt-0.5 h-4 w-4 shrink-0 text-success-500" strokeWidth={3} />
+            <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><Check className="h-3 w-3" strokeWidth={3.4} /></span>
             <span>{bullet}</span>
           </li>
         ))}

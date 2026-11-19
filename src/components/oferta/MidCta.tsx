@@ -41,7 +41,7 @@ export function MidCta() {
         <button
           type="button"
           onClick={handleClick}
-          className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
+          className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-accent !text-white hover:!bg-accent-600"
         >
           Conversar com nosso time agora
         </button>

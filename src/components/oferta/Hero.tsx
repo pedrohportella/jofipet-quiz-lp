@@ -24,7 +24,7 @@ export function Hero() {
   };
 
   return (
-    <section className="relative w-full overflow-hidden bg-gradient-to-b from-primary/5 via-secondary to-secondary">
+    <section className="relative w-full overflow-hidden bg-primary">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-6 px-4 pb-10 pt-8 text-center md:flex-row md:gap-12 md:px-8 md:py-20 md:text-left">
         {/* Visual mobile-only */}
         <motion.div
@@ -53,18 +53,18 @@ export function Hero() {
         >
           <div className="mb-4 flex flex-col items-center gap-2 md:flex-row md:items-center md:gap-3 md:justify-start">
             <Image
-              src="/brand/jofi/variant-6-transparent.svg"
+              src="/institucional/logo-branca.png"
               alt="Jofi"
-              width={200}
-              height={80}
+              width={920}
+              height={1000}
               priority
-              className="h-14 w-auto md:h-20"
+              className="h-16 w-auto md:h-24"
             />
-            <span className="jofi-kicker text-primary">Assinatura de Saúde Pet</span>
+            <span className="rounded-2xl bg-highlight px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.1em] text-neutral-900">Assinatura de Saúde Pet</span>
           </div>
 
           <h1
-            className="text-[2rem] uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-6xl"
+            className="text-[2rem] uppercase leading-[0.95] text-white [text-wrap:balance] sm:text-4xl md:text-6xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             {/* Keyword de message match do Google Ads: fica no HTML (indexável)
@@ -72,17 +72,17 @@ export function Hero() {
             <span className="sr-only">Plano de saúde pet: </span>
             Do check-up
             <br />
-            à <span className="text-primary">emergência</span>,
+            à <span className="text-highlight">emergência</span>,
             <br />
             tudo num plano só.
           </h1>
 
-          <p className="mt-3 text-base font-semibold text-primary md:text-lg">
+          <p className="mt-3 text-base font-bold text-white md:text-lg">
             A partir de{' '}
-            <span className="text-neutral-900">R$ 49,90/mês</span> · Consulta liberada desde o 1º dia
+            <span className="text-highlight">R$ 49,90/mês</span> · Consulta liberada desde o 1º dia
           </p>
 
-          <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
+          <p className="mt-4 max-w-md text-base font-medium text-white md:text-lg">
             Cobertura ampla: consultas, vacinas, exames, internação e cirurgias,
             com atendimento humano no WhatsApp. Depois de cumprida a carência,
             é só usar: você não precisa pedir autorização à Jofi.
@@ -96,18 +96,18 @@ export function Hero() {
             >
               Falar com nosso time no WhatsApp
             </button>
-            <p className="text-center text-xs text-neutral-600 sm:text-left">
+            <p className="text-center text-xs font-medium text-white sm:text-left">
               Resposta em minutos · Atendimento humano
             </p>
             <a
               href="/"
-              className="text-center text-sm text-neutral-500 underline underline-offset-4 hover:text-primary sm:text-left"
+              className="text-center text-sm font-medium text-white underline underline-offset-4 hover:text-highlight sm:text-left"
             >
               Prefere descobrir a cobertura ideal? Faça o quiz em&nbsp;90s&nbsp;→
             </a>
           </div>
 
-          <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
+          <p className="mt-4 text-center text-xs font-medium text-white md:text-left">
             Consultas liberadas no dia 1 · +500 tutores em PE/PB/CE
           </p>
         </motion.div>

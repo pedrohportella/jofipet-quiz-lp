@@ -68,7 +68,7 @@ function JofiIcon({ status }: { status: TableRow['jofi']['status'] }) {
 
 export function TransparencyTable() {
   return (
-    <section className="bg-white py-16 md:py-20">
+    <section className="bg-cream py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-12">
           <p className="jofi-kicker mb-2 text-primary">Transparência radical</p>
