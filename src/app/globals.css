@@ -67,12 +67,6 @@
   --jofi-action-whatsapp:       var(--jofi-whatsapp-500);
   --jofi-action-whatsapp-hover: var(--jofi-whatsapp-600);
 
-  /* Tiers do quiz mapeados ao brand:
-   * hot = laranja (urgência/Parceiro) ; warm = azul brand ; cold = azul claro */
-  --jofi-tier-hot:   var(--jofi-orange-500);
-  --jofi-tier-warm:  var(--jofi-blue-500);
-  --jofi-tier-cold:  var(--jofi-blue-300);
-
   /* Radius */
   --jofi-radius-sm:   8px;
   --jofi-radius-md:   12px;
@@ -101,33 +95,6 @@
   --jofi-cta-height:    56px;
   --jofi-input-height:  52px;
   --jofi-logo-min:      24px;
-
-  /* Legacy aliases — APONTAM PRO BRAND ATUAL (azul/laranja) pra retrocompat.
-   * Componentes antigos que referenciam --jofi-coral-* viram azul automaticamente.
-   * Não usar em código novo: prefira semantic tokens acima. */
-  --jofi-coral-50:     var(--jofi-blue-50);
-  --jofi-coral-100:    var(--jofi-blue-100);
-  --jofi-coral-300:    var(--jofi-blue-300);
-  --jofi-coral-500:    var(--jofi-blue-500);
-  --jofi-coral-600:    var(--jofi-blue-600);
-  --jofi-coral-700:    var(--jofi-blue-700);
-  --jofi-cream-50:     var(--jofi-bg-white);
-  --jofi-yellow-300:   var(--jofi-orange-300);
-  --jofi-yellow-500:   var(--jofi-orange-500);
-  --jofi-yellow-700:   var(--jofi-orange-700);
-  --jofi-warmblack-100: var(--jofi-ink-100);
-  --jofi-warmblack-300: var(--jofi-ink-300);
-  --jofi-warmblack-500: var(--jofi-ink-500);
-  --jofi-warmblack-700: var(--jofi-ink-700);
-  --jofi-warmblack-900: var(--jofi-ink-900);
-  --color-primary:    0 154 242;
-  --color-secondary:  255 255 255;
-  --color-neutral-900: 0 79 120;
-  --radius-card: var(--jofi-radius-lg);
-  --duration-fast: var(--jofi-duration-fast);
-  --duration-base: var(--jofi-duration-base);
-  --ease-out: var(--jofi-ease-out);
-  --ease-in:  var(--jofi-ease-in);
 }
 
 @layer base {
@@ -202,27 +169,6 @@
     background-color: var(--jofi-blue-50);
   }
 
-  /* ----- Card --------------------------------------------------------------- */
-  .jofi-card {
-    background-color: var(--jofi-bg-surface);
-    border-radius: 28px;
-    border: 1px solid var(--jofi-border-subtle);
-    padding: 24px;
-    transition: border-color var(--jofi-duration-fast) var(--jofi-ease-out);
-  }
-  .jofi-card--hover:hover { border-color: var(--jofi-blue-500); }
-
-  /* Result card por tier (consume tier color via data-attr) */
-  .jofi-card--tier {
-    border-top: 4px solid;
-    border-radius: var(--jofi-radius-xl);
-    padding: 32px 24px;
-    box-shadow: var(--jofi-shadow-2);
-  }
-  .jofi-card--tier[data-tier='hot']  { border-top-color: var(--jofi-tier-hot); }
-  .jofi-card--tier[data-tier='warm'] { border-top-color: var(--jofi-tier-warm); }
-  .jofi-card--tier[data-tier='cold'] { border-top-color: var(--jofi-tier-cold); }
-
   /* ----- Text styles -------------------------------------------------------- */
   .jofi-kicker {
     font-size: 14px;
@@ -230,39 +176,6 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--jofi-text-muted);
-  }
-  .jofi-h1 {
-    font-size: 32px;
-    font-weight: 800;
-    line-height: 1.2;
-    letter-spacing: -0.01em;
-    color: var(--jofi-text-primary);
-  }
-  @media (min-width: 768px) {
-    .jofi-h1 { font-size: 40px; }
-  }
-  /* Display headline — Anton condensed pra replicar "MAIS CUIDADO" dos criativos */
-  .jofi-display {
-    font-family: var(--font-anton), Anton, Impact, sans-serif;
-    font-weight: 400; /* Anton só tem regular, peso já é forte */
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    line-height: 0.95;
-  }
-  .jofi-lead {
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.4;
-    color: var(--jofi-text-secondary);
-  }
-  .jofi-anchor-word {
-    color: var(--jofi-action-primary);
-    font-weight: 800;
-  }
-  .jofi-price {
-    font-feature-settings: 'tnum' 1, 'lnum' 1;
-    font-weight: 800;
-    letter-spacing: -0.01em;
   }
 }
 

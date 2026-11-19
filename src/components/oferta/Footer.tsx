@@ -16,7 +16,7 @@ export function OfertaFooter() {
               alt="Jofi"
               width={920}
               height={1000}
-              className="h-16 w-auto"
+              className="h-16 w-auto self-start"
             />
             <p className="max-w-xs text-sm font-medium text-white">
               A plataforma de saúde que o seu bichinho merece. Do check-up à

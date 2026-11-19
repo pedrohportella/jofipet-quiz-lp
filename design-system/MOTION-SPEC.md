@@ -1,5 +1,8 @@
 # Motion Spec — Jofi Pet Quiz Campaign v1.0
 
+> **Atualizado em 18/11/2026 (fase 5 do design system do quiz):** as cores deste documento foram trocadas pelas do design system oficial da Jofi (azul `#009af2`, fundo-suave `#eaf6fe`, azul-tinta `#004f78`). Durações, curvas e regras de movimento não mudaram. Fonte das cores: `README.md` desta pasta.
+
+
 > **Owner:** motion-eng (Matt)
 > **Source of truth:** `design-system/tokens.json` → `motion.*`
 > **Lê este arquivo:** @dev (implementação web), DM (motion social), DC Conteúdo (Reels/Stories), @qa (validação 60fps + reduced-motion)
@@ -113,7 +116,7 @@ export const heroEmoji: Variants = {
 ### §3.3 Anchor word ("susto")
 
 A palavra-âncora **não** entra com escala, **não** balança. Ela faz uma coisa:
-muda de `text-primary` (warmBlack-900) para `coral-500` com 200ms de delay
+muda de `text-primary` (azul-tinta) para `azul-500` com 200ms de delay
 após o H1 aparecer. Isso cria o efeito de "olha aqui" sem teatro.
 
 ```tsx
@@ -121,8 +124,8 @@ após o H1 aparecer. Isso cria o efeito de "olha aqui" sem teatro.
   Esse{' '}
   <motion.span
     className="jofi-anchor-word"
-    initial={{ color: 'var(--jofi-warmblack-900)' }}
-    animate={{ color: 'var(--jofi-coral-500)' }}
+    initial={{ color: 'var(--jofi-ink-900)' }}
+    animate={{ color: 'var(--jofi-blue-500)' }}
     transition={{ delay: 0.42, duration: 0.28, ease: [0.4, 0, 0.2, 1] }}
   >
     susto
@@ -164,7 +167,7 @@ CSS-only, registrado em `globals.css`. Loop começa **1s após mount** para não
 
 `QuizOption.tsx:43-44` já tem `whileTap={{ scale: 0.98 }}`. Adicionar:
 
-- **Selected state entry:** quando `selected` muda de `false → true`, usa `layout` prop do Framer + spring.snappy. O ring coral aparece com escala 0.96 → 1 (pop discreto). Hoje só muda cor (frio).
+- **Selected state entry:** quando `selected` muda de `false → true`, usa `layout` prop do Framer + spring.snappy. O ring azul aparece com escala 0.96 → 1 (pop discreto). Hoje só muda cor (frio).
 - **Auto-advance feedback:** durante os 200ms de `pendingAdvance`, o botão selecionado pulsa 1x (`scale: 1 → 1.02 → 1`) confirmando "registrado, indo".
 
 ```tsx
@@ -223,7 +226,7 @@ Página de maior peso emocional da campanha. Coreografia em 4 atos:
 ### §5.1 Loading screen (transição quiz → result)
 
 Tela cheia, 480ms (`motion.duration.slow`):
-- Frame 0: fundo cream + emoji 🐾 fade-in
+- Frame 0: fundo fundo-suave + emoji 🐾 fade-in
 - Frame 100ms: emoji começa um wiggle suave (`rotate: [-3°, 3°, -3°]` loop, 800ms cada)
 - Frame 480ms: fade-out + push para result
 
@@ -235,7 +238,7 @@ Spring varia por tier — cor reforça veredito **através do movimento**:
 
 | Tier | Spring | Sensação |
 |---|---|---|
-| `hot` (coral) | `bouncy` (k:400 d:18) | Energia, urgência alegre |
+| `hot` (laranja) | `bouncy` (k:400 d:18) | Energia, urgência alegre |
 | `warm` (amarelo) | `gentle` (k:260 d:26) | Convite firme, sem pressão |
 | `cold` (verde) | `soft` (k:180 d:30 m:1.2) | Calma, "tá tudo bem" |
 
@@ -276,7 +279,7 @@ Cada item da lista entra com `fadeUp` + stagger `loose` (120ms — dá tempo do 
 
 ### §5.4 CTA WhatsApp
 
-Mesmo pulse do hero, **mas com 2s de delay** (espera o usuário ler o tier card e benefits primeiro). Cor verde-WhatsApp, não coral.
+Mesmo pulse do hero, **mas com 2s de delay** (espera o usuário ler o tier card e benefits primeiro). Cor verde-WhatsApp, não azul.
 
 ---
 
@@ -288,7 +291,7 @@ Mesmo pulse do hero, **mas com 2s de delay** (espera o usuário ler o tier card 
 | `Button` | active | `scale(0.98)` 80ms | CSS (`:active`) |
 | `Button` | loading | spinner inline trocando label | Framer (AnimatePresence) |
 | `QuizOption` | tap | `scale 0.98` whileTap | Framer |
-| `QuizOption` | select | spring.snappy + bg coral-soft | Framer |
+| `QuizOption` | select | spring.snappy + bg azul-suave | Framer |
 | `QuizOption` | autoAdvance pulse | `scale [1,1.02,1]` 200ms | Framer |
 | `Card` | hover | `shadow-1 → shadow-2` 150ms | CSS |
 | `Input` | focus | `box-shadow: jofi-focus` 150ms | CSS |
@@ -335,7 +338,7 @@ export function reduceVariants<T>(variants: T, reduced: boolean): T {
 | Componente | Comportamento normal | Comportamento reduzido |
 |---|---|---|
 | Hero entry | Stagger fadeUp em 5 elementos | Tudo fade-in instantâneo (opacity 0 → 1, 0ms) |
-| Anchor word | Color transition 280ms | Cor coral aplicada de imediato |
+| Anchor word | Color transition 280ms | Cor azul aplicada de imediato |
 | CTA pulse | Loop infinito | **Desligado** (sem animation) |
 | Quiz step | Slide horizontal | Apenas crossfade 0ms (instant swap) |
 | ProgressBar | Anima scaleX 480ms | Define width direto, sem transição |
@@ -384,8 +387,8 @@ Checklist obrigatório no QA Gate:
 ### §9.1 Reels cover (1080×1920, 0–3s)
 
 ```
-0.0s  ┃ frame fixo: cream bg + texto "Seu pet com susto?"
-0.3s  ┃ palavra "susto" muda para coral (color flash 200ms)
+0.0s  ┃ frame fixo: fundo-suave bg + texto "Seu pet com susto?"
+0.3s  ┃ palavra "susto" muda para azul (color flash 200ms)
 0.5s  ┃ pet emoji desce do topo (spring.bouncy, y: -200 → 0)
 1.5s  ┃ texto desce: "responde 6 perguntas"
 2.5s  ┃ CTA "Comece o quiz" entra (popIn)
@@ -416,7 +419,7 @@ Estático na peça. **Animação acontece na transição** entre slides do carro
 ```
 0.0s  ┃ pet com susto (foto/ilustração) — fica 1.5s estático para o usuário parar de scrollar
 1.5s  ┃ overlay de texto entra: headline-A (Emily copy)
-3.0s  ┃ palavra-âncora coral pisca 1x (color flash 280ms)
+3.0s  ┃ palavra-âncora azul pisca 1x (color flash 280ms)
 4.0s  ┃ logo Jofi + "responda 6 perguntas" frame final
 5.5s  ┃ end card com CTA
 ```
@@ -468,7 +471,7 @@ Toda peça/feature com motion passa por:
 - ❌ **Stagger > 200ms.** Usuário desiste antes do último item entrar.
 - ❌ **CTA com pulse + bounce + shadow loop.** Um efeito por elemento. CTA pulsa OU brilha, nunca os dois.
 - ❌ **Page transition full-screen.** App Router do Next 14 já tem skeleton; adicionar overlay de loading fora do `/resultado` é fricção.
-- ❌ **Anchor word piscando em loop.** Coral entra **uma vez** e fica. Loop infinito de cor cansa em 3s.
+- ❌ **Anchor word piscando em loop.** Azul entra **uma vez** e fica. Loop infinito de cor cansa em 3s.
 - ❌ **Reduced-motion com "exceção".** Não há exceção. Se a animação é "essencial", design está errado.
 
 ---

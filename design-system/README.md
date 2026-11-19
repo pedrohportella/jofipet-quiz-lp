@@ -55,17 +55,21 @@ Os degraus **derivados** não existem no design system oficial: são apoio calcu
 - Palavras de destaque de título e rótulos que eram laranja sobre branco passaram a azul, para não ficar em 2,2:1.
 - Sombras e foco passaram a usar azul-tinta e azul.
 
-## O que fica para as próximas fases
+## Fases 2 a 5 (18/11/2026)
 
-| Fase | Pendência |
+| Fase | Resultado |
 |---|---|
-| 2 | Botão principal passa de azul para a pílula laranja com texto branco bold em caixa alta; hoje branco sobre `#009af2` dá 3,0:1. Opção de resposta, barra de progresso, cartões, ícones de linha no lugar do emoji, fundos alternados |
-| 3 | Captura e resultado: pet de cada assinatura e as cores das artes de outubro |
-| 4 | `/oferta`, as 17 seções |
-| 5 | Remover token e classe antigos; atualizar o artifact do DS oficial |
+| 2 | Botão principal laranja (retângulo de 16px, texto branco bold em caixa alta); opção de resposta, barra de progresso e cartões no DS; ícone de linha no lugar do emoji (`IconeEmoji`, só na tela: `quiz.json` e o resumo do WhatsApp seguem com emoji) |
+| 3 | Captura e resultado com a faixa do plano (cor e pet da assinatura), numa fonte só: `src/lib/plans/identidade.ts` |
+| 4 | `/oferta` com ritmo de cores e cartões de plano na cor da assinatura |
+| 5 | Limpeza: aliases antigos, triplas RGB, variáveis de tier e classes sem uso saíram de `globals.css`; movimento atualizado; logo do rodapé da `/oferta` corrigida (estava esticada) |
 
-**Decisões do Pedro ainda abertas:** emoji no quiz, cor do botão de WhatsApp (verde de plataforma ou laranja da marca), e se o Ricardo aprova o visual novo antes de ir ao ar.
+**Cor de plano** (Sereninho, Sereno, Parceiro e Melhor Amigo) e os pets vêm das artes de outubro e **ainda não estão no design system oficial**: entram no artifact e na cópia `01_Marca/design-system/` no mesmo passo, com o aval do Pedro.
+
+**Decisões do Pedro ainda abertas:** cor do botão de WhatsApp (verde de plataforma ou laranja da marca) e se o Ricardo aprova o visual novo.
+
+**Arquivos de `public/` sem uso no código** foram mantidos de propósito: podem estar linkados em anúncio, e-mail ou material externo.
 
 ## Documentos de movimento
 
-`MOTION-SPEC.md` e `SOCIAL-MOTION.md` descrevem as animações. Os valores de cor neles são da v1.0 (coral) e **não valem**; as durações e curvas valem e estão em `tokens.json` (`motion`). Serão revisados na fase 2.
+`MOTION-SPEC.md` e `SOCIAL-MOTION.md` já usam as cores oficiais (fase 5). Durações e curvas estão em `tokens.json` (`motion`).
