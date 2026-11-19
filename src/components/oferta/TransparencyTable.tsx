@@ -19,20 +19,11 @@ interface TableRow {
 
 const ROWS: TableRow[] = [
   {
-    item: 'Coparticipação',
-    description: 'Cobrança extra por procedimento',
-    jofi: { status: 'no', text: 'Você paga só a mensalidade, sem cobrança por consulta ou exame.' },
-    market: {
-      text: 'Comum cobrar R$30-60 por atendimento além da mensalidade.',
-      source: 'Petlove Saúde, Plamev tiers básicos',
-    },
-  },
-  {
     item: 'Carência',
     description: 'Prazo até liberar uso após contratar',
     jofi: {
       status: 'depends',
-      text: 'Consultas e vacinas a partir do dia 1. Exames e procedimentos têm prazo por tipo (confira na cartilha).',
+      text: 'Consulta clínica a partir do dia 1. Vacinas, exames e procedimentos têm prazo por tipo (confira na cartilha).',
     },
     market: {
       text: 'Alguns anunciam "carência zero" mas o contrato tem 30 a 45 dias, com reclamações recorrentes no Reclame Aqui.',
@@ -40,41 +31,11 @@ const ROWS: TableRow[] = [
     },
   },
   {
-    item: 'Taxa de adesão',
-    description: 'Cobrança no ato da contratação',
-    jofi: {
-      status: 'no',
-      text: 'Adesão custa só o valor da 1ª mensalidade, sem cobrança extra.',
-    },
-    market: {
-      text: 'Cobrança de R$50-200 na adesão é comum, além da 1ª mensalidade.',
-      source: 'padrão do setor',
-    },
-  },
-  {
-    item: 'Fidelidade',
-    description: 'Tempo mínimo de permanência',
-    jofi: { status: 'no', text: 'Cancela quando quiser, pelo WhatsApp ou email. Sem prazo mínimo.' },
-    market: {
-      text: 'Fidelidade de 12 meses com multa proporcional é padrão no mercado.',
-      source: 'PetLife (reclamações RA), Plamev',
-    },
-  },
-  {
-    item: 'Multa de cancelamento',
-    description: 'Cobrança pra encerrar antes do prazo',
-    jofi: { status: 'no', text: 'Sem multa. Avisou, encerrou.' },
-    market: {
-      text: 'Multa proporcional aos meses restantes é comum quando há fidelidade.',
-      source: 'padrão em quem exige fidelidade',
-    },
-  },
-  {
     item: 'Limite de uso',
     description: 'Quantidade máxima de consultas/exames',
     jofi: {
       status: 'depends',
-      text: 'Sereninho e Sereno com cobertura essencial. Parceiro e Melhor Amigo com consultas ilimitadas.',
+      text: 'Consultas clínicas ilimitadas no Melhor Amigo. Nas outras assinaturas há limite por ano (confira na cartilha).',
     },
     market: {
       text: 'Consultas ilimitadas normalmente só na cobertura de topo (a mais cara).',
@@ -119,8 +80,8 @@ export function TransparencyTable() {
             <span className="text-accent">do mercado.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
-            Cobertura de saúde pet ganhou mal nome por &quot;carência escondida&quot; e
-            &quot;coparticipação que aparece depois&quot;. Aqui é diferente: veja lado a lado antes de fechar.
+            Cobertura de saúde pet ganhou mal nome por &quot;carência escondida&quot;. Aqui é
+            diferente: veja lado a lado antes de fechar.
           </p>
         </div>
 

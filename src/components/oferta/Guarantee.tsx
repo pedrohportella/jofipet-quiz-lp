@@ -5,8 +5,8 @@ import { ShieldCheck, Award, Lock } from 'lucide-react';
 const TRUST_SIGNALS = [
   {
     icon: ShieldCheck,
-    title: 'Sem fidelidade',
-    body: 'Cancela pelo WhatsApp ou email a qualquer momento. Sem multa, sem burocracia.',
+    title: 'Consulta liberada desde o 1º dia',
+    body: 'Nas quatro assinaturas, a consulta clínica não tem carência. Exames e procedimentos têm prazos por cobertura.',
   },
   {
     icon: Award,

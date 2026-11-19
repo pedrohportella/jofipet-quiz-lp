@@ -42,7 +42,7 @@ const TIER_VALUE: Record<Tier, number> = {
 const ModalSchema = z.object({
   name: z
     .string()
-    .min(2, 'Conta o nome inteiro 🐾')
+    .min(2, 'Conta o nome inteiro')
     .max(80, 'Nome muito longo')
     .regex(/^[\p{L}\s'-]{2,80}$/u, 'Só letras, espaço, hífen e apóstrofo'),
   email: z
@@ -52,7 +52,7 @@ const ModalSchema = z.object({
     .optional(),
   whatsapp: z
     .string()
-    .regex(/^\(\d{2}\)\s?9?\d{4}-\d{4}$/, 'Ops, o WhatsApp parece incompleto 🐾'),
+    .regex(/^\(\d{2}\)\s?9?\d{4}-\d{4}$/, 'Ops, o WhatsApp parece incompleto'),
   // Pattern z.boolean().refine — permite defaultValues { consent: false }
   // sem quebrar tipo do react-hook-form (igual ao CaptureFormSchema).
   consent: z.boolean().refine((v) => v === true, {
@@ -415,7 +415,7 @@ export function OfertaCaptureModal({
                   Enviando…
                 </span>
               ) : (
-                'Continuar no WhatsApp 🐾'
+                'Continuar no WhatsApp'
               )}
             </button>
 
@@ -443,14 +443,6 @@ function RedirectingOverlay() {
         transition={{ duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
         className="mx-4 flex max-w-md flex-col items-center gap-5 rounded-2xl bg-white px-6 py-10 text-center shadow-2xl"
       >
-        <motion.span
-          aria-hidden="true"
-          className="text-6xl"
-          animate={{ rotate: [0, -8, 8, -4, 4, 0] }}
-          transition={{ duration: 1.4, repeat: Infinity, repeatDelay: 0.4 }}
-        >
-          🐾
-        </motion.span>
         <div className="flex flex-col gap-2">
           <p className="text-xl font-extrabold leading-tight text-neutral-900">
             Te conectando com nosso time…

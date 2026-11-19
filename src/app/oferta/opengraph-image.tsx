@@ -85,7 +85,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>🐾</span>
-          <span>Atendimento humano · Sem fidelidade</span>
+          <span>Atendimento humano</span>
         </div>
       </div>
     ),

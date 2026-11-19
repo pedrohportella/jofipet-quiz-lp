@@ -35,16 +35,10 @@ const FAQ_ITEMS: FaqItem[] = [
       'Consultas clínicas e vacinas: liberadas no dia 1. Exames de imagem, sedação, internação e cirurgias têm carência específica por tipo (mais detalhes na cartilha). Na assinatura anual, as carências são reduzidas. Nosso time confirma todos os prazos pra você no WhatsApp antes da contratação.',
   },
   {
-    id: 'coparticipacao',
-    question: 'Existe coparticipação?',
+    id: 'autorizacao',
+    question: 'Preciso pedir autorização para usar?',
     answer:
-      'Não. Você paga só a mensalidade. Sem cobrança por procedimento, sem cobrança surpresa depois.',
-  },
-  {
-    id: 'cancelamento',
-    question: 'Posso cancelar quando quiser?',
-    answer:
-      'Sim. Nenhuma cobertura Jofi tem fidelidade. Você cancela a qualquer momento pelo WhatsApp do nosso time ou pelo email de contato. Sem multa, sem burocracia.',
+      'Depois de cumprida a carência, não: você leva o pet à clínica parceira e usa a cobertura, sem pedir autorização à Jofi.',
   },
   {
     id: 'vet-confianca',

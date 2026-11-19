@@ -77,7 +77,7 @@ export function buildResultVars(ctx: ResultContext): ResultVars {
     planoBullets: plano.bullets.slice(0, 3).join(' + '),
     comparativoGasto: economiza
       ? `— menos que os R$ ${gastoMensal} que você gasta hoje`
-      : '— sem coparticipação, você paga só a mensalidade',
+      : '— o valor aparece antes de você pagar',
   };
 }
 
@@ -121,13 +121,13 @@ const SUBHEADLINES: Record<Tier, string> = {
 const BULLETS: Record<Tier, string[]> = {
   quente: [
     '{planoBullets}',
-    'Cobertura imediata pro seu pet {idade}, com carências reduzidas na assinatura anual',
-    'Sem coparticipação — você paga só a mensalidade',
+    'Cobertura completa pro seu pet {idade}, com carências reduzidas na assinatura anual',
+    'Consulta clínica liberada desde o primeiro dia',
   ],
   morno: [
     '{planoBullets}',
     '{planoPreco} {comparativoGasto}',
-    'Cobertura sem coparticipação na rede Jofi',
+    'Atendimento na rede credenciada da Jofi',
   ],
   frio: [
     'Conteúdo sobre vacinação, alimentação e check-ups essenciais',

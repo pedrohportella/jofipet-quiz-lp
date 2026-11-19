@@ -43,7 +43,7 @@ export function MidCta() {
           onClick={handleClick}
           className="jofi-btn jofi-btn--whatsapp mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px] !bg-white !text-success-700 hover:!bg-cream"
         >
-          Conversar com nosso time agora 🐾
+          Conversar com nosso time agora
         </button>
         <p className="text-xs opacity-75">Resposta em minutos · Atendimento humano</p>
       </div>

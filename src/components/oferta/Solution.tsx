@@ -8,7 +8,7 @@ const BENEFITS = [
   {
     icon: ShieldCheck,
     title: 'Cobertura sem pegadinha',
-    body: 'Consultas, vacinação, exames, emergências e cirurgias. Sem coparticipação, sem limite escondido, sem "letrinhas pequenas". Você sabe exatamente o que tá contratando.',
+    body: 'Consultas, vacinação, exames, emergências e cirurgias. Você vê o valor e a carência de cada item antes de contratar, e sabe exatamente o que tá levando.',
   },
   {
     icon: MessageCircle,

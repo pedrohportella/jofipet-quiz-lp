@@ -12,9 +12,6 @@ export function FinalCta() {
   return (
     <section className="bg-gradient-to-b from-secondary to-cream py-12 md:py-24">
       <div className="mx-auto flex max-w-3xl flex-col items-center gap-5 px-4 text-center md:gap-6 md:px-8">
-        <span className="text-5xl md:text-6xl" aria-hidden="true">
-          🐾
-        </span>
         <h2
           className="text-3xl uppercase leading-[0.95] text-neutral-900 sm:text-4xl md:text-5xl"
           style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
@@ -32,10 +29,10 @@ export function FinalCta() {
           onClick={handleClick}
           className="jofi-btn jofi-btn--whatsapp jofi-btn--pulse mt-2 w-full max-w-sm sm:w-auto sm:min-w-[280px]"
         >
-          Falar com nosso time agora 🐾
+          Falar com nosso time agora
         </button>
         <p className="text-xs text-neutral-500">
-          Atendimento humano · Resposta em minutos · Sem fidelidade
+          Atendimento humano · Resposta em minutos
         </p>
       </div>
     </section>

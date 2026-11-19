@@ -71,7 +71,6 @@ export const PLANS: Plan[] = [
       'Vacinação essencial',
       'Exames de rotina',
       'Aplicação de medicamentos',
-      'Sem coparticipação',
     ],
     waitingDays: null, // A confirmar com Jofi
     popular: false,
@@ -93,7 +92,6 @@ export const PLANS: Plan[] = [
       'Exames laboratoriais',
       'Exames de imagem',
       'Sedação',
-      'Sem coparticipação',
     ],
     waitingDays: null,
     popular: false,
@@ -116,7 +114,7 @@ export const PLANS: Plan[] = [
       'Cirurgias',
       'Tomografia',
       'Anestesias',
-      'Sem coparticipação · Sem taxa de adesão',
+      'Sem taxa de adesão',
     ],
     waitingDays: null,
     popular: true, // ⭐ "Mais escolhido" — plano prioritário de conversão da Jofi (cobertura completa)
@@ -139,7 +137,7 @@ export const PLANS: Plan[] = [
       'Exames de imagem especiais',
       'Ressonância Magnética',
       'Incineração',
-      'Sem coparticipação · Sem taxa de adesão',
+      'Sem taxa de adesão',
     ],
     waitingDays: null,
     popular: false,

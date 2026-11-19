@@ -46,7 +46,6 @@ export function PlanComparison() {
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
             Todas as coberturas incluem orientação 24h via WhatsApp. {REDE_TEXT}{' '}
-            Sem fidelidade, sem letra miúda.
           </p>
         </div>
 
@@ -140,8 +139,8 @@ function PlanCard({ plan }: PlanCardProps) {
         </p>
         <p className="text-xs text-neutral-500">
           {plan.waitingDays !== null
-            ? `Carência: ${plan.waitingDays} dias · sem fidelidade`
-            : 'Sem fidelidade · cancele quando quiser'}
+            ? `Carência: ${plan.waitingDays} dias`
+            : 'Consulta liberada desde o 1º dia'}
         </p>
       </div>
 

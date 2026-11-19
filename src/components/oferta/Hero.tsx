@@ -79,13 +79,13 @@ export function Hero() {
 
           <p className="mt-3 text-base font-semibold text-primary md:text-lg">
             A partir de{' '}
-            <span className="text-neutral-900">R$ 49,90/mês</span> · Sem coparticipação
+            <span className="text-neutral-900">R$ 49,90/mês</span> · Consulta liberada desde o 1º dia
           </p>
 
           <p className="mt-4 max-w-md text-base text-neutral-700 md:text-lg">
             Cobertura ampla: consultas, vacinas, exames, internação e cirurgias,
-            com atendimento humano no WhatsApp. Precisou, usou: sem autorização
-            e sem letra miúda 🐾
+            com atendimento humano no WhatsApp. Depois de cumprida a carência,
+            é só usar: você não precisa pedir autorização à Jofi.
           </p>
 
           <div className="mt-6 flex w-full flex-col items-stretch gap-3 sm:items-center sm:gap-4 md:items-start">
@@ -94,10 +94,10 @@ export function Hero() {
               onClick={handleClick}
               className="jofi-btn jofi-btn--whatsapp w-full sm:w-auto sm:min-w-[280px]"
             >
-              Falar com nosso time no WhatsApp 🐾
+              Falar com nosso time no WhatsApp
             </button>
             <p className="text-center text-xs text-neutral-600 sm:text-left">
-              Resposta em minutos · Atendimento humano · Sem fidelidade
+              Resposta em minutos · Atendimento humano
             </p>
             <a
               href="/"
@@ -108,7 +108,7 @@ export function Hero() {
           </div>
 
           <p className="mt-4 text-center text-xs text-neutral-500 md:text-left">
-            Sem coparticipação · Consultas liberadas no dia 1 · Sem fidelidade · +500 tutores em PE/PB/CE
+            Consultas liberadas no dia 1 · +500 tutores em PE/PB/CE
           </p>
         </motion.div>
 

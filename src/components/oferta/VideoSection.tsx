@@ -59,7 +59,7 @@ export function VideoSection({ videoEmbedUrl }: VideoSectionProps) {
                   <Play className="h-10 w-10 fill-primary text-primary" />
                 </div>
                 <p className="px-4 text-center text-base font-medium text-white">
-                  {hasVideo ? 'Conhecer a Jofi (30s)' : 'Vídeo institucional em breve 🐾'}
+                  {hasVideo ? 'Conhecer a Jofi (30s)' : 'Vídeo institucional em breve'}
                 </p>
               </div>
             </button>
