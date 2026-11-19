@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
-import { IconeEmoji } from '@/components/shared/IconeEmoji';
+import { PlanoDestaque } from './PlanoDestaque';
 import { ResultBullets } from './ResultBullets';
 import { WhatsappCta } from './WhatsappCta';
 import { WhatsappAutoRedirect } from './WhatsappAutoRedirect';
@@ -56,8 +56,7 @@ export function ResultHot({ leadId, leadName, answers, whatsappNumber }: ResultH
         phoneNumber={whatsappNumber}
       />
 
-      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><IconeEmoji emoji="🔥" className="h-8 w-8" /></span>
-      <p className="jofi-kicker text-primary">Perfil quente</p>
+      <PlanoDestaque plano={plano} kicker="Perfil quente" />
       <h1
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}

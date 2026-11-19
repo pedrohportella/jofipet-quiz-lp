@@ -112,7 +112,7 @@ const SUBHEADLINES: Record<Tier, string> = {
   // Sem "cabe no bolso": a cobertura agora sai do gasto e pode ser o Melhor
   // Amigo de R$ 259,90 — a promessa de preço vive no bullet, que sabe comparar.
   morno: '{primeiroNome}, o {planoNome} cobre {preocupacao} com tranquilidade.',
-  frio: '{primeiroNome}, montamos conteúdo pra você cuidar melhor do seu {especie} 🐾',
+  frio: '{primeiroNome}, montamos conteúdo pra você cuidar melhor do seu {especie}',
 };
 
 // IDADE_LABEL retorna lowercase ("filhote", "adulto", "idoso") — bullets

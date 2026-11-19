@@ -12,8 +12,7 @@ import {
   getHeadline,
   getSubheadline,
 } from '@/lib/quiz/result-template';
-import { fbqTrack } from '@/lib/tracking/meta-pixel';
-import type { Answers } from '@/lib/quiz/types';
+import { fbqTrack } from '@/lib/tracking/meta-pixel';import type { Answers } from '@/lib/quiz/types';
 
 interface ResultColdProps {
   leadId: string | null;
@@ -42,8 +41,18 @@ export function ResultCold({
 
   return (
     <>
-      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><IconeEmoji emoji="💙" className="h-8 w-8" /></span>
-      <p className="jofi-kicker text-primary">Perfil informativo</p>
+      {/* Perfil informativo: sem assinatura recomendada. Faixa azul da marca, com ícone */}
+      <div
+        className="relative flex min-h-[132px] w-full items-center gap-4 overflow-hidden rounded-[32px] bg-primary p-6 text-left text-white"
+      >
+        <span
+          className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+          aria-hidden="true"
+        >
+          <IconeEmoji emoji="💙" className="h-7 w-7" />
+        </span>
+        <p className="text-[12px] font-extrabold uppercase tracking-[0.1em]">Perfil informativo</p>
+      </div>
       <h1
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}

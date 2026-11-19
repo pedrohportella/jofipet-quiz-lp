@@ -10,6 +10,8 @@
  * (cartilhas de 02/10/2026). Só se diz o que está ali.
  */
 
+import { IDENTIDADE_PLANO } from '@/lib/plans/identidade';
+
 export const WHATSAPP_NUMERO = '558007779745';
 export const TELEFONE = '0800 777 9745';
 export const ENDERECO_SEDE = 'Rua Álvares Cabral, 155, 2º andar, Recife/PE';
@@ -51,9 +53,7 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Sereninho',
     chave: 'sereninho',
-    cor: '#f5b03a',
-    corTexto: '#004f78',
-    pet: { src: '/institucional/planos/pet-sereninho.png', alt: 'Cachorro caramelo, o pet do Sereninho' },
+    ...IDENTIDADE_PLANO['sereninho'],
     frase: 'O essencial para a rotina de cuidado.',
     ate7: '49,90',
     a8mais: '49,90',
@@ -69,9 +69,7 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Sereno',
     chave: 'sereno',
-    cor: '#0091b9',
-    corTexto: '#ffffff',
-    pet: { src: '/institucional/planos/pet-sereno.png', alt: 'Cachorro beagle com a língua para fora, o pet do Sereno' },
+    ...IDENTIDADE_PLANO['sereno'],
     frase: 'Consultas, vacinas e exames no dia a dia.',
     ate7: '79,90',
     a8mais: '109,90',
@@ -86,9 +84,7 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Parceiro',
     chave: 'parceiro',
-    cor: '#f47646',
-    corTexto: '#ffffff',
-    pet: { src: '/institucional/planos/pet-parceiro.png', alt: 'Cachorro preto de orelhas em pé, o pet do Parceiro' },
+    ...IDENTIDADE_PLANO['parceiro'],
     frase: 'Para quando o cuidado pede mais.',
     ate7: '169,90',
     a8mais: '209,90',
@@ -105,9 +101,7 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Melhor Amigo',
     chave: 'melhor-amigo',
-    cor: '#5753a2',
-    corTexto: '#ffffff',
-    pet: { src: '/institucional/planos/pet-melhor-amigo.png', alt: 'Gato malhado lambendo o focinho, o pet do Melhor Amigo' },
+    ...IDENTIDADE_PLANO['melhor-amigo'],
     frase: 'A cobertura mais ampla da Jofi.',
     ate7: '259,90',
     a8mais: '309,90',

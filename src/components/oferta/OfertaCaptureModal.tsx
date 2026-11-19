@@ -293,8 +293,11 @@ export function OfertaCaptureModal({
 
           <header className="mb-4 flex flex-col items-center text-center sm:mb-5">
             {plan && (
-              <span className="mb-1 text-3xl" aria-hidden="true">
-                {plan.emoji}
+              <span
+                className="mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-accent text-white"
+                aria-hidden="true"
+              >
+                <IconeEmoji emoji={plan.emoji} className="h-6 w-6" />
               </span>
             )}
             <h2

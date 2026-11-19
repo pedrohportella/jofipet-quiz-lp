@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { Check } from 'lucide-react';
 
 interface ResultBulletsProps {
   bullets: string[];
@@ -15,9 +16,15 @@ export function ResultBullets({ bullets }: ResultBulletsProps) {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.15 + i * 0.08, duration: 0.32, ease: [0.4, 0, 0.2, 1] }}
-          className="flex items-start gap-3 rounded-lg bg-cream px-4 py-3 text-base text-neutral-900"
+          className="flex items-start gap-3 rounded-[28px] border border-neutral-300 bg-white px-4 py-3.5 text-base font-medium text-neutral-900"
         >
-          <span className="mt-1 inline-block h-2 w-2 shrink-0 rounded-full bg-primary" aria-hidden="true" />
+          {/* Item de lista do DS: bola laranja com ícone branco */}
+          <span
+            className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+            aria-hidden="true"
+          >
+            <Check className="h-3.5 w-3.5" strokeWidth={3.2} />
+          </span>
           <span>{b}</span>
         </motion.li>
       ))}

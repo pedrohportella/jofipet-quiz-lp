@@ -1,5 +1,6 @@
 'use client';
 
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { trackArticleClick } from '@/lib/tracking/events';
 import { loadStoredUtms } from '@/lib/tracking/utms';
 import contentJson from '../../../config/content.json';
@@ -48,8 +49,11 @@ export function ArticleCards() {
           }
           className="flex items-center gap-3 rounded-lg border border-neutral-300 bg-white px-4 py-3 text-left text-base text-neutral-900 transition-colors hover:border-primary hover:bg-primary-50"
         >
-          <span className="text-2xl" aria-hidden="true">
-            {article.emoji}
+          <span
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+            aria-hidden="true"
+          >
+            <IconeEmoji emoji={article.emoji} className="h-5 w-5" />
           </span>
           <span className="flex-1">{article.title}</span>
           <span className="text-primary" aria-hidden="true">
