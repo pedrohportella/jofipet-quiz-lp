@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { BOTAO } from './Chrome';
@@ -46,15 +47,29 @@ export function Assinaturas({ completo = false }: { completo?: boolean }) {
 
       {/* No celular, os cartões deslizam de lado (arrastar) em vez de empilhar quatro telas */}
       <div className="-mx-5 mt-8 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-4 md:mx-0 md:grid md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 xl:grid-cols-4">
-        {PLANOS.map((p, i) => {
+        {PLANOS.map((p) => {
           const preco = faixa === 'ate7' ? p.ate7 : p.a8mais;
           const [reais, centavos] = preco.split(',');
-          const banda = i % 2 === 0 ? 'bg-[#009af2]' : 'bg-[#ff9625]';
           return (
             <article key={p.chave} className="flex w-[84%] shrink-0 snap-center flex-col overflow-hidden rounded-[32px] bg-white ring-1 ring-[#d7ecfa] md:w-auto">
-              <div className={`${banda} px-6 pb-5 pt-6`}>
-                <h3 className="font-display text-[42px] uppercase leading-none text-white">{p.nome}</h3>
-                <p className="mt-2 text-[15px] font-bold leading-snug text-white">{p.frase}</p>
+              {/* Faixa na cor da assinatura e o pet dela, como nas artes de outubro */}
+              <div className="relative min-h-[196px] overflow-hidden px-6 pb-5 pt-6" style={{ backgroundColor: p.cor }}>
+                <div className="relative z-10 max-w-[56%]">
+                  <h3 className="font-display text-[42px] uppercase leading-none" style={{ color: p.corTexto }}>
+                    {p.nome}
+                  </h3>
+                  <p className="mt-2 text-[14px] font-bold leading-snug" style={{ color: p.corTexto }}>
+                    {p.frase}
+                  </p>
+                </div>
+                <Image
+                  src={p.pet.src}
+                  alt={p.pet.alt}
+                  width={520}
+                  height={520}
+                  sizes="150px"
+                  className="pointer-events-none absolute -bottom-1 right-0 h-auto w-[48%] max-w-[150px]"
+                />
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <p className="text-[13px] font-bold text-[#2f5a73]">

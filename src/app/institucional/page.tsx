@@ -40,8 +40,8 @@ export default function Inicio() {
         <div className="relative z-10 mx-auto grid max-w-6xl items-center gap-12 px-5 py-14 md:grid-cols-[1fr_1fr] md:gap-14 md:py-24">
           <div>
             <Etiqueta>Assinatura de saúde pet</Etiqueta>
-            <h1 className="mt-6 font-display text-[60px] uppercase leading-[1] tracking-[0.004em] text-white md:text-[84px] lg:text-[92px]">
-              Cuidado começa com <Realce>clareza.</Realce>
+            <h1 className="mt-6 font-display text-[52px] uppercase leading-[1.02] tracking-[0.004em] text-white md:text-[68px] lg:text-[80px] [text-wrap:balance]">
+              Do check-up à emergência, <Realce>tudo para o seu pet</Realce>
             </h1>
             <Lead tom="claro" className="mt-6 max-w-xl">
               A Jofi conecta você com quem vai cuidar do seu pet. Uma assinatura mensal, na clínica parceira que
@@ -111,7 +111,7 @@ export default function Inicio() {
       {/* 3. Assinaturas */}
       <Secao fundo="suave" id="assinaturas">
         <Titulo tom="escuro" className="max-w-4xl">
-          Uma assinatura para cada <Realce>momento</Realce>
+          Uma assinatura para cada momento
         </Titulo>
         <Lead className="mt-5 max-w-2xl">
           A partir de R$ 49,90 por mês. Escolha a idade do seu pet para ver o valor de cada assinatura.
@@ -130,7 +130,7 @@ export default function Inicio() {
       <Secao fundo="laranja">
         <div className="grid items-start gap-10 md:grid-cols-[0.9fr_1.1fr] md:gap-16">
           <div>
-            <Titulo>Do check-up à emergência</Titulo>
+            <Titulo>O que as assinaturas cobrem</Titulo>
             <p className="mt-6 max-w-md rounded-2xl bg-white px-5 py-4 text-[17px] font-bold leading-snug text-[#004f78]">
               O que está coberto muda de uma assinatura para outra. Compare lado a lado na página de coberturas.
             </p>
@@ -169,7 +169,7 @@ export default function Inicio() {
           </div>
           <div>
             <Titulo>
-              Por que ter uma <Realce>Jofi</Realce>
+              Por que ter a <Realce>Jofi</Realce>
             </Titulo>
             <ul className="mt-8 divide-y divide-[#d7ecfa] rounded-[32px] bg-white px-6">
               {MOTIVOS.map((m) => (

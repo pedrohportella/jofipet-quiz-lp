@@ -37,12 +37,23 @@ export type Plano = {
   precoUnico?: boolean;
   herda?: string;
   inclui: string[];
+  /**
+   * Identidade do plano nas artes de outubro (`06_Criativos/2026-10/whatsapp-resumo-planos`): cor do
+   * fundo da arte e o pet de cada assinatura. Cores medidas no fundo de cada camada.
+   */
+  cor: string;
+  /** Texto do título sobre `cor` (o amarelo-laranja do Sereninho pede azul-tinta). */
+  corTexto: string;
+  pet: { src: string; alt: string };
 };
 
 export const PLANOS: Plano[] = [
   {
     nome: 'Sereninho',
     chave: 'sereninho',
+    cor: '#f5b03a',
+    corTexto: '#004f78',
+    pet: { src: '/institucional/planos/pet-sereninho.png', alt: 'Cachorro caramelo, o pet do Sereninho' },
     frase: 'O essencial para a rotina de cuidado.',
     ate7: '49,90',
     a8mais: '49,90',
@@ -58,6 +69,9 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Sereno',
     chave: 'sereno',
+    cor: '#0091b9',
+    corTexto: '#ffffff',
+    pet: { src: '/institucional/planos/pet-sereno.png', alt: 'Cachorro beagle com a língua para fora, o pet do Sereno' },
     frase: 'Consultas, vacinas e exames no dia a dia.',
     ate7: '79,90',
     a8mais: '109,90',
@@ -72,6 +86,9 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Parceiro',
     chave: 'parceiro',
+    cor: '#f47646',
+    corTexto: '#ffffff',
+    pet: { src: '/institucional/planos/pet-parceiro.png', alt: 'Cachorro preto de orelhas em pé, o pet do Parceiro' },
     frase: 'Para quando o cuidado pede mais.',
     ate7: '169,90',
     a8mais: '209,90',
@@ -88,6 +105,9 @@ export const PLANOS: Plano[] = [
   {
     nome: 'Melhor Amigo',
     chave: 'melhor-amigo',
+    cor: '#5753a2',
+    corTexto: '#ffffff',
+    pet: { src: '/institucional/planos/pet-melhor-amigo.png', alt: 'Gato malhado lambendo o focinho, o pet do Melhor Amigo' },
     frase: 'A cobertura mais ampla da Jofi.',
     ate7: '259,90',
     a8mais: '309,90',

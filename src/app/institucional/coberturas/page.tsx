@@ -10,8 +10,6 @@ export const metadata: Metadata = {
   description: 'Compare as quatro assinaturas da Jofi: o que cada uma cobre, a carência e o valor por idade do pet.',
 };
 
-const COR_COLUNA = ['bg-[#009af2]', 'bg-[#ff9625]', 'bg-[#009af2]', 'bg-[#ff9625]'];
-
 /** Célula da matriz: "Liberado" ganha destaque, "—" some, prazo fica em texto normal. */
 function Celula({ v }: { v: string }) {
   if (v === '—') return <span className="text-[#9bb7c9]">Não cobre</span>;
@@ -88,8 +86,13 @@ export default function Coberturas() {
                 <th scope="col" className="sticky left-0 z-10 bg-white p-4 text-[13px] font-extrabold uppercase tracking-[0.08em] text-[#2f5a73]">
                   Cobertura
                 </th>
-                {PLANOS.map((p, i) => (
-                  <th key={p.chave} scope="col" className={`${COR_COLUNA[i]} p-4 font-display text-[24px] uppercase leading-none text-white`}>
+                {PLANOS.map((p) => (
+                  <th
+                    key={p.chave}
+                    scope="col"
+                    className="p-4 font-display text-[24px] uppercase leading-none"
+                    style={{ backgroundColor: p.cor, color: p.corTexto }}
+                  >
                     {p.nome}
                   </th>
                 ))}
