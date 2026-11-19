@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useHookFormMask } from 'use-mask-input';
@@ -56,7 +57,7 @@ const ModalSchema = z.object({
   // Pattern z.boolean().refine — permite defaultValues { consent: false }
   // sem quebrar tipo do react-hook-form (igual ao CaptureFormSchema).
   consent: z.boolean().refine((v) => v === true, {
-    message: 'Precisamos do consentimento pra te contatar 💛',
+    message: 'Precisamos do consentimento pra te contatar',
   }),
 });
 
@@ -420,7 +421,7 @@ export function OfertaCaptureModal({
             </button>
 
             <p className="text-center text-xs text-neutral-500">
-              🔒 Seus dados ficam protegidos · Só te chamamos sobre a cobertura
+              <IconeEmoji emoji="🔒" className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />Seus dados ficam protegidos · Só te chamamos sobre a cobertura
             </p>
           </form>
         </motion.div>
@@ -448,7 +449,7 @@ function RedirectingOverlay() {
             Te conectando com nosso time…
           </p>
           <p className="text-sm text-neutral-700">
-            O WhatsApp vai abrir em segundos 💛
+            O WhatsApp vai abrir em segundos
           </p>
         </div>
         <div className="h-1.5 w-40 overflow-hidden rounded-full bg-neutral-200">

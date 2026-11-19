@@ -15,6 +15,7 @@ import { QuizTextInput } from './QuizTextInput';
 import { QuizMultiChoice } from './QuizMultiChoice';
 import { QuizQuestionHelper } from './QuizQuestionHelper';
 import { SocialProofBadge } from './SocialProofBadge';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import type {
   AnswerValue,
   SingleChoiceQuestion,
@@ -34,10 +35,10 @@ const AUTO_ADVANCE_DELAY_MS = 200;
 function getProgressCopy(current: number, total: number): string {
   const pct = (current / total) * 100;
   if (current === 1) return 'Vamos lá!';
-  if (current === total) return 'Última! 🎉';
+  if (current === total) return 'Última!';
   if (pct >= 75) return 'Quase lá!';
-  if (pct >= 50) return 'Mandando bem 💛';
-  return 'Tá indo bem 👍';
+  if (pct >= 50) return 'Mandando bem';
+  return 'Tá indo bem';
 }
 
 export function QuizStep({ stepIndex }: { stepIndex: number }) {
@@ -186,11 +187,11 @@ export function QuizStep({ stepIndex }: { stepIndex: number }) {
         >
           {question.emoji && (
             <span
-              className="text-5xl"
+              className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-white"
               aria-hidden="true"
               role="presentation"
             >
-              {question.emoji}
+              <IconeEmoji emoji={question.emoji} className="h-7 w-7" />
             </span>
           )}
 

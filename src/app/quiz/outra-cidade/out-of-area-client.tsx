@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, type FormEvent } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import Link from 'next/link';
 import { loadStoredUtms } from '@/lib/tracking/utms';
 
@@ -39,8 +40,11 @@ export function OutOfAreaClient() {
   if (submitted) {
     return (
       <section className="m-auto max-w-md py-20 text-center">
-        <span className="text-5xl" aria-hidden="true">
-          🐾
+        <span
+          className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white"
+          aria-hidden="true"
+        >
+          <IconeEmoji emoji="🐾" className="h-8 w-8" />
         </span>
         <h1
           className="mt-4 text-3xl uppercase text-neutral-900 md:text-4xl"
@@ -49,7 +53,7 @@ export function OutOfAreaClient() {
           Anotado!
         </h1>
         <p className="mt-4 text-base text-neutral-700">
-          A gente avisa quando a Jofi chegar na sua cidade. Sem spam, prometo 💛
+          A gente avisa quando a Jofi chegar na sua cidade. Sem spam, prometo
         </p>
         <Link
           href="/"
@@ -63,9 +67,7 @@ export function OutOfAreaClient() {
 
   return (
     <section className="m-auto max-w-md py-12 text-center md:py-20">
-      <span className="text-5xl" aria-hidden="true">
-        📍
-      </span>
+      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><IconeEmoji emoji="📍" className="h-8 w-8" /></span>
       <h1
         className="mt-4 text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
@@ -98,7 +100,7 @@ export function OutOfAreaClient() {
           {error}
         </p>
       )}
-      <p className="mt-4 text-xs text-neutral-500">Sem spam, prometo 🐾</p>
+      <p className="mt-4 text-xs text-neutral-500">Sem spam, prometo</p>
       <Link
         href="/"
         className="mt-8 inline-block text-sm text-neutral-500 underline underline-offset-4"

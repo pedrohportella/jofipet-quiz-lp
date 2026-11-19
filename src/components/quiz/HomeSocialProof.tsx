@@ -1,5 +1,6 @@
 'use client';
 
+import { PawPrint } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const MIN_DISPLAY = 18;
@@ -42,17 +43,19 @@ export function HomeSocialProof() {
   if (count === null) {
     return (
       <p
-        className="text-sm font-semibold text-neutral-500"
+        className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-bold text-neutral-900"
         aria-hidden="true"
       >
-        Junte-se à comunidade Jofi 🐾
+        <PawPrint className="h-4 w-4 text-accent" aria-hidden="true" />
+        Junte-se à comunidade Jofi
       </p>
     );
   }
 
   return (
-    <p className="text-sm font-semibold text-neutral-500">
-      🐾 <span className="text-primary">+{count} tutores</span> fizeram o quiz hoje
+    <p className="inline-flex items-center gap-2 rounded-2xl bg-white px-4 py-2 text-sm font-bold text-neutral-900">
+      <PawPrint className="h-4 w-4 text-accent" aria-hidden="true" />
+      <span><span className="text-primary">+{count} tutores</span> fizeram o quiz hoje</span>
     </p>
   );
 }

@@ -40,7 +40,7 @@ export function NewsletterCta({ label = 'Receber dicas por email' }: NewsletterC
   if (status === 'success') {
     return (
       <p className="rounded-lg bg-primary-100 px-4 py-3 text-center text-sm font-medium text-primary-700">
-        Pronto! Em breve você recebe nossas dicas 🐾
+        Pronto! Em breve você recebe nossas dicas
       </p>
     );
   }

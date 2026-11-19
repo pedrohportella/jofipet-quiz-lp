@@ -1,6 +1,7 @@
 'use client';
 
 import Image from 'next/image';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { Check } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PLANS, type Plan, type PlanId } from '@/lib/plans/catalog';
@@ -113,7 +114,7 @@ function PlanCard({ plan }: PlanCardProps) {
           className="absolute -top-3 left-1/2 max-w-[90%] truncate whitespace-nowrap rounded-full bg-accent px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-sm md:text-xs"
           style={{ x: '-50%' }}
         >
-          ⭐ Mais escolhido
+          <IconeEmoji emoji="⭐" className="mr-1 inline h-3.5 w-3.5 fill-current align-[-2px]" />Mais escolhido
         </motion.div>
       )}
 

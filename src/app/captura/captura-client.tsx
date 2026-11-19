@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import Link from 'next/link';
 import { useQuizState } from '@/hooks/useQuizState';
 import { CaptureForm } from '@/components/capture/CaptureForm';
@@ -28,9 +29,7 @@ export function CapturaClient() {
   return (
     <>
       <header className="flex flex-col items-center gap-2 text-center">
-        <span className="text-3xl" aria-hidden="true">
-          🎉
-        </span>
+        <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><IconeEmoji emoji="🎉" className="h-8 w-8" /></span>
         <h1
           className="text-2xl uppercase leading-[0.95] text-neutral-900 md:text-3xl"
           style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}

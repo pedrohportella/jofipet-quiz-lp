@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { Check, AlertCircle } from 'lucide-react';
 
 interface TableRow {
@@ -178,7 +179,7 @@ export function TransparencyTable() {
 
         <div className="mt-6 rounded-2xl bg-success-500/10 p-5 text-center md:p-6">
           <p className="text-sm text-success-700 md:text-base">
-            ✅ <strong>Mais 1 coisa:</strong> na assinatura anual (Parceiro e Melhor Amigo)
+            <IconeEmoji emoji="✅" className="mr-1 inline h-4 w-4 text-primary" /><strong>Mais 1 coisa:</strong> na assinatura anual (Parceiro e Melhor Amigo)
             você ganha 20% de desconto e as carências são <strong>reduzidas</strong>.
           </p>
         </div>

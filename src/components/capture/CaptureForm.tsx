@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { useRouter } from 'next/navigation';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -299,13 +300,13 @@ export function CaptureForm() {
               Liberando seu resultado…
             </span>
           ) : WHATSAPP_NUMBER ? (
-            'Falar com nosso time no WhatsApp 🐾'
+            'Falar com nosso time no WhatsApp'
           ) : (
             'Ver minha cobertura ideal →'
           )}
         </button>
         <p className="text-center text-xs text-neutral-500">
-          🔒 Seus dados ficam protegidos · Só te chamamos sobre o resultado
+          <IconeEmoji emoji="🔒" className="mr-1 inline h-3.5 w-3.5 align-[-2px]" />Seus dados ficam protegidos · Só te chamamos sobre o resultado
         </p>
       </div>
     </form>
@@ -341,7 +342,7 @@ function RedirectingOverlay({ name }: { name: string }) {
       >
         <motion.span
           aria-hidden="true"
-          className="text-6xl"
+          className="flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white"
           animate={{
             rotate: [0, -8, 8, -4, 4, 0],
           }}
@@ -351,7 +352,7 @@ function RedirectingOverlay({ name }: { name: string }) {
             repeatDelay: 0.4,
           }}
         >
-          🐾
+          <IconeEmoji emoji="🐾" className="h-8 w-8" />
         </motion.span>
 
         <div className="flex flex-col gap-2">
@@ -360,7 +361,7 @@ function RedirectingOverlay({ name }: { name: string }) {
           </p>
           <p className="text-sm text-neutral-700">
             O WhatsApp vai abrir em segundos. Pode deixar — já vai com seu perfil
-            do quiz preenchido 💛
+            do quiz preenchido
           </p>
         </div>
 

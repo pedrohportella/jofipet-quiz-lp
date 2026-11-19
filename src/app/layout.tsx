@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     template: '%s · Jofi Pet',
   },
   description:
-    'Em menos de 1 minuto, descubra qual plano de saúde pet ideal pro seu pequeno. Quiz personalizado da Jofi com recomendação na hora 🐾',
+    'Em menos de 1 minuto, descubra qual plano de saúde pet ideal pro seu pequeno. Quiz personalizado da Jofi com recomendação na hora',
   applicationName: 'Jofi Pet Quiz',
   authors: [{ name: 'Jofi Pet', url: 'https://jofi.pet' }],
   generator: 'Next.js',
@@ -64,7 +64,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Jofi Pet Quiz — Descubra o plano ideal pro seu pet',
     description:
-      'Em menos de 1 minuto, descubra qual plano de saúde pet é ideal pro seu pequeno 🐾',
+      'Em menos de 1 minuto, descubra qual plano de saúde pet é ideal pro seu pequeno',
     type: 'website',
     locale: 'pt_BR',
     url: SITE_URL,
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Jofi Pet Quiz — Descubra o plano ideal pro seu pet',
     description:
-      'Em menos de 1 minuto, descubra qual plano de saúde pet é ideal pro seu pequeno 🐾',
+      'Em menos de 1 minuto, descubra qual plano de saúde pet é ideal pro seu pequeno',
     // images: Next 14 detecta automaticamente app/twitter-image.tsx
   },
   robots: {

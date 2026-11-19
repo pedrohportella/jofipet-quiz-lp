@@ -81,7 +81,7 @@ export function QuizScaleInput({
           className="animate-pulse text-center text-xs font-medium text-primary"
           aria-live="polite"
         >
-          👆 Arraste pra ajustar o valor
+          Arraste pra ajustar o valor
         </p>
       )}
     </div>

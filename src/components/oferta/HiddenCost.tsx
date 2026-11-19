@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { useOfertaCapture } from './OfertaCaptureContext';
 
 // TODO Ricardo: validar valores médios na rede credenciada.
@@ -88,9 +89,7 @@ export function HiddenCost() {
             <ul className="space-y-3">
               {JOFI_INCLUDES.map((item) => (
                 <li key={item} className="flex items-center justify-center gap-2 text-neutral-700 md:justify-start">
-                  <span className="text-primary" aria-hidden>
-                    ✓
-                  </span>
+                  <span className="text-primary" aria-hidden><IconeEmoji emoji="✓" className="h-4 w-4" /></span>
                   <span>{item}</span>
                 </li>
               ))}

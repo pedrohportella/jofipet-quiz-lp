@@ -160,10 +160,12 @@
   .jofi-btn {
     @apply inline-flex items-center justify-center gap-2 px-6;
     min-height: var(--jofi-cta-height);
-    border-radius: var(--jofi-radius-pill);
-    font-weight: 700;
-    font-size: 16px;
-    letter-spacing: 0.01em;
+    /* Botão do design system: retângulo de cantos 16px, texto bold em caixa alta (raio-pilula do DS) */
+    border-radius: 16px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
     transition:
       background-color var(--jofi-duration-fast) var(--jofi-ease-out),
       transform var(--jofi-duration-instant) var(--jofi-ease-out),
@@ -171,53 +173,44 @@
   }
   .jofi-btn:active { transform: scale(0.98); }
 
-  .jofi-btn--primary {
-    background-color: var(--jofi-action-primary);
-    color: var(--jofi-text-on-accent);
-    box-shadow: var(--jofi-shadow-2);
-  }
-  .jofi-btn--primary:hover {
-    background-color: var(--jofi-action-primary-hover);
-    box-shadow: var(--jofi-shadow-3);
-  }
-
+  /* CTA principal do DS (fase 2): laranja com texto branco bold em caixa alta. Sem sombra. */
+  .jofi-btn--primary,
   .jofi-btn--accent {
     background-color: var(--jofi-action-accent);
     color: var(--jofi-text-on-accent);
-    box-shadow: var(--jofi-shadow-2);
   }
+  .jofi-btn--primary:hover,
   .jofi-btn--accent:hover {
     background-color: var(--jofi-action-accent-hover);
   }
 
+  /* WhatsApp segue verde de plataforma até o Pedro decidir (proposta, decisão 2): só ganhou a forma do DS */
   .jofi-btn--whatsapp {
     background-color: var(--jofi-action-whatsapp);
     color: var(--jofi-text-on-accent);
-    box-shadow: var(--jofi-shadow-2);
   }
   .jofi-btn--whatsapp:hover {
     background-color: var(--jofi-action-whatsapp-hover);
   }
 
   .jofi-btn--ghost {
-    background-color: transparent;
-    color: var(--jofi-text-link);
-    border: 1.5px solid var(--jofi-border-default);
+    background-color: #fff;
+    color: var(--jofi-ink-900);
+    border: 2px solid var(--jofi-ink-900);
   }
   .jofi-btn--ghost:hover {
-    border-color: var(--jofi-action-primary);
-    color: var(--jofi-action-primary);
+    background-color: var(--jofi-blue-50);
   }
 
   /* ----- Card --------------------------------------------------------------- */
   .jofi-card {
     background-color: var(--jofi-bg-surface);
-    border-radius: var(--jofi-radius-lg);
-    box-shadow: var(--jofi-shadow-1);
+    border-radius: 28px;
+    border: 1px solid var(--jofi-border-subtle);
     padding: 24px;
-    transition: box-shadow var(--jofi-duration-fast) var(--jofi-ease-out);
+    transition: border-color var(--jofi-duration-fast) var(--jofi-ease-out);
   }
-  .jofi-card--hover:hover { box-shadow: var(--jofi-shadow-2); }
+  .jofi-card--hover:hover { border-color: var(--jofi-blue-500); }
 
   /* Result card por tier (consume tier color via data-attr) */
   .jofi-card--tier {

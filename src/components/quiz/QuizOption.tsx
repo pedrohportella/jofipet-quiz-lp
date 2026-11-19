@@ -4,10 +4,12 @@ import { motion } from 'framer-motion';
 import { Check } from 'lucide-react';
 import { cn } from '@/lib/utils/cn';
 import { useHaptic } from '@/hooks/useHaptic';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 
 export interface QuizOptionProps {
   id: string;
   label: string;
+  /** Emoji do dado (quiz.json). Na tela vira ícone de linha; o dado segue com o emoji. */
   emoji?: string;
   selected: boolean;
   disabled?: boolean;
@@ -15,6 +17,10 @@ export interface QuizOptionProps {
   variant?: 'single' | 'multi';
 }
 
+/**
+ * Opção de resposta no design system da Jofi: item arredondado em borda-suave, ícone de linha
+ * em bola, e o selecionado em azul (borda e fundo-suave).
+ */
 export function QuizOption({
   id,
   label,
@@ -43,16 +49,22 @@ export function QuizOption({
       whileTap={{ scale: 0.98 }}
       transition={{ duration: 0.08 }}
       className={cn(
-        'flex min-h-[56px] w-full items-center gap-3 rounded-2xl border border-neutral-300 bg-white px-4 text-left',
-        'text-base font-medium text-neutral-900 transition-colors duration-150',
+        'flex min-h-[60px] w-full items-center gap-3 rounded-[30px] border-2 border-neutral-300 bg-white px-5 text-left',
+        'text-base font-bold text-neutral-900 transition-colors duration-150',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/70 focus-visible:ring-offset-2',
-        selected && 'border-primary bg-primary/10',
+        selected && 'border-primary bg-primary-50',
         disabled && 'cursor-not-allowed opacity-40',
       )}
     >
       {emoji && (
-        <span className="text-2xl" aria-hidden="true">
-          {emoji}
+        <span
+          className={cn(
+            'flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition-colors duration-150',
+            selected ? 'bg-primary' : 'bg-accent',
+          )}
+          aria-hidden="true"
+        >
+          <IconeEmoji emoji={emoji} className="h-[18px] w-[18px]" />
         </span>
       )}
       <span className="flex-1">{label}</span>

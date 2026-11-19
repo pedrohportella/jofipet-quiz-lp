@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { ResultBullets } from './ResultBullets';
 import { SereninhoCta } from './SereninhoCta';
 import { NewsletterCta } from './NewsletterCta';
@@ -62,9 +63,7 @@ export function ResultWarm({
         phoneNumber={whatsappNumber}
       />
 
-      <span className="text-5xl" aria-hidden="true">
-        🌻
-      </span>
+      <span className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-accent text-white" aria-hidden="true"><IconeEmoji emoji="🌻" className="h-8 w-8" /></span>
       <p className="jofi-kicker text-primary">Perfil morno</p>
       <h1
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"

@@ -66,7 +66,7 @@ export function Solution() {
             />
           </div>
           <figcaption className="mt-3 text-center text-sm text-neutral-600">
-            O time Jofi que te atende no WhatsApp: gente de verdade, em Recife 💙
+            O time Jofi que te atende no WhatsApp: gente de verdade, em Recife
           </figcaption>
         </figure>
       </div>

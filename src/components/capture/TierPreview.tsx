@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { getRecommendedPlan } from '@/lib/plans/catalog';
 import type { Answers, Tier } from '@/lib/quiz/types';
 
@@ -54,9 +55,9 @@ export function TierPreview({ tier, answers }: TierPreviewProps) {
         {data.headline}
       </h2>
       <p className="text-sm text-neutral-700">{data.subhead}</p>
-      <p className="text-sm text-neutral-700">✓ {data.bullet}</p>
+      <p className="text-sm text-neutral-700"><IconeEmoji emoji="✓" className="mr-1 inline h-4 w-4 text-accent" />{data.bullet}</p>
       <p className="mt-1 text-xs font-semibold text-neutral-500">
-        Conta seus dados e nosso time te atende no WhatsApp 🐾
+        Conta seus dados e nosso time te atende no WhatsApp
       </p>
     </motion.div>
   );

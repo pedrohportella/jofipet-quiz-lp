@@ -1,5 +1,6 @@
 'use client';
 
+import { PawPrint } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 const MIN_DISPLAY = 18;
@@ -35,8 +36,9 @@ export function SocialProofBadge() {
   if (count === null) return null;
 
   return (
-    <p className="text-center text-xs font-medium text-neutral-500">
-      🐾 <span className="text-primary">{count} tutores</span> fizeram o quiz hoje
+    <p className="flex items-center justify-center gap-1.5 text-center text-xs font-medium text-neutral-500">
+      <PawPrint className="h-3.5 w-3.5 text-accent" aria-hidden="true" />
+      <span><span className="text-primary">{count} tutores</span> fizeram o quiz hoje</span>
     </p>
   );
 }

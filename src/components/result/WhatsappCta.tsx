@@ -109,11 +109,11 @@ export function WhatsappCta({ tier, answers, phoneNumber }: WhatsappCtaProps) {
         onClick={handleClick}
         className="jofi-btn jofi-btn--whatsapp w-full"
       >
-        Falar com nosso time no WhatsApp 🐾
+        Falar com nosso time no WhatsApp
       </a>
       {clicked && (
         <p className="mt-2 text-center text-sm font-medium text-neutral-700">
-          Te esperamos na conversa 🐾
+          Te esperamos na conversa
         </p>
       )}
     </>

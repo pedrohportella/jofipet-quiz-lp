@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { IconeEmoji } from '@/components/shared/IconeEmoji';
 import { motion, AnimatePresence } from 'framer-motion';
 import { buildWhatsappUrl } from '@/lib/tracking/whatsapp';
 import { loadStoredUtms } from '@/lib/tracking/utms';
@@ -154,8 +155,11 @@ export function WhatsappAutoRedirect({
           aria-label="Redirecionamento para WhatsApp"
         >
           <div className="mb-3 flex items-start gap-3">
-            <div className="text-2xl" aria-hidden="true">
-              👋
+            <div
+              className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-accent text-white"
+              aria-hidden="true"
+            >
+              <IconeEmoji emoji="👋" className="h-5 w-5" />
             </div>
             <div className="flex-1">
               <p className="text-sm font-bold leading-tight text-success-700">
