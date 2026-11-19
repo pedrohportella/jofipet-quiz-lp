@@ -3,37 +3,37 @@
 @tailwind utilities;
 
 /* =============================================================================
- * Jofi Pet — Quiz Campaign Design System v2.0
- * Brand 2026-05: Azul + Laranja oficiais Jofi (logo + criativos validados Pedro)
- * Source of truth: design-system/tokens.json (sync pendente)
+ * Jofi Pet — Quiz Campaign Design System v3.0 (fase 1, 18/11/2026)
+ * Alinhado ao design system oficial da Jofi (29/09/2026): azul #009af2, laranja #ff9625, azul-tinta #004f78
+ * Fonte oficial: 01_Marca/design-system (artifact + cópia); degraus derivados em design-system/README.md
  * ========================================================================== */
 
 :root {
   /* Color · Primitive — Azul Jofi (logo) */
-  --jofi-blue-50:    #F0F4FB;
-  --jofi-blue-100:   #DCE5F4;
-  --jofi-blue-300:   #A4B8E5;
-  --jofi-blue-500:   #7090D8;
-  --jofi-blue-600:   #5773C0;
-  --jofi-blue-700:   #3F5BA3;
+  --jofi-blue-50:    #eaf6fe;
+  --jofi-blue-100:   #d7ecfa;
+  --jofi-blue-300:   #7fcdf8;
+  --jofi-blue-500:   #009af2;
+  --jofi-blue-600:   #0079bf;
+  --jofi-blue-700:   #004f78;
 
   /* Color · Primitive — Laranja Jofi (criativo Sereninho + camiseta) */
-  --jofi-orange-100: #FBE5D2;
-  --jofi-orange-300: #F0B485;
-  --jofi-orange-500: #E07A2E;
-  --jofi-orange-600: #C66622;
-  --jofi-orange-700: #9B4E18;
+  --jofi-orange-100: #ffe3c2;
+  --jofi-orange-300: #ffbe78;
+  --jofi-orange-500: #ff9625;
+  --jofi-orange-600: #b35f00;
+  --jofi-orange-700: #8a4800;
 
   /* Color · Primitive — Background limpo (criativos têm bastante branco) */
   --jofi-bg-white:   #FFFFFF;
-  --jofi-bg-offwhite:#F5F7FA;
+  --jofi-bg-offwhite:#eaf6fe;
 
   /* Color · Primitive — Neutros azul-marinho (harmonia com azul brand) */
-  --jofi-ink-100:    #F5F7FA;
-  --jofi-ink-300:    #D6DCE8;
-  --jofi-ink-500:    #8590A8;
-  --jofi-ink-700:    #454F66;
-  --jofi-ink-900:    #1A1F36;
+  --jofi-ink-100:    #eaf6fe;
+  --jofi-ink-300:    #d7ecfa;
+  --jofi-ink-500:    #4f7389;
+  --jofi-ink-700:    #2f5a73;
+  --jofi-ink-900:    #004f78;
 
   --jofi-green-300:  #A8DEC2;
   --jofi-green-500:  #4CAF82;
@@ -81,10 +81,10 @@
   --jofi-radius-pill: 9999px;
 
   /* Elevation — sombras em ink-900 (azul-marinho) pra harmonia */
-  --jofi-shadow-1:     0 1px 2px 0 rgba(26, 31, 54, 0.06);
-  --jofi-shadow-2:     0 2px 8px 0 rgba(26, 31, 54, 0.08);
-  --jofi-shadow-3:     0 8px 24px -4px rgba(26, 31, 54, 0.12);
-  --jofi-shadow-focus: 0 0 0 3px rgba(112, 144, 216, 0.32);
+  --jofi-shadow-1:     0 1px 2px 0 rgba(0, 79, 120, 0.06);
+  --jofi-shadow-2:     0 2px 8px 0 rgba(0, 79, 120, 0.08);
+  --jofi-shadow-3:     0 8px 24px -4px rgba(0, 79, 120, 0.12);
+  --jofi-shadow-focus: 0 0 0 3px rgba(0, 154, 242, 0.32);
 
   /* Motion */
   --jofi-duration-instant: 80ms;
@@ -120,9 +120,9 @@
   --jofi-warmblack-500: var(--jofi-ink-500);
   --jofi-warmblack-700: var(--jofi-ink-700);
   --jofi-warmblack-900: var(--jofi-ink-900);
-  --color-primary:    112 144 216;
+  --color-primary:    0 154 242;
   --color-secondary:  255 255 255;
-  --color-neutral-900: 26 31 54;
+  --color-neutral-900: 0 79 120;
   --radius-card: var(--jofi-radius-lg);
   --duration-fast: var(--jofi-duration-fast);
   --duration-base: var(--jofi-duration-base);
@@ -263,7 +263,7 @@
     color: var(--jofi-text-secondary);
   }
   .jofi-anchor-word {
-    color: var(--jofi-action-accent);
+    color: var(--jofi-action-primary);
     font-weight: 800;
   }
   .jofi-price {

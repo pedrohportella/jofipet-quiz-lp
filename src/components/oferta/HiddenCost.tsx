@@ -30,12 +30,12 @@ export function HiddenCost() {
     <section className="bg-cream py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-12">
-          <p className="jofi-kicker mb-2 text-accent">Faz as contas honestamente</p>
+          <p className="jofi-kicker mb-2 text-primary">Faz as contas honestamente</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-5xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Cuidar de pet <span className="text-accent">tem um custo mensal.</span>
+            Cuidar de pet <span className="text-primary">tem um custo mensal.</span>
             <br />
             Você só não tá vendo todo.
           </h2>

@@ -18,7 +18,7 @@ export function FinalCta() {
         >
           Pronto pra cuidar
           <br />
-          <span className="text-accent">do jeito certo?</span>
+          <span className="text-primary">do jeito certo?</span>
         </h2>
         <p className="max-w-md text-base text-neutral-700 md:text-lg">
           Nosso time tá esperando você no WhatsApp pra explicar tudo e ajudar a escolher a

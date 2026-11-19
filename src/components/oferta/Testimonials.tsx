@@ -26,14 +26,14 @@ export function Testimonials() {
 
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <p className="jofi-kicker mb-2 text-accent">Tutores Jofi</p>
+          <p className="jofi-kicker mb-2 text-primary">Tutores Jofi</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             Famílias que já cuidam
             <br />
-            <span className="text-accent">com a Jofi.</span>
+            <span className="text-primary">com a Jofi.</span>
           </h2>
           <p className="mt-3 flex items-center justify-center gap-1.5 text-sm text-neutral-600">
             <Star className="h-4 w-4 fill-accent text-accent" aria-hidden="true" />

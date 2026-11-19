@@ -13,8 +13,8 @@ export const alt = 'Jofi Pet Quiz — Descubra o plano ideal pro seu pet';
  * Render direct edge → ~80ms cold, ~20ms warm.
  *
  * Match com a paleta da LP:
- *   - Background: primary blue #7090D8 com gradient
- *   - Accent: laranja #E07A2E
+ *   - Background: primary blue #009af2 com gradient
+ *   - Accent: laranja #ff9625
  *   - Tipografia: system-ui bold (Anton requereria fetch de font, custo extra)
  *
  * Hierarquia visual:
@@ -36,7 +36,7 @@ export default function OpenGraphImage() {
           justifyContent: 'center',
           padding: '80px',
           backgroundImage:
-            'linear-gradient(135deg, #7090D8 0%, #5470b8 100%)',
+            'linear-gradient(135deg, #009af2 0%, #0079bf 100%)',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           color: 'white',
           position: 'relative',
@@ -83,7 +83,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>Cuidar hoje.</span>
-          <span style={{ color: '#FFC080' }}>Proteger sempre.</span>
+          <span style={{ color: '#ffff44' }}>Proteger sempre.</span>
         </div>
 
         {/* CTA badge bottom */}

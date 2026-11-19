@@ -41,14 +41,14 @@ export function Problem() {
 
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <p className="jofi-kicker mb-2 text-accent">Você já passou por isso?</p>
+          <p className="jofi-kicker mb-2 text-primary">Você já passou por isso?</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             Cuidar de pet sem cobertura
             <br />
-            <span className="text-accent">é estressante e caro.</span>
+            <span className="text-primary">é estressante e caro.</span>
           </h2>
         </div>
 

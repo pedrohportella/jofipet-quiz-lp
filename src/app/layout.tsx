@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next';
-import { Nunito, Anton } from 'next/font/google';
+import { Inter, Anton } from 'next/font/google';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Providers } from './providers';
 import { MetaPixelScript } from '@/components/tracking/MetaPixelScript';
@@ -7,11 +7,11 @@ import { GoogleAdsScript } from '@/components/tracking/GoogleAdsScript';
 import { UtmCapture } from '@/components/tracking/UtmCapture';
 import './globals.css';
 
-const nunito = Nunito({
+const inter = Inter({
   subsets: ['latin', 'latin-ext'],
   display: 'swap',
-  variable: '--font-nunito',
-  weight: ['400', '600', '700', '800'],
+  variable: '--font-inter',
+  weight: ['400', '500', '600', '700', '800'],
 });
 
 const anton = Anton({
@@ -97,8 +97,8 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 5,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#7090D8' },
-    { media: '(prefers-color-scheme: dark)', color: '#7090D8' },
+    { media: '(prefers-color-scheme: light)', color: '#009af2' },
+    { media: '(prefers-color-scheme: dark)', color: '#009af2' },
   ],
 };
 
@@ -142,7 +142,7 @@ export default function RootLayout({
   const googleAdsId = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID ?? '';
 
   return (
-    <html lang="pt-BR" className={`${nunito.variable} ${anton.variable}`}>
+    <html lang="pt-BR" className={`${inter.variable} ${anton.variable}`}>
       <head>
         {/* JSON-LD: Organization + WebSite. Google lê e usa em rich results. */}
         <script

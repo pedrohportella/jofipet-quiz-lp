@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
 import type { ReactNode } from 'react';
 import { Cabecalho } from '@/components/institucional/Cabecalho';
 import { BarraCelular, Rodape } from '@/components/institucional/Chrome';
@@ -15,17 +14,10 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-const inter = Inter({
-  subsets: ['latin', 'latin-ext'],
-  display: 'swap',
-  variable: '--font-inter',
-  weight: ['500', '700', '800'],
-});
-
 export default function InstitucionalLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className={`${inter.variable} min-h-screen bg-white font-[family-name:var(--font-inter)] text-[#1f4a63] [scroll-behavior:smooth]`}
+      className={`min-h-screen bg-white font-[family-name:var(--font-inter)] text-[#1f4a63] [scroll-behavior:smooth]`}
     >
       <Cabecalho />
       <main>{children}</main>

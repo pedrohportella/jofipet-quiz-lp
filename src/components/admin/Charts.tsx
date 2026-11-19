@@ -15,9 +15,9 @@
  */
 
 const TIER_COLOR: Record<string, string> = {
-  quente: '#E07A2E', // accent
+  quente: '#ff9625', // accent
   morno: '#F5C24A', // amarelo Jofi
-  frio: '#7090D8', // primary
+  frio: '#009af2', // primary
 };
 
 const TIER_EMOJI: Record<string, string> = {
@@ -201,7 +201,7 @@ export function Sparkline({
   values,
   width = 80,
   height = 24,
-  color = '#7090D8',
+  color = '#009af2',
 }: {
   values: number[];
   width?: number;

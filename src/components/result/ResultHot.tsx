@@ -58,7 +58,7 @@ export function ResultHot({ leadId, leadName, answers, whatsappNumber }: ResultH
       <span className="text-5xl" aria-hidden="true">
         🔥
       </span>
-      <p className="jofi-kicker text-accent">Perfil quente</p>
+      <p className="jofi-kicker text-primary">Perfil quente</p>
       <h1
         className="text-4xl uppercase leading-[0.95] text-neutral-900 md:text-5xl"
         style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}

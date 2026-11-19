@@ -72,7 +72,7 @@ export function Hero() {
             <span className="sr-only">Plano de saúde pet: </span>
             Do check-up
             <br />
-            à <span className="text-accent">emergência</span>,
+            à <span className="text-primary">emergência</span>,
             <br />
             tudo num plano só.
           </h1>

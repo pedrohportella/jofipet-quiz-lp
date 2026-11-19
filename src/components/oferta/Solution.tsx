@@ -34,7 +34,7 @@ export function Solution() {
           >
             Cuidado completo,
             <br />
-            <span className="text-accent">com transparência total.</span>
+            <span className="text-primary">com transparência total.</span>
           </h2>
         </div>
 

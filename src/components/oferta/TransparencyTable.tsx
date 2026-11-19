@@ -70,14 +70,14 @@ export function TransparencyTable() {
     <section className="bg-white py-16 md:py-20">
       <div className="mx-auto max-w-6xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-12">
-          <p className="jofi-kicker mb-2 text-accent">Transparência radical</p>
+          <p className="jofi-kicker mb-2 text-primary">Transparência radical</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-5xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             Jofi vs. o padrão
             <br />
-            <span className="text-accent">do mercado.</span>
+            <span className="text-primary">do mercado.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700 md:text-lg">
             Cobertura de saúde pet ganhou mal nome por &quot;carência escondida&quot;. Aqui é

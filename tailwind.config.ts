@@ -6,31 +6,37 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // Brand Jofi — azul oficial extraído da logo
+        // Design system oficial da Jofi (29/09/2026): 01_Marca/design-system/tokens.json.
+        // Oficiais: azul #009af2, laranja #ff9625, amarelo #ffff44, azul-tinta #004f78,
+        // tinta-media #2f5a73, fundo-suave #eaf6fe, borda-suave #d7ecfa, realce-suave #ffe3c2.
+        // Os degraus que o DS não tem (300 e 600 do azul e do laranja, 700 do laranja) são
+        // derivados daqui; ver design-system/README.md.
         primary: {
-          DEFAULT: '#7090D8',
-          50: '#F0F4FB',
-          100: '#DCE5F4',
-          300: '#A4B8E5',
-          500: '#7090D8',
-          600: '#5773C0',
-          700: '#3F5BA3',
+          DEFAULT: '#009af2', // azul (oficial)
+          50: '#eaf6fe', // fundo-suave (oficial)
+          100: '#d7ecfa', // borda-suave (oficial)
+          300: '#7fcdf8', // derivado: azul a ~50% sobre branco
+          500: '#009af2', // azul (oficial)
+          600: '#0079bf', // derivado: hover do azul e texto de link (4,7:1 sobre branco)
+          700: '#004f78', // azul-tinta (oficial)
         },
-        // Secondary = background limpo (criativos Jofi têm bastante branco)
+        // Secondary = fundo limpo
         secondary: { DEFAULT: '#FFFFFF' },
+        // "cream" é o nome antigo do fundo de seção: agora é o fundo-suave do DS
         cream: {
-          DEFAULT: '#F5F7FA',
-          50: '#F5F7FA',
+          DEFAULT: '#eaf6fe',
+          50: '#eaf6fe',
         },
-        // Brand Jofi — laranja oficial extraído do criativo Sereninho + camisetas
         accent: {
-          DEFAULT: '#E07A2E',
-          100: '#FBE5D2',
-          300: '#F0B485',
-          500: '#E07A2E',
-          600: '#C66622',
-          700: '#9B4E18',
+          DEFAULT: '#ff9625', // laranja (oficial)
+          100: '#ffe3c2', // realce-suave (oficial)
+          300: '#ffbe78', // derivado: laranja a ~60% sobre branco
+          500: '#ff9625', // laranja (oficial)
+          600: '#b35f00', // derivado: texto laranja legível sobre branco (5:1), usado em erro
+          700: '#8a4800', // derivado
         },
+        // Amarelo do DS: destaque (palavra em título sobre azul, tag de campanha)
+        highlight: { DEFAULT: '#ffff44' },
         success: {
           DEFAULT: '#4CAF82',
           300: '#A8DEC2',
@@ -44,23 +50,23 @@ const config: Config = {
           500: '#25D366',
           600: '#1EBE5A',
         },
-        // Neutros baseados em azul-marinho pra harmonizar com o primary
+        // Neutros do DS: texto em azul-tinta e tons de apoio (nunca preto puro sobre fundo claro)
         neutral: {
-          100: '#F5F7FA',
-          300: '#D6DCE8',
-          500: '#8590A8',
-          700: '#454F66',
-          900: '#1A1F36',
+          100: '#eaf6fe', // fundo-suave (oficial)
+          300: '#d7ecfa', // borda-suave (oficial)
+          500: '#4f7389', // derivado: texto de apoio e rótulo (5:1 sobre branco)
+          700: '#2f5a73', // tinta-media (oficial)
+          900: '#004f78', // azul-tinta (oficial)
         },
         // Tiers do quiz mapeados ao brand
         tier: {
-          hot: '#E07A2E',    // quente → laranja (urgência/Parceiro)
-          warm: '#7090D8',   // morno → azul brand (Sereno)
-          cold: '#A4B8E5',   // frio → azul claro (Sereninho)
+          hot: '#ff9625', // quente → laranja
+          warm: '#009af2', // morno → azul
+          cold: '#7fcdf8', // frio → azul claro
         },
       },
       fontFamily: {
-        sans: ['var(--font-nunito)', ...fontFamily.sans],
+        sans: ['var(--font-inter)', ...fontFamily.sans],
         display: ['var(--font-anton)', 'Anton', 'Impact', ...fontFamily.sans],
       },
       fontSize: {

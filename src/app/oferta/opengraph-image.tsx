@@ -21,7 +21,7 @@ export default function OpenGraphImage() {
           alignItems: 'center',
           justifyContent: 'center',
           padding: '80px',
-          backgroundImage: 'linear-gradient(135deg, #E07A2E 0%, #b85f1f 100%)',
+          backgroundImage: 'linear-gradient(135deg, #ff9625 0%, #b35f00 100%)',
           fontFamily: 'system-ui, -apple-system, sans-serif',
           color: 'white',
           position: 'relative',
@@ -65,7 +65,7 @@ export default function OpenGraphImage() {
           }}
         >
           <span>A partir de</span>
-          <span style={{ color: '#FFE4C4', fontSize: 96 }}>R$ 49,90/mês</span>
+          <span style={{ color: '#ffe3c2', fontSize: 96 }}>R$ 49,90/mês</span>
         </div>
 
         <div

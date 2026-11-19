@@ -17,7 +17,7 @@ export function Coverage() {
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-4xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
-            Cobertura no <span className="text-accent">Nordeste</span>
+            Cobertura no <span className="text-primary">Nordeste</span>
           </h2>
           <p className="mx-auto mt-4 max-w-md text-base text-neutral-700 md:mx-0 md:text-lg">
             {REDE_TEXT}

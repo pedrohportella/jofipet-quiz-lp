@@ -35,14 +35,14 @@ export function PlanComparison() {
     <section id="planos" className="scroll-mt-20 bg-white py-16 md:py-20">
       <div className="mx-auto max-w-7xl px-4 md:px-8">
         <div className="mb-10 text-center md:mb-14">
-          <p className="jofi-kicker mb-2 text-accent">Coberturas Jofi</p>
+          <p className="jofi-kicker mb-2 text-primary">Coberturas Jofi</p>
           <h2
             className="text-3xl uppercase leading-tight text-neutral-900 md:text-5xl"
             style={{ fontFamily: 'var(--font-anton), Anton, Impact, sans-serif' }}
           >
             Escolha a cobertura ideal
             <br />
-            pro seu <span className="text-accent">pequeno.</span>
+            pro seu <span className="text-primary">pequeno.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-2xl text-base text-neutral-700">
             Todas as coberturas incluem orientação 24h via WhatsApp. {REDE_TEXT}{' '}

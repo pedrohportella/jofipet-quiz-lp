@@ -9,7 +9,7 @@ export const contentType = 'image/png';
  * Next 14+ serve esse arquivo automaticamente como /icon e referencia no <head>.
  *
  * Visual: badge azul Jofi com "J" branca em bold.
- * Match com paleta da marca (#7090D8 primary).
+ * Match com paleta da marca (#009af2 primary).
  */
 export default function Icon() {
   return new ImageResponse(
@@ -17,7 +17,7 @@ export default function Icon() {
       <div
         style={{
           fontSize: 22,
-          background: '#7090D8',
+          background: '#009af2',
           width: '100%',
           height: '100%',
           display: 'flex',

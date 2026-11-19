@@ -47,7 +47,7 @@ export default function HomePage() {
       >
         Qual cobertura Jofi
         <br />
-        <span className="text-accent">combina com seu pet?</span>
+        <span className="text-primary">combina com seu pet?</span>
       </h1>
 
       <p className="max-w-sm text-base text-neutral-700 md:text-lg">
