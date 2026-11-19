@@ -1,9 +1,10 @@
 import type { Metadata } from 'next';
 
 import Link from 'next/link';
-import { Faq, Forma, Foto, HospitalCard, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
+import { Faq, Forma, Foto, Lead, Realce, Secao, Titulo } from '@/components/institucional/Blocos';
 import { BOTAO, BOTAO_CONTORNO } from '@/components/institucional/Chrome';
-import { HOSPITAIS, QUIZ_HREF, TELEFONE, whatsappHref } from '@/components/institucional/dados';
+import { Rede } from '@/components/institucional/Rede';
+import { QUIZ_HREF, TELEFONE, whatsappHref } from '@/components/institucional/dados';
 
 export const metadata: Metadata = {
   title: 'Rede credenciada',
@@ -29,7 +30,7 @@ const DUVIDAS = [
   },
 ];
 
-export default function Rede() {
+export default function PaginaRede() {
   return (
     <>
       <section className="relative overflow-hidden bg-[#009af2]">
@@ -76,10 +77,8 @@ export default function Rede() {
         <Lead className="mt-4 max-w-2xl">
           Escolha a unidade mais perto de você. O botão abre o checkout da unidade escolhida.
         </Lead>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {HOSPITAIS.map((h) => (
-            <HospitalCard key={h.nome} h={h} />
-          ))}
+        <div className="mt-12">
+          <Rede />
         </div>
       </Secao>
 

@@ -124,6 +124,8 @@ export const PLANOS: Plano[] = [
   },
 ];
 
+export type Unidade = { unidadeId: number; bairro: string; endereco: string; cep: string };
+
 export type Hospital = {
   nome: string;
   cidade: string;
@@ -131,8 +133,31 @@ export type Hospital = {
   /** Só onde o Pedro confirmou (06/10/2026): Vets Care e Quatro Patas. */
   atendimento24h?: boolean;
   foto?: { src: string; alt: string; posicao?: string };
-  unidades: { unidadeId: number; bairro: string; endereco: string }[];
+  /** WhatsApp da clínica, como a API do checkout devolve (18/11/2026), só com dígitos e o 55. */
+  whatsapp: string;
+  unidades: Unidade[];
 };
+
+/** Cidades da rede, na ordem em que aparecem (as duas praças de maior verba primeiro). */
+export const CIDADES = [
+  { slug: 'fortaleza', nome: 'Fortaleza' },
+  { slug: 'sao-luis', nome: 'São Luís' },
+  { slug: 'jaboatao', nome: 'Jaboatão dos Guararapes' },
+] as const;
+
+export function slugDaCidade(cidade: string): string {
+  return CIDADES.find((c) => c.nome === cidade)?.slug ?? cidade;
+}
+
+/** "Como chegar": abre a busca do Google Maps com o endereço completo da unidade. */
+export function rotaHref(h: Hospital, u: Unidade): string {
+  const q = `${h.nome}, ${u.endereco}, ${u.bairro}, ${h.cidade} - ${h.uf}, ${u.cep}`;
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(q)}`;
+}
+
+export function whatsappDaClinicaHref(h: Hospital): string {
+  return `https://wa.me/${h.whatsapp}?text=${encodeURIComponent(`Olá! Vim pelo site da Jofi e queria falar com a ${h.nome}.`)}`;
+}
 
 export const HOSPITAIS: Hospital[] = [
   {
@@ -147,9 +172,10 @@ export const HOSPITAIS: Hospital[] = [
     },
     // O 24h foi confirmado para o Vets Care como um todo; o raio-x cita as unidades Aldeota e São
     // Geraldo e a API lista Aldeota e Parque Araxá. O selo vai no hospital, não em cada unidade.
+    whatsapp: '5585997144909',
     unidades: [
-      { unidadeId: 2, bairro: 'Aldeota', endereco: 'Avenida Padre Antônio Tomás, 40' },
-      { unidadeId: 3, bairro: 'Parque Araxá', endereco: 'Avenida Bezerra de Menezes, 1309' },
+      { unidadeId: 2, bairro: 'Aldeota', endereco: 'Avenida Padre Antônio Tomás, 40', cep: '60140-160' },
+      { unidadeId: 3, bairro: 'Parque Araxá', endereco: 'Avenida Bezerra de Menezes, 1309', cep: '60325-003' },
     ],
   },
   {
@@ -162,13 +188,15 @@ export const HOSPITAIS: Hospital[] = [
       alt: 'Fachada do Hospital Veterinário Quatro Patas, em São Luís',
       posicao: '50% 55%',
     },
-    unidades: [{ unidadeId: 4, bairro: 'Jardim São Francisco', endereco: 'Rua das Paparaubas, 13' }],
+    whatsapp: '5598984132363',
+    unidades: [{ unidadeId: 4, bairro: 'Jardim São Francisco', endereco: 'Rua das Paparaubas, 13', cep: '65076-000' }],
   },
   {
     nome: 'Cabus Pet',
     cidade: 'Jaboatão dos Guararapes',
     uf: 'PE',
-    unidades: [{ unidadeId: 1, bairro: 'Piedade', endereco: 'Avenida Bernardo Vieira de Melo, 5457' }],
+    whatsapp: '5581998057798',
+    unidades: [{ unidadeId: 1, bairro: 'Piedade', endereco: 'Avenida Bernardo Vieira de Melo, 5457', cep: '54440-070' }],
   },
 ];
 

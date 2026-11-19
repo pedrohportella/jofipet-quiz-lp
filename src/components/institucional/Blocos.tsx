@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import type { ReactNode } from 'react';
-import { BOTAO_CONTORNO } from './Chrome';
-import { type Hospital, checkoutHref } from './dados';
+
+import { type Hospital, checkoutHref, rotaHref, whatsappDaClinicaHref } from './dados';
 
 /* ───────────── Tipografia e seções ───────────── */
 
@@ -171,23 +171,30 @@ export function BolaIcone({ nome, tamanho = 'h-12 w-12' }: { nome: Parameters<ty
 
 /* ───────────── Rede credenciada ───────────── */
 
+const ACAO =
+  'inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-[13px] font-extrabold uppercase tracking-[0.03em] no-underline transition active:scale-[0.99] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#004f78]';
+
+/**
+ * Cartão largo de um hospital: foto à esquerda, e cada unidade com três ações (contratar no checkout,
+ * como chegar no Google Maps e WhatsApp da clínica). Sem foto da unidade, vai um painel da marca.
+ */
 export function HospitalCard({ h }: { h: Hospital }) {
   return (
-    <article className="flex flex-col overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white">
-      <div className="relative h-52 w-full overflow-hidden bg-[#009af2]">
+    <article className="flex flex-col overflow-hidden rounded-[32px] border border-[#d7ecfa] bg-white md:flex-row">
+      <div className="relative h-56 w-full shrink-0 overflow-hidden bg-[#009af2] md:h-auto md:min-h-[280px] md:w-[38%]">
         {h.foto ? (
           <Image
             src={h.foto.src}
             alt={h.foto.alt}
             fill
-            sizes="(min-width: 1024px) 380px, 100vw"
+            sizes="(min-width: 768px) 400px, 100vw"
             style={{ objectPosition: h.foto.posicao ?? 'center' }}
             className="object-cover"
           />
         ) : (
           <>
-            <Forma nome="estrela-amarelo" className="-right-8 -top-8 h-44 w-44" />
-            <Forma nome="circulo-laranja" className="-bottom-12 left-6 h-32 w-32" />
+            <Forma nome="estrela-amarelo" className="-right-10 -top-10 h-52 w-52" />
+            <Forma nome="circulo-laranja" className="-bottom-14 left-6 h-40 w-40" />
             {/* Ainda sem foto da unidade: logo da Jofi sobre as formas da marca */}
             <Image
               src="/institucional/logo-branca.png"
@@ -195,8 +202,8 @@ export function HospitalCard({ h }: { h: Hospital }) {
               aria-hidden
               width={920}
               height={1000}
-              sizes="96px"
-              className="absolute left-1/2 top-1/2 h-24 w-auto -translate-x-1/2 -translate-y-1/2"
+              sizes="112px"
+              className="absolute left-1/2 top-1/2 h-28 w-auto -translate-x-1/2 -translate-y-1/2"
             />
           </>
         )}
@@ -206,24 +213,43 @@ export function HospitalCard({ h }: { h: Hospital }) {
           </span>
         )}
       </div>
-      <div className="flex flex-1 flex-col p-6">
-        <h3 className="font-display text-[34px] uppercase leading-[1.04] text-[#009af2]">{h.nome}</h3>
+
+      <div className="flex flex-1 flex-col p-6 md:p-8">
+        <h3 className="font-display text-[36px] uppercase leading-[1.04] text-[#009af2] md:text-[44px]">{h.nome}</h3>
         <p className="mt-1 text-[15px] font-bold text-[#004f78]">
           {h.cidade}/{h.uf}
         </p>
-        <ul className="mt-5 flex-1 space-y-3">
+        <ul className="mt-6 space-y-3">
           {h.unidades.map((u) => (
             <li key={u.unidadeId} className="rounded-2xl bg-[#eaf6fe] p-4">
-              <p className="text-[15px] font-extrabold text-[#004f78]">{u.bairro}</p>
+              <p className="text-[16px] font-extrabold text-[#004f78]">{u.bairro}</p>
               <p className="text-[14px] font-medium text-[#2f5a73]">{u.endereco}</p>
-              <a
-                href={checkoutHref(u.unidadeId)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={`${BOTAO_CONTORNO} mt-3 w-full !py-[10px] !text-[13px]`}
-              >
-                Contratar nesta unidade
-              </a>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <a
+                  href={checkoutHref(u.unidadeId)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ACAO} bg-[#ff9625] text-white hover:brightness-95`}
+                >
+                  Contratar
+                </a>
+                <a
+                  href={rotaHref(h, u)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ACAO} border-2 border-[#004f78] bg-white text-[#004f78] hover:bg-[#eaf6fe]`}
+                >
+                  Como chegar
+                </a>
+                <a
+                  href={whatsappDaClinicaHref(h)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={`${ACAO} border-2 border-[#004f78] bg-white text-[#004f78] hover:bg-[#eaf6fe]`}
+                >
+                  WhatsApp
+                </a>
+              </div>
             </li>
           ))}
         </ul>

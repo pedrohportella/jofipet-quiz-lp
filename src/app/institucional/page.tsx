@@ -8,17 +8,16 @@ import {
   Foto,
   Faq,
   Forma,
-  HospitalCard,
   Lead,
   Realce,
   Secao,
   Titulo,
 } from '@/components/institucional/Blocos';
 import { BOTAO, BOTAO_BRANCO, BOTAO_CONTORNO } from '@/components/institucional/Chrome';
+import { Rede } from '@/components/institucional/Rede';
 import {
   COBRE,
   FAQ,
-  HOSPITAIS,
   MOTIVOS,
   PASSOS,
   QUIZ_HREF,
@@ -200,10 +199,8 @@ export default function Inicio() {
             Ver todas as unidades
           </Link>
         </div>
-        <div className="mt-12 grid gap-5 lg:grid-cols-3">
-          {HOSPITAIS.map((h) => (
-            <HospitalCard key={h.nome} h={h} />
-          ))}
+        <div className="mt-12">
+          <Rede />
         </div>
       </Secao>
 
