@@ -89,7 +89,7 @@ O design system oficial é de **peça de marca** (fundo chapado, título gigante
 | Densidade | Texto de 12 a 14px, linhas de tabela compactas, largura máxima de 1120px. Texto de apoio nunca abaixo de 11px. |
 | Celular | Inbox mostra a lista **ou** a conversa (botão "Conversas" para voltar). Kanban rola por coluna, dentro do próprio contêiner, sem vazar a página. |
 
-**Uso de `plano-*` fora de tela de assinatura:** o README do DS oficial restringe essas cores a telas de assinatura. O `/admin` as usa como escala das etapas do funil; a restrição precisa ser ajustada no oficial (artifact e cópia, no mesmo passo), com o aval do Pedro.
+**Oficializado em 23/11/2026** (aval do Pedro; design system oficial na versão 21 do artifact e na cópia `01_Marca/design-system/`): a seção "Tela de operação" entrou no README oficial e o uso de `plano-*` como escala de categorias em ferramenta de operação (as etapas do funil do `/admin`), com o nome ao lado, passou a valer. Nenhum token novo.
 
 **Teste visual:** o harness que tira os prints com dados fictícios (sem Supabase, KV nem lead real) está em `Clientes/01_Ativos/Jofi Pet/03_Planejamento/ferramentas/2026-11-23_crm-prints-harness.mjs`.
 
