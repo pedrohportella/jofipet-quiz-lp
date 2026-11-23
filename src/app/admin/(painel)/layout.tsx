@@ -1,58 +1,38 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { AdminNav } from '@/components/admin/AdminNav';
 
+/**
+ * Casca do painel no design system da Jofi (fase 1 do CRM):
+ * faixa azul com a logo branca, barra branca com o menu e página em fundo-suave.
+ * Sem sombra: o contorno borda-suave separa as camadas.
+ */
 export default function AdminPainelLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <header className="bg-white shadow-jofi-1">
-        <div className="mx-auto flex max-w-wide items-center justify-between px-6 py-4">
-          <Link href="/admin" className="flex items-center gap-2">
-            <Image
-              src="/brand/jofi/variant-7.svg"
-              alt="Jofi"
-              width={90}
-              height={36}
-              className="h-8 w-auto"
-            />
-            <span className="text-sm font-semibold text-neutral-500">/ Admin</span>
-          </Link>
-          <nav className="flex items-center gap-5 text-sm font-semibold">
-            <Link href="/admin" className="text-neutral-700 hover:text-primary">
-              Dashboard
+      <header>
+        <div className="bg-primary">
+          <div className="mx-auto flex max-w-wide items-center gap-3 px-4 py-3 md:px-6">
+            <Link href="/admin" className="flex items-center gap-3" aria-label="Jofi, painel admin">
+              <Image
+                src="/institucional/logo-branca.png"
+                alt="Jofi"
+                width={46}
+                height={50}
+                className="h-12 w-auto"
+                priority
+              />
             </Link>
-            <Link href="/admin/leads" className="text-neutral-700 hover:text-primary">
-              Leads
-            </Link>
-            <Link
-              href="/admin/crm/inbox"
-              className="text-neutral-700 hover:text-primary"
-            >
-              💬 Inbox
-            </Link>
-            <Link
-              href="/admin/crm/kanban"
-              className="text-neutral-700 hover:text-primary"
-            >
-              🗂 Kanban
-            </Link>
-            <Link
-              href="/admin/analytics/quiz"
-              className="text-neutral-700 hover:text-primary"
-            >
-              📊 Análise Quiz
-            </Link>
-            <Link href="/" className="text-neutral-500 hover:text-neutral-900">
-              Ver site →
-            </Link>
-            <form action="/api/admin-auth/logout" method="post">
-              <button type="submit" className="text-neutral-500 hover:text-neutral-900">
-                Sair
-              </button>
-            </form>
-          </nav>
+            <span className="rounded-pill bg-white px-3 py-1 text-xs font-bold uppercase tracking-wider text-neutral-900">
+              Admin
+            </span>
+          </div>
+        </div>
+        <div className="border-b border-neutral-300 bg-white">
+          <AdminNav />
         </div>
       </header>
-      <main className="mx-auto max-w-wide px-6 py-8">{children}</main>
+      <main className="mx-auto max-w-wide px-4 py-6 md:px-6 md:py-8">{children}</main>
     </>
   );
 }

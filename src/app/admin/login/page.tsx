@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { AlertCircle } from 'lucide-react';
 import { safeNextPath } from '@/lib/admin/session';
 
 export const metadata = {
@@ -12,7 +13,7 @@ const ERROR_MESSAGE: Record<string, string> = {
 };
 
 const inputClass =
-  'w-full rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30';
+  'min-h-[48px] w-full rounded-pill border border-neutral-300 bg-white px-4 text-base text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30';
 
 /**
  * Tela de login do painel. O formulário posta direto em
@@ -30,18 +31,18 @@ export default function AdminLoginPage({
 
   return (
     <main className="flex min-h-screen items-center justify-center px-4 py-12">
-      <div className="w-full max-w-sm rounded-xl bg-white p-8 shadow-jofi-1">
+      <div className="w-full max-w-sm rounded-3xl border border-neutral-300 bg-white p-8">
         <div className="mb-6 flex flex-col items-center gap-3 text-center">
           <Image
-            src="/brand/jofi/variant-7.svg"
+            src="/institucional/logo-colorida.png"
             alt="Jofi"
-            width={90}
-            height={36}
-            className="h-9 w-auto"
+            width={74}
+            height={80}
+            className="h-20 w-auto"
             priority
           />
           <div>
-            <h1 className="text-lg font-bold text-neutral-900">Painel do quiz</h1>
+            <h1 className="text-xl font-extrabold text-neutral-900">Painel do quiz</h1>
             <p className="text-sm text-neutral-500">Entre pra ver leads e conversas.</p>
           </div>
         </div>
@@ -49,9 +50,10 @@ export default function AdminLoginPage({
         {error && (
           <p
             role="alert"
-            className="mb-4 rounded-md bg-red-50 px-3 py-2 text-sm font-medium text-red-700"
+            className="mb-4 flex items-start gap-2 rounded-lg bg-primary-50 px-3 py-2 text-sm font-semibold text-neutral-900"
           >
-            {error}
+            <AlertCircle size={18} strokeWidth={2} aria-hidden="true" className="mt-0.5 shrink-0" />
+            <span>{error}</span>
           </p>
         )}
 
@@ -80,7 +82,7 @@ export default function AdminLoginPage({
           </label>
           <button
             type="submit"
-            className="mt-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90"
+            className="mt-2 min-h-[52px] rounded-pill bg-accent px-6 text-base font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-accent-300 focus:outline-none focus:ring-2 focus:ring-accent/40"
           >
             Entrar
           </button>
