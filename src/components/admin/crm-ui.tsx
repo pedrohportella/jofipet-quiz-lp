@@ -13,6 +13,14 @@ const TIER: Record<Tier, { label: string; Icon: typeof Flame; chip: string; icon
   frio: { label: 'Frio', Icon: Snowflake, chip: 'bg-primary-50 ring-1 ring-primary-100', icon: 'text-primary-600' },
 };
 
+/**
+ * Texto do quiz (pergunta e opção) para exibir no painel: os rótulos do `quiz.json` trazem
+ * emoji, e o painel segue o DS (sem emoji). Só na exibição: o dado, o CSV e o RD não mudam.
+ */
+export function semEmoji(text: string): string {
+  return text.replace(/[\p{Extended_Pictographic}️‍]+\s*/gu, '').trim();
+}
+
 /** Pílula de tier: ícone de linha + texto em azul-tinta. */
 export function TierChip({ tier, compact = false }: { tier: Tier; compact?: boolean }) {
   const t = TIER[tier];

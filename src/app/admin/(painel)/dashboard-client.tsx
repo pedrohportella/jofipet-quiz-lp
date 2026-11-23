@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useMemo, useState } from 'react';
+import { Puzzle, ShoppingCart } from 'lucide-react';
 import { TierDonut, FunnelBars } from '@/components/admin/Charts';
+import { Notice } from '@/components/admin/crm-ui';
 
 interface VariantStats {
   totals: Record<string, number>;
@@ -33,8 +35,8 @@ const RANGE_LABEL: Record<Range, string> = {
 
 const VARIANT_LABEL: Record<VariantFilter, string> = {
   all: 'Ambos',
-  quiz: '🧩 Quiz',
-  oferta_lp: '🛒 Oferta LP',
+  quiz: 'Quiz',
+  oferta_lp: 'Oferta LP',
 };
 
 function pct(value: number): string {
@@ -51,7 +53,7 @@ function KpiCard({
   sub?: string;
 }) {
   return (
-    <div className="flex flex-col gap-1 rounded-xl bg-white p-5 shadow-jofi-1">
+    <div className="flex flex-col gap-1 rounded-xl bg-white p-5 border border-neutral-300">
       <p className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
         {label}
       </p>
@@ -77,7 +79,7 @@ function ToggleGroup<T extends string>({
       <span className="text-xs font-semibold uppercase tracking-wider text-neutral-500">
         {label}
       </span>
-      <div className="inline-flex rounded-lg bg-white p-1 shadow-jofi-1" role="tablist">
+      <div className="inline-flex gap-1 rounded-pill bg-white p-1 border border-neutral-300" role="tablist">
         {options.map((opt) => {
           const active = opt.value === value;
           return (
@@ -89,8 +91,8 @@ function ToggleGroup<T extends string>({
               onClick={() => onChange(opt.value)}
               className={
                 active
-                  ? 'rounded-md bg-primary px-3 py-1.5 text-sm font-semibold text-white shadow-sm transition-colors'
-                  : 'rounded-md px-3 py-1.5 text-sm font-medium text-neutral-600 transition-colors hover:text-neutral-900'
+                  ? 'min-h-[36px] rounded-pill bg-neutral-900 px-4 text-sm font-bold text-white transition-colors'
+                  : 'min-h-[36px] rounded-pill px-4 text-sm font-semibold text-neutral-700 transition-colors hover:bg-primary-50 hover:text-neutral-900'
               }
             >
               {opt.label}
@@ -149,9 +151,9 @@ export function DashboardClient() {
     return stats.byVariant[variant];
   }, [stats, variant]);
 
-  if (loading && !stats) return <p className="text-neutral-500">Carregando…</p>;
+  if (loading && !stats) return <p className="text-neutral-700">Carregando…</p>;
   if (error || !stats || !view)
-    return <p className="text-error">Erro ao carregar: {error}</p>;
+    return <Notice tone="warn">Erro ao carregar: {error}</Notice>;
 
   const totalLeads = view.byTier.quente + view.byTier.morno + view.byTier.frio;
   const utmEntries = Object.entries(view.byUtmSource).sort((a, b) => b[1] - a[1]);
@@ -167,7 +169,7 @@ export function DashboardClient() {
             {lastUpdated && (
               <>
                 {' '}·{' '}
-                <span className="text-neutral-400">
+                <span className="text-neutral-500">
                   atualizado {new Date(lastUpdated).toLocaleTimeString('pt-BR')}
                 </span>
               </>
@@ -226,28 +228,30 @@ export function DashboardClient() {
           </h2>
           <div className="grid grid-cols-1 gap-3 md:grid-cols-2">
             <VariantCard
-              title="🧩 Quiz"
+              title="Quiz"
+              Icon={Puzzle}
               variant={stats.byVariant.quiz}
-              accentClass="border-l-4 border-primary"
+              accentClass="border-l-4 border-l-primary"
             />
             <VariantCard
-              title="🛒 Oferta LP"
+              title="Oferta LP"
+              Icon={ShoppingCart}
               variant={stats.byVariant.oferta_lp}
-              accentClass="border-l-4 border-accent"
+              accentClass="border-l-4 border-l-accent"
             />
           </div>
         </section>
       )}
 
       <section className="grid grid-cols-1 gap-4 lg:grid-cols-2">
-        <div className="rounded-xl bg-white p-5 shadow-jofi-1">
+        <div className="rounded-xl bg-white p-5 border border-neutral-300">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500">
             Distribuição por tier
           </h2>
           <TierDonut data={view.byTier} />
         </div>
 
-        <div className="rounded-xl bg-white p-5 shadow-jofi-1">
+        <div className="rounded-xl bg-white p-5 border border-neutral-300">
           <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-neutral-500">
             Funil de conversão
           </h2>
@@ -283,7 +287,7 @@ export function DashboardClient() {
         {utmEntries.length === 0 ? (
           <p className="text-sm text-neutral-500">Sem leads nesse período.</p>
         ) : (
-          <div className="overflow-hidden rounded-xl bg-white shadow-jofi-1">
+          <div className="overflow-hidden rounded-xl bg-white border border-neutral-300">
             <table className="w-full text-left text-sm">
               <thead className="bg-neutral-100 text-xs uppercase tracking-wider text-neutral-500">
                 <tr>
@@ -317,19 +321,24 @@ export function DashboardClient() {
  */
 function VariantCard({
   title,
+  Icon,
   variant,
   accentClass,
 }: {
   title: string;
+  Icon: typeof Puzzle;
   variant: VariantStats;
   accentClass: string;
 }) {
   const totalLeads =
     variant.byTier.quente + variant.byTier.morno + variant.byTier.frio;
   return (
-    <div className={`rounded-xl bg-white p-5 shadow-jofi-1 ${accentClass}`}>
+    <div className={`rounded-xl bg-white p-5 border border-neutral-300 ${accentClass}`}>
       <div className="mb-3 flex items-center justify-between">
-        <h3 className="text-base font-bold text-neutral-900">{title}</h3>
+        <h3 className="flex items-center gap-2 text-base font-extrabold text-neutral-900">
+          <Icon size={18} strokeWidth={2.25} aria-hidden="true" />
+          {title}
+        </h3>
         <span className="text-xs text-neutral-500">{totalLeads} leads</span>
       </div>
       <dl className="grid grid-cols-2 gap-3 text-sm">

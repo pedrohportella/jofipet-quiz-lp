@@ -4,26 +4,22 @@
  * Charts inline SVG — zero deps, pequeno (<3KB gzip).
  *
  * Por que SVG inline em vez de Recharts/Chart.js?
- *   - Bundle: dashboard ja é niche/admin, qualquer lib seria 30-100KB pra
+ *   - Bundle: dashboard já é niche/admin, qualquer lib seria 30-100KB pra
  *     mostrar 3 gráficos triviais.
  *   - Renderiza SSR (Recharts requer client-only) — mais rápido pra first paint.
  *   - Acessível: <title> e <desc> nativos do SVG funcionam com screen readers.
  *
- * Limitações aceitas:
- *   - Sem tooltips interativos (basta hover-title pra MVP)
- *   - Sem animações fancy (dashboard admin não precisa)
+ * Cores (design system da Jofi, fase 3 do CRM): só tokens, por classe do Tailwind.
+ * Tier: quente = laranja, morno = azul, frio = azul claro (a mesma regra dos chips do
+ * Inbox e do Kanban). Cada série leva o nome ao lado, então o gráfico não depende só da cor.
  */
 
-const TIER_COLOR: Record<string, string> = {
-  quente: '#ff9625', // accent
-  morno: '#F5C24A', // amarelo Jofi
-  frio: '#009af2', // primary
-};
+import { TierChip } from '@/components/admin/crm-ui';
 
-const TIER_EMOJI: Record<string, string> = {
-  quente: '🔥',
-  morno: '🌻',
-  frio: '💙',
+const TIER_STROKE: Record<'quente' | 'morno' | 'frio', string> = {
+  quente: 'stroke-accent',
+  morno: 'stroke-primary',
+  frio: 'stroke-primary-300',
 };
 
 /**
@@ -50,7 +46,7 @@ export function TierDonut({
   if (total === 0) {
     return (
       <div
-        className="flex items-center justify-center rounded-full bg-neutral-100 text-xs text-neutral-500"
+        className="flex items-center justify-center rounded-full bg-primary-50 text-xs text-neutral-700"
         style={{ width: size, height: size }}
       >
         Sem dados
@@ -75,7 +71,7 @@ export function TierDonut({
   });
 
   return (
-    <div className="flex items-center gap-5">
+    <div className="flex flex-wrap items-center gap-5">
       <svg
         width={size}
         height={size}
@@ -84,13 +80,13 @@ export function TierDonut({
         aria-label={`Distribuição por tier: ${data.quente} quentes, ${data.morno} mornos, ${data.frio} frios`}
       >
         <title>Distribuição de leads por tier</title>
-        {/* track background */}
+        {/* track background (borda-suave) */}
         <circle
           cx={cx}
           cy={cy}
           r={r}
           fill="none"
-          stroke="#F0F0F0"
+          className="stroke-primary-100"
           strokeWidth={strokeWidth}
         />
         {arcs.map((arc) => (
@@ -100,7 +96,7 @@ export function TierDonut({
             cy={cy}
             r={r}
             fill="none"
-            stroke={TIER_COLOR[arc.key]}
+            className={TIER_STROKE[arc.key]}
             strokeWidth={strokeWidth}
             strokeDasharray={`${arc.arcLength} ${circumference - arc.arcLength}`}
             strokeDashoffset={arc.offset}
@@ -122,25 +118,21 @@ export function TierDonut({
           x={cx}
           y={cy + 16}
           textAnchor="middle"
-          className="fill-neutral-500"
-          style={{ fontSize: 11, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.05em' }}
+          className="fill-neutral-700"
+          style={{ fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.05em' }}
         >
           leads
         </text>
       </svg>
-      <div className="flex flex-col gap-1.5">
+      <div className="flex flex-col gap-2">
         {arcs.map((arc) => (
           <div key={arc.key} className="flex items-center gap-2 text-sm">
-            <span
-              className="block h-3 w-3 rounded-sm"
-              style={{ background: TIER_COLOR[arc.key] }}
-              aria-hidden="true"
-            />
-            <span className="font-medium capitalize text-neutral-900">
-              {TIER_EMOJI[arc.key]} {arc.key}
+            <span className="w-[84px]">
+              <TierChip tier={arc.key} />
             </span>
-            <span className="tabular-nums text-neutral-500">
-              {arc.value} ({((arc.value / total) * 100).toFixed(0)}%)
+            <span className="font-bold tabular-nums text-neutral-900">{arc.value}</span>
+            <span className="tabular-nums text-neutral-700">
+              ({((arc.value / total) * 100).toFixed(0)}%)
             </span>
           </div>
         ))}
@@ -163,25 +155,25 @@ export function FunnelBars({
 }) {
   const max = Math.max(...steps.map((s) => s.value), 1);
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-3">
       {steps.map((step) => {
         const widthPct = (step.value / max) * 100;
         return (
-          <div key={step.label} className="flex flex-col gap-0.5">
+          <div key={step.label} className="flex flex-col gap-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="font-semibold text-neutral-700">{step.label}</span>
-              <span className="tabular-nums text-neutral-500">
+              <span className="font-bold text-neutral-900">{step.label}</span>
+              <span className="tabular-nums text-neutral-700">
                 {step.value}
                 {step.pctOfPrevious !== undefined && step.pctOfPrevious > 0 && (
-                  <span className="ml-2 text-neutral-400">
+                  <span className="ml-2 text-neutral-700">
                     ({(step.pctOfPrevious * 100).toFixed(1)}%)
                   </span>
                 )}
               </span>
             </div>
-            <div className="h-7 w-full overflow-hidden rounded-md bg-neutral-100">
+            <div className="h-7 w-full overflow-hidden rounded-pill bg-primary-50">
               <div
-                className="h-full rounded-md bg-gradient-to-r from-primary to-primary/80 transition-all"
+                className="h-full rounded-pill bg-primary transition-all"
                 style={{ width: `${Math.max(widthPct, 3)}%` }}
                 aria-label={`${step.label}: ${step.value}`}
               />
@@ -195,18 +187,18 @@ export function FunnelBars({
 
 /**
  * Sparkline — linha SVG simples mostrando trend numa série.
- * Aceita até ~30 pontos, viewBox auto-escala.
+ * Aceita até ~30 pontos, viewBox auto-escala. Cor por classe (`stroke-primary` por padrão).
  */
 export function Sparkline({
   values,
   width = 80,
   height = 24,
-  color = '#009af2',
+  className = 'stroke-primary',
 }: {
   values: number[];
   width?: number;
   height?: number;
-  color?: string;
+  className?: string;
 }) {
   if (values.length === 0) return null;
   const max = Math.max(...values, 1);
@@ -232,7 +224,7 @@ export function Sparkline({
     >
       <polyline
         fill="none"
-        stroke={color}
+        className={className}
         strokeWidth={1.5}
         strokeLinecap="round"
         strokeLinejoin="round"

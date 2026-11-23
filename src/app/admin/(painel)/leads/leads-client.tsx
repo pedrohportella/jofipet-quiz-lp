@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { useEffect, useMemo, useState } from 'react';
+import { AlertTriangle, Check, Clock, Download, Puzzle, ShoppingCart } from 'lucide-react';
+import { TierChip } from '@/components/admin/crm-ui';
 import type { StoredLead } from '@/lib/leads/store';
 import type { Tier } from '@/lib/quiz/types';
 
@@ -17,23 +19,21 @@ type Range = 'today' | '7d' | '30d' | 'all';
 type VariantFilter = '' | 'quiz' | 'oferta_lp';
 type RdStatusFilter = '' | StoredLead['rdStatus'];
 
-const TIER_LABEL: Record<Tier, string> = {
-  quente: '🔥 Quente',
-  morno: '🌻 Morno',
-  frio: '💙 Frio',
+const VARIANT_LABEL: Record<'quiz' | 'oferta_lp', { label: string; Icon: typeof Puzzle }> = {
+  quiz: { label: 'Quiz', Icon: Puzzle },
+  oferta_lp: { label: 'Oferta', Icon: ShoppingCart },
 };
 
-const VARIANT_LABEL: Record<'quiz' | 'oferta_lp', string> = {
-  quiz: '🧩 Quiz',
-  oferta_lp: '🛒 Oferta',
-};
-
-const STATUS_BADGE: Record<StoredLead['rdStatus'], string> = {
-  sent: 'bg-success-300 text-success-700',
-  queued: 'bg-accent-100 text-accent-700',
-  rejected: 'bg-neutral-300 text-neutral-700',
-  unreachable: 'bg-accent-100 text-accent-700',
-  token_missing: 'bg-neutral-300 text-neutral-700',
+/** Status do envio ao RD: ícone + nome técnico; sem verde nem vermelho (só tokens do DS). */
+const STATUS_BADGE: Record<
+  StoredLead['rdStatus'],
+  { cls: string; Icon: typeof Check }
+> = {
+  sent: { cls: 'bg-primary-100', Icon: Check },
+  queued: { cls: 'bg-primary-50 ring-1 ring-primary-100', Icon: Clock },
+  rejected: { cls: 'bg-accent-100', Icon: AlertTriangle },
+  unreachable: { cls: 'bg-accent-100', Icon: AlertTriangle },
+  token_missing: { cls: 'bg-accent-100', Icon: AlertTriangle },
 };
 
 function formatDate(ts: number): string {
@@ -134,10 +134,11 @@ export function LeadsClient() {
         </div>
         <a
           href={exportUrl}
-          className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-primary/90"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-pill border-2 border-neutral-900 bg-white px-5 text-sm font-extrabold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-primary-50"
           download
         >
-          ⬇ Exportar CSV
+          <Download size={16} strokeWidth={2.25} aria-hidden="true" />
+          Exportar CSV
         </a>
       </header>
 
@@ -162,7 +163,7 @@ export function LeadsClient() {
         }}
       />
 
-      <div className="overflow-hidden rounded-xl bg-white shadow-jofi-1">
+      <div className="overflow-hidden rounded-xl bg-white border border-neutral-300">
         <div className="overflow-x-auto">
           <table className="w-full text-left text-sm">
             <thead className="bg-neutral-100 text-xs uppercase tracking-wider text-neutral-500">
@@ -196,7 +197,7 @@ export function LeadsClient() {
                 data?.items.map((lead) => (
                   <tr
                     key={lead.leadId}
-                    className="border-t border-neutral-300 transition-colors hover:bg-neutral-100"
+                    className="border-t border-neutral-300 transition-colors hover:bg-primary-50"
                   >
                     <td className="px-4 py-3 text-xs text-neutral-500 tabular-nums">
                       {formatDate(lead.capturedAt)}
@@ -212,20 +213,38 @@ export function LeadsClient() {
                     <td className="px-4 py-3 tabular-nums text-neutral-700">
                       {lead.payload.whatsapp}
                     </td>
-                    <td className="px-4 py-3 text-xs text-neutral-600">
-                      {VARIANT_LABEL[lead.variant ?? 'quiz']}
+                    <td className="px-4 py-3 text-xs text-neutral-700">
+                      <span className="inline-flex items-center gap-1.5">
+                        {(() => {
+                          const v = VARIANT_LABEL[lead.variant ?? 'quiz'];
+                          return (
+                            <>
+                              <v.Icon size={14} strokeWidth={2} aria-hidden="true" />
+                              {v.label}
+                            </>
+                          );
+                        })()}
+                      </span>
                     </td>
-                    <td className="px-4 py-3">{TIER_LABEL[lead.tier]}</td>
+                    <td className="px-4 py-3">
+                      <TierChip tier={lead.tier} />
+                    </td>
                     <td className="px-4 py-3 text-right tabular-nums">{lead.score}</td>
                     <td className="px-4 py-3 text-xs text-neutral-500">
                       {lead.payload.utms?.utm_source ?? '(direto)'}
                     </td>
                     <td className="px-4 py-3">
-                      <span
-                        className={`rounded-full px-2 py-0.5 text-xs font-semibold ${STATUS_BADGE[lead.rdStatus]}`}
-                      >
-                        {lead.rdStatus}
-                      </span>
+                      {(() => {
+                        const b = STATUS_BADGE[lead.rdStatus];
+                        return (
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-pill px-2 py-0.5 text-xs font-bold text-neutral-900 ${b.cls}`}
+                          >
+                            <b.Icon size={12} strokeWidth={2.25} aria-hidden="true" />
+                            {lead.rdStatus}
+                          </span>
+                        );
+                      })()}
                     </td>
                   </tr>
                 ))}
@@ -243,17 +262,17 @@ export function LeadsClient() {
                 type="button"
                 onClick={() => setPage((p) => Math.max(1, p - 1))}
                 disabled={page === 1 || loading}
-                className="rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+                className="min-h-[40px] rounded-pill border border-neutral-300 bg-white px-4 text-sm font-bold text-neutral-900 transition-colors hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                ← Anterior
+                Anterior
               </button>
               <button
                 type="button"
                 onClick={() => setPage((p) => p + 1)}
                 disabled={!data.hasMore || loading}
-                className="rounded-md border border-neutral-300 bg-white px-3 py-1.5 text-sm font-medium text-neutral-700 transition-colors hover:bg-neutral-200 disabled:cursor-not-allowed disabled:opacity-50"
+                className="min-h-[40px] rounded-pill border border-neutral-300 bg-white px-4 text-sm font-bold text-neutral-900 transition-colors hover:bg-primary-50 disabled:cursor-not-allowed disabled:opacity-50"
               >
-                Próxima →
+                Próxima
               </button>
             </div>
           </div>
@@ -278,9 +297,9 @@ function FilterBar(props: {
   onClear: () => void;
 }) {
   const selectClass =
-    'rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30';
+    'min-h-[44px] rounded-pill border border-neutral-300 bg-white px-4 text-sm font-semibold text-neutral-900 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30';
   return (
-    <div className="flex flex-col gap-3 rounded-xl bg-white p-4 shadow-jofi-1">
+    <div className="flex flex-col gap-3 rounded-xl bg-white p-4 border border-neutral-300">
       <div className="flex flex-wrap items-end gap-3">
         <div className="flex flex-1 min-w-[200px] flex-col gap-1">
           <label
@@ -295,7 +314,7 @@ function FilterBar(props: {
             value={props.search}
             onChange={(e) => props.setSearch(e.target.value)}
             placeholder="Nome, WhatsApp ou email…"
-            className="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+            className="min-h-[44px] rounded-pill border border-neutral-300 bg-white px-4 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
           />
         </div>
 
@@ -333,8 +352,8 @@ function FilterBar(props: {
             className={selectClass}
           >
             <option value="">Todas</option>
-            <option value="quiz">🧩 Quiz</option>
-            <option value="oferta_lp">🛒 Oferta LP</option>
+            <option value="quiz">Quiz</option>
+            <option value="oferta_lp">Oferta LP</option>
           </select>
         </div>
 
@@ -352,9 +371,9 @@ function FilterBar(props: {
             className={selectClass}
           >
             <option value="">Todos</option>
-            <option value="quente">🔥 Quente</option>
-            <option value="morno">🌻 Morno</option>
-            <option value="frio">💙 Frio</option>
+            <option value="quente">Quente</option>
+            <option value="morno">Morno</option>
+            <option value="frio">Frio</option>
           </select>
         </div>
 
@@ -384,7 +403,7 @@ function FilterBar(props: {
           <button
             type="button"
             onClick={props.onClear}
-            className="rounded-md border border-neutral-300 bg-white px-3 py-2 text-sm font-medium text-neutral-600 transition-colors hover:bg-neutral-100"
+            className="min-h-[44px] rounded-pill border border-neutral-300 bg-white px-4 text-sm font-bold text-neutral-900 transition-colors hover:bg-primary-50"
           >
             Limpar filtros
           </button>
