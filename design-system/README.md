@@ -64,11 +64,34 @@ Os degraus **derivados** não existem no design system oficial: são apoio calcu
 | 4 | `/oferta` com ritmo de cores e cartões de plano na cor da assinatura |
 | 5 | Limpeza: aliases antigos, triplas RGB, variáveis de tier e classes sem uso saíram de `globals.css`; movimento atualizado; logo do rodapé da `/oferta` corrigida (estava esticada) |
 
-**Cor de plano** (Sereninho, Sereno, Parceiro e Melhor Amigo) e os pets vêm das artes de outubro e **ainda não estão no design system oficial**: entram no artifact e na cópia `01_Marca/design-system/` no mesmo passo, com o aval do Pedro.
+**Cor de plano** (Sereninho, Sereno, Parceiro e Melhor Amigo) vem das artes de outubro e **entrou no design system oficial em 18/11/2026** (tokens `plano-*`, artifact versão 19). Aqui estão em `tokens.json` (`color.primitive.plano`), em `tailwind.config.ts` (`plano.*`) e em `src/lib/plans/identidade.ts` (com o pet de cada assinatura, que não está nos assets do DS oficial).
 
 **Decisões do Pedro ainda abertas:** cor do botão de WhatsApp (verde de plataforma ou laranja da marca) e se o Ricardo aprova o visual novo.
 
 **Arquivos de `public/` sem uso no código** foram mantidos de propósito: podem estar linkados em anúncio, e-mail ou material externo.
+
+## Tela de operação: o `/admin` (CRM) no design system (23/11/2026)
+
+O design system oficial é de **peça de marca** (fundo chapado, título gigante). O `/admin` é ferramenta de operação, densa e de leitura rápida, então adapta o sistema **sem inventar cor**. Cada adaptação abaixo é registrada aqui e vira seção do design system oficial só com o aval do Pedro. Proposta e fases: `Clientes/01_Ativos/Jofi Pet/03_Planejamento/2026-11-23_proposta-design-system-crm.md`.
+
+| Tema | Regra |
+|---|---|
+| Página | Fundo `fundo-suave` (`neutral-100`); cartões, tabelas e colunas em `branco` com contorno `borda-suave` (`neutral-300`). **Sem sombra** e **sem fundo azul ou laranja de página inteira**: o ritmo colorido é de peça. |
+| Casca | Faixa `azul` com a logo branca e a pílula "Admin" (branca, texto azul-tinta); barra branca abaixo com o menu. O menu quebra linha em vez de rolar de lado no celular. |
+| Texto | `azul-tinta` em título e dado, `tinta-media` (`neutral-700`) em apoio, `neutral-500` só em rótulo de 12px sobre branco. Nunca `azul` como texto pequeno, nunca branco pequeno sobre azul ou laranja. |
+| Botão principal | Pílula `laranja`, texto branco bold em caixa alta (a regra de CTA do DS, 2,2:1). Secundário: pílula branca com contorno `azul-tinta`. Item ativo de menu e de filtro: pílula `azul-tinta` com texto branco (8,8:1). |
+| Campos | Pílula com contorno `borda-suave`; foco em azul. Altura mínima de 44px (36px em filtro). |
+| Ícones | Lucide, traço arredondado, 12 a 18px, sempre com o nome ao lado ou `aria-label`. **Sem emoji** no código do painel. Os rótulos do `quiz.json` trazem emoji: o painel os tira só na exibição (`semEmoji` em `components/admin/crm-ui.tsx`); CSV, RD e dado não mudam. |
+| Tier do lead | Pílula com ícone e nome em `azul-tinta`: quente `realce-suave` e `accent-600`, morno `azul-borda` e `primary-600`, frio `fundo-suave` com anel `borda-suave`. Nos gráficos: quente `laranja`, morno `azul`, frio `azul claro`. |
+| Etapa do funil | Bolinha com o nome ao lado. As cores do banco (`crm_pipeline_stages.color`) **não são lidas**: o front mapeia por nome (e por posição, se o nome for outro) para `azul`, `plano-sereno`, `plano-sereninho`, `plano-parceiro`. Ganho e Perdido levam ícone (`azul-tinta` e `tinta-media`). |
+| Estado e erro | **Sem vermelho e sem verde.** Aviso em caixa `fundo-suave` (informação) ou `realce-suave` (atenção) com ícone e texto. Status do RD: `sent` azul, `queued` azul claro, `rejected`, `unreachable` e `token_missing` em `realce-suave` com triângulo. |
+| Conversa | Mensagem enviada em `azul-tinta` com texto branco; recebida em branco com contorno; falha em `realce-suave` com contorno `accent-600` e a palavra "Falhou". |
+| Densidade | Texto de 12 a 14px, linhas de tabela compactas, largura máxima de 1120px. Texto de apoio nunca abaixo de 11px. |
+| Celular | Inbox mostra a lista **ou** a conversa (botão "Conversas" para voltar). Kanban rola por coluna, dentro do próprio contêiner, sem vazar a página. |
+
+**Uso de `plano-*` fora de tela de assinatura:** o README do DS oficial restringe essas cores a telas de assinatura. O `/admin` as usa como escala das etapas do funil; a restrição precisa ser ajustada no oficial (artifact e cópia, no mesmo passo), com o aval do Pedro.
+
+**Teste visual:** o harness que tira os prints com dados fictícios (sem Supabase, KV nem lead real) está em `Clientes/01_Ativos/Jofi Pet/03_Planejamento/ferramentas/2026-11-23_crm-prints-harness.mjs`.
 
 ## Documentos de movimento
 

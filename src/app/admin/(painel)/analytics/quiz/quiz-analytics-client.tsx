@@ -612,7 +612,7 @@ function DistributionMini({
   }
 
   return (
-    <div className="mt-2 flex flex-col gap-1 text-[10px] font-normal normal-case text-neutral-600">
+    <div className="mt-2 flex flex-col gap-1 text-[11px] font-normal normal-case text-neutral-700">
       {entries.slice(0, 6).map(([key, count]) => {
         // Resolve label da opção
         const opt = question.options?.find((o) => o.id === key);
