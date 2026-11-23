@@ -1,6 +1,37 @@
-import { kv } from '@vercel/kv';
+import { createClient, type VercelKV } from '@vercel/kv';
 import type { LeadPayload } from '@/lib/validation/schemas';
 import type { Tier } from '@/lib/quiz/types';
+
+/**
+ * Cliente do KV sem cache de fetch.
+ *
+ * Por que não o `kv` padrão do @vercel/kv (23/11/2026): o Next 14 guarda no Data Cache
+ * toda resposta de `fetch` POST feita dentro de um handler GET, e o Upstash fala com o
+ * Redis por fetch POST. Resultado: um comando de leitura idêntico (ex.: ZRANGE leads:by-date
+ * com count 50, o padrão do painel) ficava congelado para sempre e o /admin/leads mostrava
+ * só os leads até 11/11, mesmo com os leads novos gravados no Redis. `cache: 'no-store'`
+ * desliga esse cache só para o Redis.
+ */
+let kvClient: VercelKV | null = null;
+function getKv(): VercelKV {
+  if (!kvClient) {
+    kvClient = createClient({
+      url: process.env.KV_REST_API_URL ?? '',
+      token: process.env.KV_REST_API_TOKEN ?? '',
+      cache: 'no-store',
+    });
+  }
+  return kvClient;
+}
+
+// Mesmo uso de antes (`kv.zrange(...)`), mas criando o cliente só na primeira chamada.
+const kv = new Proxy({} as VercelKV, {
+  get(_target, prop) {
+    const client = getKv();
+    const value = (client as unknown as Record<string | symbol, unknown>)[prop];
+    return typeof value === 'function' ? value.bind(client) : value;
+  },
+});
 
 /**
  * Lead persistence layer.
