@@ -1,6 +1,21 @@
 'use client';
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  AlertTriangle,
+  Bot,
+  Check,
+  CheckCheck,
+  ChevronLeft,
+  Clock,
+  Film,
+  Image as ImageIcon,
+  Mic,
+  Paperclip,
+  Search,
+  Sparkles,
+} from 'lucide-react';
+import { Notice, TierChip } from '@/components/admin/crm-ui';
 import type { Tier } from '@/lib/quiz/types';
 
 // =============================================================================
@@ -63,12 +78,6 @@ interface TemplateRow {
   status: string;
   components: unknown;
 }
-
-const TIER_LABEL: Record<Tier, { label: string; cls: string }> = {
-  quente: { label: '🔥 Quente', cls: 'bg-red-100 text-red-700' },
-  morno: { label: '🌻 Morno', cls: 'bg-amber-100 text-amber-700' },
-  frio: { label: '💙 Frio', cls: 'bg-blue-100 text-blue-700' },
-};
 
 // =============================================================================
 // Helpers
@@ -155,6 +164,12 @@ export function InboxClient() {
     fetchStages();
   }, [fetchStages]);
 
+  // "Abrir" do Kanban chega com ?c=<id da conversa>
+  useEffect(() => {
+    const c = new URLSearchParams(window.location.search).get('c');
+    if (c) setSelectedId(c);
+  }, []);
+
   // Polling 4s na lista
   useEffect(() => {
     fetchConversations();
@@ -164,24 +179,38 @@ export function InboxClient() {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-[340px_1fr]">
-      <aside className="rounded-xl bg-white shadow-jofi-1">
-        <div className="flex flex-col gap-3 border-b border-neutral-200 p-3">
-          <input
-            type="search"
-            placeholder="Buscar nome, telefone, email"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-primary focus:outline-none"
-          />
-          <div className="flex gap-2 text-xs font-semibold">
+      <aside
+        className={`overflow-hidden rounded-xl border border-neutral-300 bg-white ${
+          selectedId ? 'hidden md:block' : ''
+        }`}
+      >
+        <div className="flex flex-col gap-3 border-b border-neutral-300 p-3">
+          <div className="relative">
+            <Search
+              size={16}
+              strokeWidth={2.25}
+              aria-hidden="true"
+              className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-neutral-700"
+            />
+            <input
+              type="search"
+              placeholder="Buscar nome, telefone, email"
+              aria-label="Buscar conversa"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="min-h-[44px] w-full rounded-pill border border-neutral-300 bg-white pl-10 pr-4 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30"
+            />
+          </div>
+          <div className="flex gap-2 text-xs font-bold">
             {(['all', 'unread', 'open'] as const).map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`rounded-full px-3 py-1 transition ${
+                aria-pressed={filter === f}
+                className={`min-h-[36px] rounded-pill px-4 transition ${
                   filter === f
-                    ? 'bg-primary text-white'
-                    : 'bg-neutral-100 text-neutral-700 hover:bg-neutral-200'
+                    ? 'bg-neutral-900 text-white'
+                    : 'bg-primary-50 text-neutral-900 hover:bg-primary-100'
                 }`}
               >
                 {f === 'all' ? 'Todas' : f === 'unread' ? 'Não lidas' : 'Abertas'}
@@ -190,15 +219,17 @@ export function InboxClient() {
           </div>
         </div>
 
-        <div className="max-h-[calc(100vh-220px)] overflow-y-auto">
-          {loading && <p className="p-4 text-sm text-neutral-500">Carregando…</p>}
+        <div className="overflow-y-auto md:max-h-[calc(100vh-290px)]">
+          {loading && <p className="p-4 text-sm text-neutral-700">Carregando…</p>}
           {error && (
-            <p className="p-4 text-sm text-error">
-              Erro: {error}. CRM configurado? Cheque SUPABASE_* no .env.
-            </p>
+            <div className="p-3">
+              <Notice tone="warn">
+                Erro: {error}. CRM configurado? Cheque SUPABASE_* no .env.
+              </Notice>
+            </div>
           )}
           {!loading && conversations.length === 0 && (
-            <p className="p-4 text-sm text-neutral-500">
+            <p className="p-4 text-sm text-neutral-700">
               Nenhuma conversa ainda. Quando um lead for capturado pelo quiz,
               ele aparece aqui.
             </p>
@@ -214,15 +245,29 @@ export function InboxClient() {
         </div>
       </aside>
 
-      <section className="min-h-[calc(100vh-160px)] rounded-xl bg-white shadow-jofi-1">
+      <section
+        className={`overflow-hidden rounded-xl border border-neutral-300 bg-white md:min-h-[calc(100vh-230px)] ${
+          selectedId ? '' : 'hidden md:block'
+        }`}
+      >
         {selectedId ? (
-          <ConversationDetail
-            conversationId={selectedId}
-            stages={stages}
-            onMutated={fetchConversations}
-          />
+          <>
+            <button
+              type="button"
+              onClick={() => setSelectedId(null)}
+              className="flex min-h-[44px] w-full items-center gap-1 border-b border-neutral-300 px-3 text-sm font-bold text-primary-600 md:hidden"
+            >
+              <ChevronLeft size={18} strokeWidth={2.25} aria-hidden="true" />
+              Conversas
+            </button>
+            <ConversationDetail
+              conversationId={selectedId}
+              stages={stages}
+              onMutated={fetchConversations}
+            />
+          </>
         ) : (
-          <div className="flex h-full items-center justify-center p-8 text-neutral-500">
+          <div className="flex h-full items-center justify-center p-8 text-neutral-700">
             Selecione uma conversa à esquerda
           </div>
         )}
@@ -247,29 +292,26 @@ function ConversationListRow({
   return (
     <button
       onClick={onSelect}
-      className={`w-full border-b border-neutral-200 px-3 py-3 text-left transition ${
-        active ? 'bg-primary/5' : 'hover:bg-neutral-50'
+      className={`w-full border-b border-l-4 border-b-neutral-300 px-3 py-3 text-left transition ${
+        active ? 'border-l-primary bg-primary-50' : 'border-l-transparent hover:bg-primary-50'
       }`}
     >
       <div className="flex items-center justify-between">
-        <span className="truncate text-sm font-semibold text-neutral-900">
+        <span className="truncate text-sm font-bold text-neutral-900">
           {conv.lead?.name ?? 'Sem nome'}
         </span>
-        <span className="text-xs text-neutral-500">
+        <span className="text-xs text-neutral-700">
           {formatTime(conv.last_message_at)}
         </span>
       </div>
-      <div className="mt-1 flex items-center gap-2 text-xs text-neutral-500">
+      <div className="mt-1 flex items-center gap-2 text-xs text-neutral-700">
         <span>{formatPhone(conv.lead?.whatsapp_e164 ?? '')}</span>
-        {tier && (
-          <span
-            className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${TIER_LABEL[tier].cls}`}
-          >
-            {TIER_LABEL[tier].label}
-          </span>
-        )}
+        {tier && <TierChip tier={tier} />}
         {conv.unread_count > 0 && (
-          <span className="ml-auto rounded-full bg-primary px-2 py-0.5 text-[10px] font-semibold text-white">
+          <span
+            className="ml-auto inline-flex min-w-[20px] items-center justify-center rounded-pill bg-neutral-900 px-1.5 py-0.5 text-[11px] font-bold text-white"
+            aria-label={`${conv.unread_count} não lidas`}
+          >
             {conv.unread_count}
           </span>
         )}
@@ -346,8 +388,13 @@ function ConversationDetail({
     scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
   }, [data?.messages.length]);
 
-  if (error) return <p className="p-6 text-error">Erro: {error}</p>;
-  if (!data) return <p className="p-6 text-neutral-500">Carregando…</p>;
+  if (error)
+    return (
+      <div className="p-4">
+        <Notice tone="warn">Erro: {error}</Notice>
+      </div>
+    );
+  if (!data) return <p className="p-6 text-neutral-700">Carregando…</p>;
 
   const outsideWindow = isOutsideSessionWindow(
     data.conversation.customer_last_inbound_at,
@@ -356,19 +403,15 @@ function ConversationDetail({
   return (
     <div className="flex h-full flex-col">
       {/* Header */}
-      <header className="flex items-center justify-between border-b border-neutral-200 px-5 py-4">
+      <header className="flex flex-wrap items-center justify-between gap-2 border-b border-neutral-300 px-4 py-3 md:px-5 md:py-4">
         <div>
-          <h2 className="text-base font-bold text-neutral-900">
+          <h2 className="text-base font-extrabold text-neutral-900">
             {data.conversation.lead.name}
           </h2>
-          <p className="text-xs text-neutral-500">
-            {formatPhone(data.conversation.lead.whatsapp_e164)} ·{' '}
-            <span
-              className={`rounded-full px-2 py-0.5 text-[10px] font-semibold ${TIER_LABEL[data.conversation.lead.tier].cls}`}
-            >
-              {TIER_LABEL[data.conversation.lead.tier].label}
-            </span>{' '}
-            · score {data.conversation.lead.score}
+          <p className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-neutral-700">
+            <span>{formatPhone(data.conversation.lead.whatsapp_e164)}</span>
+            <TierChip tier={data.conversation.lead.tier} />
+            <span>score {data.conversation.lead.score}</span>
           </p>
         </div>
         <div className="flex items-center gap-2">
@@ -385,7 +428,7 @@ function ConversationDetail({
       </header>
 
       {/* Lead context bar */}
-      <div className="border-b border-neutral-200 bg-neutral-50 px-5 py-2 text-xs text-neutral-600">
+      <div className="border-b border-neutral-300 bg-primary-50 px-4 py-2 text-xs text-neutral-900 md:px-5">
         Capturado em {formatTime(data.conversation.lead.captured_at)}
         {data.conversation.lead.utm_source && (
           <> · UTM: <strong>{data.conversation.lead.utm_source}</strong></>
@@ -396,9 +439,12 @@ function ConversationDetail({
       </div>
 
       {/* Messages */}
-      <div ref={scrollRef} className="flex-1 overflow-y-auto bg-neutral-50 px-5 py-4">
+      <div
+        ref={scrollRef}
+        className="max-h-[60vh] min-h-[240px] flex-1 overflow-y-auto bg-primary-50 px-4 py-4 md:max-h-[calc(100vh-520px)] md:px-5"
+      >
         {data.messages.length === 0 ? (
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-700">
             Nenhuma mensagem ainda. Use o template abaixo pra iniciar.
           </p>
         ) : (
@@ -424,52 +470,66 @@ function MessageBubble({ msg }: { msg: MessageRow }) {
   const isOut = msg.direction === 'outbound';
   const ts = msg.sent_at ?? msg.received_at ?? msg.created_at;
   let label = msg.body ?? '';
+  let MediaIcon: typeof ImageIcon | null = null;
   if (msg.msg_type === 'template') {
     const params = msg.template_params as Record<string, string> | null;
     label = `[Template: ${msg.template_name}]${params ? ' (' + Object.values(params).join(', ') + ')' : ''}`;
   } else if (msg.msg_type === 'image') {
-    label = '🖼 Imagem';
+    label = 'Imagem';
+    MediaIcon = ImageIcon;
   } else if (msg.msg_type === 'audio') {
-    label = '🎙 Áudio';
+    label = 'Áudio';
+    MediaIcon = Mic;
   } else if (msg.msg_type === 'video') {
-    label = '🎞 Vídeo';
+    label = 'Vídeo';
+    MediaIcon = Film;
   } else if (msg.msg_type === 'document') {
-    label = '📎 Documento';
+    label = 'Documento';
+    MediaIcon = Paperclip;
   } else if (msg.msg_type === 'sticker') {
-    label = '✨ Figurinha';
+    label = 'Figurinha';
+    MediaIcon = Sparkles;
   }
+  const failed = isOut && msg.status === 'failed';
 
+  // Enviada: azul-tinta com texto branco (8,8:1). Recebida: branco com contorno. Falha: realce-suave com ícone.
   return (
     <div className={`mb-2 flex ${isOut ? 'justify-end' : 'justify-start'}`}>
       <div
-        className={`max-w-[72%] rounded-2xl px-3 py-2 text-sm shadow-sm ${
+        className={`max-w-[85%] rounded-2xl px-3 py-2 text-sm md:max-w-[72%] ${
           isOut
-            ? msg.status === 'failed'
-              ? 'bg-red-100 text-red-900'
-              : 'bg-primary text-white'
-            : 'bg-white text-neutral-900'
+            ? failed
+              ? 'border border-accent-600 bg-accent-100 text-neutral-900'
+              : 'bg-neutral-900 text-white'
+            : 'border border-neutral-300 bg-white text-neutral-900'
         }`}
       >
-        <p className="whitespace-pre-wrap">{label || '(vazio)'}</p>
+        <p className="flex items-start gap-1.5 whitespace-pre-wrap">
+          {MediaIcon && <MediaIcon size={16} strokeWidth={2} aria-hidden="true" className="mt-0.5 shrink-0" />}
+          <span>{label || '(vazio)'}</span>
+        </p>
         <div
-          className={`mt-1 flex items-center gap-1 text-[10px] ${
-            isOut
-              ? msg.status === 'failed'
-                ? 'text-red-700'
-                : 'text-white/80'
-              : 'text-neutral-500'
+          className={`mt-1 flex items-center gap-1 text-[11px] ${
+            isOut ? (failed ? 'text-neutral-900' : 'text-primary-100') : 'text-neutral-700'
           }`}
         >
           <span>{formatTime(ts)}</span>
           {isOut && (
             <>
-              {msg.status === 'sent' && <span>✓</span>}
-              {msg.status === 'delivered' && <span>✓✓</span>}
-              {msg.status === 'read' && <span className="text-cyan-200">✓✓</span>}
-              {msg.status === 'failed' && (
-                <span title={msg.error_details ?? ''}>⚠ falhou</span>
+              {msg.status === 'sent' && <Check size={14} strokeWidth={2.25} aria-label="Enviada" />}
+              {msg.status === 'delivered' && (
+                <CheckCheck size={14} strokeWidth={2.25} aria-label="Entregue" />
               )}
-              {msg.is_automated && <span title="Automático">🤖</span>}
+              {msg.status === 'read' && (
+                <CheckCheck size={14} strokeWidth={2.25} aria-label="Lida" className="text-primary-300" />
+              )}
+              {failed && (
+                <span title={msg.error_details ?? ''} className="inline-flex items-center gap-1 font-bold">
+                  <AlertTriangle size={14} strokeWidth={2.25} aria-hidden="true" />
+                  Falhou
+                </span>
+              )}
+              {msg.is_automated && <Bot size={14} strokeWidth={2} aria-label="Automática" />}
             </>
           )}
         </div>
@@ -508,9 +568,10 @@ function StageSelector({
       value={current ?? ''}
       onChange={(e) => onChange(e.target.value)}
       disabled={updating}
-      className="rounded-lg border border-neutral-300 bg-white px-2 py-1 text-xs font-semibold text-neutral-700"
+      aria-label="Etapa do funil"
+      className="min-h-[36px] rounded-pill border border-neutral-300 bg-white px-3 text-xs font-bold text-neutral-900"
     >
-      <option value="">Sem stage</option>
+      <option value="">Sem etapa</option>
       {stages.map((s) => (
         <option key={s.id} value={s.id}>
           {s.name}
@@ -602,20 +663,23 @@ function ComposeBox({
   };
 
   return (
-    <div className="border-t border-neutral-200 bg-white px-4 py-3">
+    <div className="border-t border-neutral-300 bg-white px-4 py-3">
       {outsideWindow && (
-        <div className="mb-2 rounded-lg bg-amber-50 px-3 py-2 text-xs text-amber-800">
-          Janela 24h fechada. Pra essa conversa, só dá pra enviar **template
-          aprovado** (HSM).
+        <div className="mb-2 flex items-start gap-2 rounded-lg bg-accent-100 px-3 py-2 text-xs font-semibold text-neutral-900">
+          <Clock size={14} strokeWidth={2.25} aria-hidden="true" className="mt-0.5 shrink-0" />
+          <span>
+            Janela de 24h fechada. Nesta conversa só dá para enviar{' '}
+            <strong>template aprovado</strong> (HSM).
+          </span>
         </div>
       )}
       {sendError && (
-        <div className="mb-2 rounded-lg bg-red-50 px-3 py-2 text-xs text-red-800">
-          Erro ao enviar: {sendError}
+        <div className="mb-2">
+          <Notice tone="warn">Erro ao enviar: {sendError}</Notice>
         </div>
       )}
 
-      <div className="flex gap-2">
+      <div className="flex flex-col gap-3 md:flex-row md:gap-2">
         <div className="flex flex-1 flex-col gap-2">
           <textarea
             value={text}
@@ -627,26 +691,26 @@ function ComposeBox({
                 : 'Escreva uma mensagem…'
             }
             rows={2}
-            className="w-full resize-none rounded-lg border border-neutral-300 px-3 py-2 text-sm focus:border-primary focus:outline-none disabled:bg-neutral-100"
+            className="w-full resize-none rounded-lg border border-neutral-300 px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-500 focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/30 disabled:bg-primary-50"
           />
           <button
             onClick={sendTextMessage}
             disabled={outsideWindow || sending || !text.trim()}
-            className="self-end rounded-lg bg-primary px-4 py-1.5 text-sm font-semibold text-white disabled:opacity-50"
+            className="min-h-[44px] self-end rounded-pill bg-accent px-6 text-base font-extrabold uppercase tracking-wide text-white transition-colors hover:bg-accent-300 disabled:opacity-50"
           >
             Enviar
           </button>
         </div>
 
-        <div className="flex w-64 flex-col gap-2 border-l border-neutral-200 pl-3">
-          <label className="text-xs font-semibold text-neutral-500" htmlFor="hsm-template-select">
+        <div className="flex w-full flex-col gap-2 border-t border-neutral-300 pt-3 md:w-64 md:border-l md:border-t-0 md:pl-3 md:pt-0">
+          <label className="text-xs font-bold text-neutral-700" htmlFor="hsm-template-select">
             Template (HSM)
           </label>
           <select
             id="hsm-template-select"
             value={selectedTemplate}
             onChange={(e) => setSelectedTemplate(e.target.value)}
-            className="rounded-lg border border-neutral-300 px-2 py-1.5 text-xs"
+            className="min-h-[40px] rounded-lg border border-neutral-300 bg-white px-2 text-xs text-neutral-900"
           >
             <option value="">— escolha —</option>
             {templates.map((t) => (
@@ -660,13 +724,13 @@ function ComposeBox({
               value={templateParams}
               onChange={(e) => setTemplateParams(e.target.value)}
               placeholder="Param1 | Param2 | ..."
-              className="rounded-lg border border-neutral-300 px-2 py-1.5 text-xs"
+              className="min-h-[40px] rounded-lg border border-neutral-300 px-2 text-xs text-neutral-900 placeholder:text-neutral-500"
             />
           )}
           <button
             onClick={sendTemplateMessage}
             disabled={!selectedTpl || sending}
-            className="rounded-lg bg-accent-500 px-3 py-1.5 text-xs font-semibold text-white disabled:opacity-50"
+            className="min-h-[40px] rounded-pill border-2 border-neutral-900 bg-white px-4 text-xs font-extrabold uppercase tracking-wide text-neutral-900 transition-colors hover:bg-primary-50 disabled:opacity-50"
           >
             Enviar template
           </button>

@@ -13,6 +13,8 @@ import {
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
+import { ArrowRight, MailOpen } from 'lucide-react';
+import { Notice, StageMark, TierChip } from '@/components/admin/crm-ui';
 import type { Tier } from '@/lib/quiz/types';
 
 interface LeadSummary {
@@ -41,12 +43,6 @@ interface Stage {
   order_index: number;
   is_terminal: boolean;
 }
-
-const TIER_LABEL: Record<Tier, { label: string; cls: string }> = {
-  quente: { label: '🔥', cls: 'bg-red-100 text-red-700' },
-  morno: { label: '🌻', cls: 'bg-amber-100 text-amber-700' },
-  frio: { label: '💙', cls: 'bg-blue-100 text-blue-700' },
-};
 
 function formatTime(iso: string | null): string {
   if (!iso) return '—';
@@ -145,14 +141,14 @@ export function KanbanClient() {
   );
 
   if (loading) {
-    return <p className="rounded-xl bg-white p-8 shadow-jofi-1">Carregando…</p>;
-  }
-  if (error) {
     return (
-      <p className="rounded-xl bg-white p-8 text-error shadow-jofi-1">
-        Erro: {error}
+      <p className="rounded-xl border border-neutral-300 bg-white p-8 text-neutral-700">
+        Carregando…
       </p>
     );
+  }
+  if (error) {
+    return <Notice tone="warn">Erro: {error}</Notice>;
   }
 
   return (
@@ -161,11 +157,12 @@ export function KanbanClient() {
       onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
     >
-      <div className="flex gap-3 overflow-x-auto pb-4">
-        {stages.map((s) => (
+      <div className="flex snap-x gap-3 overflow-x-auto pb-4">
+        {stages.map((s, i) => (
           <KanbanColumn
             key={s.id}
             stage={s}
+            position={i}
             cards={grouped.get(s.id) ?? []}
           />
         ))}
@@ -178,24 +175,31 @@ export function KanbanClient() {
   );
 }
 
-function KanbanColumn({ stage, cards }: { stage: Stage; cards: ConversationCard[] }) {
+function KanbanColumn({
+  stage,
+  cards,
+  position,
+}: {
+  stage: Stage;
+  cards: ConversationCard[];
+  position: number;
+}) {
   const { setNodeRef, isOver } = useDroppable({ id: stage.id });
   return (
     <div
       ref={setNodeRef}
-      className={`flex min-h-[400px] w-72 shrink-0 flex-col rounded-xl bg-neutral-100 p-3 transition ${
-        isOver ? 'bg-primary/10 ring-2 ring-primary' : ''
+      className={`flex min-h-[400px] w-72 shrink-0 snap-start flex-col rounded-xl border border-neutral-300 bg-white/60 p-3 transition ${
+        isOver ? 'bg-primary-100 ring-2 ring-primary' : ''
       }`}
     >
       <header className="mb-3 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <span
-            className="inline-block h-3 w-3 rounded-full"
-            style={{ backgroundColor: stage.color }}
-          />
-          <h3 className="text-sm font-bold text-neutral-900">{stage.name}</h3>
+          <StageMark stage={stage} position={position} />
+          <h3 className="text-sm font-extrabold text-neutral-900">{stage.name}</h3>
         </div>
-        <span className="text-xs text-neutral-500">{cards.length}</span>
+        <span className="rounded-pill bg-primary-50 px-2 py-0.5 text-xs font-bold text-neutral-900">
+          {cards.length}
+        </span>
       </header>
 
       <div className="flex flex-col gap-2">
@@ -203,7 +207,7 @@ function KanbanColumn({ stage, cards }: { stage: Stage; cards: ConversationCard[
           <KanbanCard key={c.id} conv={c} />
         ))}
         {cards.length === 0 && (
-          <p className="rounded-lg border border-dashed border-neutral-300 p-3 text-center text-xs text-neutral-500">
+          <p className="rounded-lg border border-dashed border-neutral-300 p-3 text-center text-xs font-medium text-neutral-700">
             Vazio
           </p>
         )}
@@ -228,37 +232,33 @@ function KanbanCard({
       ref={setNodeRef}
       {...attributes}
       {...listeners}
-      className={`cursor-grab rounded-lg bg-white p-3 shadow-sm transition ${
+      className={`cursor-grab rounded-lg border border-neutral-300 bg-white p-3 transition ${
         isDragging && !isOverlay ? 'opacity-30' : ''
-      } ${isOverlay ? 'shadow-jofi-2 ring-2 ring-primary' : ''}`}
+      } ${isOverlay ? 'ring-2 ring-primary' : ''}`}
     >
       <div className="flex items-start justify-between gap-2">
-        <span className="truncate text-sm font-semibold text-neutral-900">
+        <span className="truncate text-sm font-bold text-neutral-900">
           {conv.lead?.name ?? 'Sem nome'}
         </span>
-        {tier && (
-          <span
-            className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${TIER_LABEL[tier].cls}`}
-          >
-            {TIER_LABEL[tier].label}
-          </span>
-        )}
+        {tier && <TierChip tier={tier} />}
       </div>
-      <div className="mt-1 flex items-center justify-between text-[11px] text-neutral-500">
+      <div className="mt-1 flex items-center justify-between text-xs text-neutral-700">
         <span>{conv.lead?.utm_source ?? '(direto)'}</span>
         <span>{formatTime(conv.last_message_at)}</span>
       </div>
       {conv.unread_count > 0 && (
-        <div className="mt-2 inline-flex items-center gap-1 rounded-full bg-primary/10 px-2 py-0.5 text-[10px] font-semibold text-primary">
+        <div className="mt-2 inline-flex items-center gap-1 rounded-pill bg-primary-100 px-2 py-0.5 text-[11px] font-bold text-neutral-900">
+          <MailOpen size={12} strokeWidth={2.25} aria-hidden="true" />
           {conv.unread_count} não lida{conv.unread_count > 1 ? 's' : ''}
         </div>
       )}
       <Link
         href={`/admin/crm/inbox?c=${conv.id}`}
-        className="mt-2 inline-block text-[11px] font-semibold text-primary hover:underline"
+        className="mt-1 flex min-h-[32px] items-center gap-1 text-xs font-bold text-primary-600 hover:underline"
         onClick={(e) => e.stopPropagation()}
       >
-        Abrir →
+        Abrir
+        <ArrowRight size={14} strokeWidth={2.25} aria-hidden="true" />
       </Link>
     </div>
   );

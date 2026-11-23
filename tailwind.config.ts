@@ -58,6 +58,13 @@ const config: Config = {
           700: '#2f5a73', // tinta-media (oficial)
           900: '#004f78', // azul-tinta (oficial)
         },
+        // Cores das assinaturas (DS, 18/11/2026). No /admin entram como escala das etapas do funil.
+        plano: {
+          sereninho: '#f5b03a',
+          sereno: '#0091b9',
+          parceiro: '#f47646',
+          'melhor-amigo': '#5753a2',
+        },
         // Tiers do quiz mapeados ao brand
         tier: {
           hot: '#ff9625', // quente → laranja
